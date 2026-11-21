@@ -692,7 +692,7 @@
             <input type="file" accept=".json" onchange="importData(event)" class="hidden" />
           </label>
           <button onclick="resetDataToDefault()" class="w-full btn-metal p-3 rounded-xl text-xs font-bold text-left text-red-400 hover:text-red-300 flex items-center gap-2">
-            <i class="fa-solid fa-rotate-left"></i> Réinitialiser aux exemples
+            <i class="fa-solid fa-rotate-left"></i> Tout remettre à zéro
           </button>
         </div>
 
@@ -721,81 +721,7 @@
     const STORAGE_KEY = 'WZ_TRACKER_MATCHES_V2';
     const DEFIS_KEY = 'WZ_TRACKER_DEFIS_V1';
 
-    const INITIAL_MATCHES = [
-      {
-        id: 'm1',
-        mode: 'Battle Royale',
-        typePartie: 'Normal',
-        map: 'Hajin',
-        placement: 1,
-        kills: 12,
-        deaths: 1,
-        damage: 4520,
-        weapon1Cat: "Fusil d'assaut",
-        weapon2Cat: 'Mitraillette',
-        datetime: '2026-11-20T21:15',
-        date: '2026-11-20'
-      },
-      {
-        id: 'm2',
-        mode: 'Résurgence',
-        typePartie: 'Normal',
-        map: 'Rebirth Island',
-        placement: 3,
-        kills: 9,
-        deaths: 3,
-        damage: 3200,
-        weapon1Cat: "Fusil d'assaut",
-        weapon2Cat: 'Mitraillette',
-        datetime: '2026-11-19T22:40',
-        date: '2026-11-19'
-      },
-      {
-        id: 'm3',
-        mode: 'Classé',
-        modeClasse: 'Résurgence',
-        rank: 'Or',
-        map: 'Zodiac',
-        placement: 2,
-        kills: 7,
-        deaths: 2,
-        damage: 2890,
-        weapon1Cat: "Fusil d'assaut",
-        weapon2Cat: 'Mitraillette',
-        datetime: '2026-11-18T20:05',
-        date: '2026-11-18'
-      },
-      {
-        id: 'm4',
-        mode: 'Résurgence',
-        typePartie: 'Décontracté',
-        map: 'Zodiac',
-        placement: 1,
-        kills: 15,
-        deaths: 2,
-        damage: 5100,
-        weapon1Cat: 'Mitraillette',
-        weapon2Cat: 'Fusil de précision',
-        datetime: '2026-11-17T23:10',
-        date: '2026-11-17'
-      },
-      {
-        id: 'm5',
-        mode: 'Tournois',
-        format: '2v2',
-        modeTournoi: 'Battle Royale',
-        objective: 'Course au kill',
-        map: 'Hajin',
-        placement: 5,
-        kills: 6,
-        deaths: 3,
-        damage: 2400,
-        weapon1Cat: "Fusil d'assaut",
-        weapon2Cat: 'Mitraillette',
-        datetime: '2026-11-15T19:30',
-        date: '2026-11-15'
-      }
-    ];
+    const INITIAL_MATCHES = [];
 
     let META_WEAPONS = [];
     let DEFAULT_DEFIS = [];
@@ -1166,7 +1092,7 @@
             "id": "d1",
             "title": "Domination Résurgence",
             "desc": "Faire 25 éliminations en mode Résurgence",
-            "current": 24,
+            "current": 0,
             "target": 25,
             "xp": "2,500 XP"
       },
@@ -1174,7 +1100,7 @@
             "id": "d2",
             "title": "Maître du Top 1",
             "desc": "Décrocher 3 victoires (Top 1) toutes cartes confondues",
-            "current": 2,
+            "current": 0,
             "target": 3,
             "xp": "5,000 XP"
       },
@@ -1182,7 +1108,7 @@
             "id": "d3",
             "title": "Artillerie Lourde",
             "desc": "Infliger 15 000 points de dégâts cumulés",
-            "current": 18760,
+            "current": 0,
             "target": 15000,
             "xp": "3,000 XP"
       },
@@ -1190,7 +1116,7 @@
             "id": "d4",
             "title": "Tireur d'Élite",
             "desc": "Réaliser 10 éliminations au Fusil de précision ou Tactique",
-            "current": 6,
+            "current": 0,
             "target": 10,
             "xp": "2,000 XP"
       },
@@ -1198,7 +1124,7 @@
             "id": "d5",
             "title": "Contrat Rempli",
             "desc": "Exécuter 15 contrats en partie",
-            "current": 15,
+            "current": 0,
             "target": 15,
             "xp": "4,000 XP"
       }
@@ -2186,13 +2112,15 @@
     }
 
     function resetDataToDefault() {
-      if (confirm('Réinitialiser toutes les données de matchs aux exemples par défaut ?')) {
-        matches = [...INITIAL_MATCHES];
+      if (confirm('Remettre tous les matchs et défis à zéro ?')) {
+        matches = [];
+        defis = DEFAULT_DEFIS.map(d => ({ ...d, current: 0 }));
         saveMatchesToStorage();
+        saveDefisToStorage();
         renderDashboard();
         renderDefis();
         toggleSideDrawer(false);
-        showToast("Données réinitialisées aux exemples.", "info");
+        showToast("Données remises à zéro.", "info");
       }
     }
 
