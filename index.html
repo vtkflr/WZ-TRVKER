@@ -186,11 +186,21 @@
   <header class="sticky top-0 z-40 bg-slate-950/85 backdrop-blur-xl border-b border-slate-800/80 px-4 py-3">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
       <!-- Brand Logo & Badge dynamique -->
-      <div class="flex items-center gap-3 cursor-pointer" onclick="switchMainTab('dashboard')">
+      <div class="flex items-center gap-3">
         <div id="headerAvatarBorder" class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 via-fuchsia-600 to-pink-500 p-0.5 shadow-lg shadow-purple-950/50">
           <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
             <i id="headerAvatarIcon" class="fa-solid fa-crosshair text-purple-400 text-base"></i>
           </div>
+        </div>
+        <div>
+          <h1 class="text-base sm:text-lg font-black tracking-wider text-white uppercase flex items-center gap-2 leading-none">
+            WARZONE <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">TRACKER</span>
+          </h1>
+          <span id="headerEquippedTitle" class="text-[9px] font-extrabold tracking-widest text-purple-300 uppercase bg-purple-950/70 border border-purple-800/60 px-2 py-0.5 rounded-full inline-block mt-1">
+            NIV. 1 • Opérateur Saison 1
+          </span>
+        </div>
+      </div>
         </div>
         <div>
           <h1 class="text-base sm:text-lg font-black tracking-wider text-white uppercase flex items-center gap-2 leading-none">
