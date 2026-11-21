@@ -285,3 +285,29 @@ document.addEventListener("DOMContentLoaded", () => {
   applyProfileCosmetics();
   renderRewardsLocker();
 });
+// Détection automatique de l'XP des défis terminés (100%)
+function autoSyncDefisXP() {
+  let detectedXP = 0;
+  const defisSection = document.getElementById("sectionDefis");
+  if (defisSection) {
+    defisSection.querySelectorAll("div").forEach(card => {
+      if (card.textContent.includes("(100%)") && card.textContent.includes("XP") && card.querySelectorAll("div").length < 6) {
+        const match = card.textContent.match(/([\d\s,]+)\s*XP/i);
+        if (match) {
+          const val = parseInt(match[1].replace(/[\s,]/g, ""), 10);
+          if (!isNaN(val) && val > 0 && val <= 50000) detectedXP += val;
+        }
+      }
+    });
+  }
+  const profile = getPlayerProfile();
+  if (detectedXP > profile.xp) {
+    profile.xp = detectedXP;
+    localStorage.setItem(STORAGE_REWARDS_KEY, JSON.stringify(profile));
+  }
+}
+
+setInterval(() => {
+  autoSyncDefisXP();
+  applyProfileCosmetics();
+}, 1500);
