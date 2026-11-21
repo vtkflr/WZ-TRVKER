@@ -2,7 +2,7 @@
   {
     "id": "d1",
     "title": "Domination Résurgence",
-    "desc": "Faire 1000 éliminations en mode Résurgence",
+    "desc": "Faire 1 000 éliminations en mode Résurgence",
     "current": 0,
     "target": 1000,
     "xp": "2,500 XP"
@@ -34,9 +34,9 @@
   {
     "id": "d5",
     "title": "Contrat Rempli",
-    "desc": "Exécuter 15 contrats en partie",
-    "current": 15,
-    "target": 15,
+    "desc": "Faire 600 partie",
+    "current": 0,
+    "target": 600,
     "xp": "4,000 XP"
   }
 ]
