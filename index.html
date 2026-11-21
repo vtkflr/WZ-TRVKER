@@ -531,6 +531,27 @@
 
       <!-- Casier des Récompenses à équiper -->
       <div id="rewardsLockerContainer" class="space-y-6"></div>
+      <!-- Carte Niveau & Progression Globale -->
+      <div class="glass-card rounded-2xl p-5 border border-purple-500/20 mt-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span id="lockerLevelNum" class="text-xs font-black px-2.5 py-0.5 rounded-md bg-purple-600 text-white uppercase">NIVEAU 1</span>
+              <span id="lockerRankName" class="text-sm font-extrabold text-purple-300 uppercase tracking-wider">Recrue</span>
+            </div>
+            <div id="lockerActiveTitle" class="text-lg sm:text-xl font-black text-white mt-1">« Opérateur Saison 1 »</div>
+          </div>
+          <div class="text-left sm:text-right">
+            <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Progression XP Totale</div>
+            <div id="lockerXpText" class="text-sm font-black text-emerald-400 mt-0.5">0 / 2 500 XP</div>
+          </div>
+        </div>
+        <div class="mt-4 w-full h-2.5 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+          <div id="lockerXpBar" class="h-full bg-gradient-to-r from-purple-600 via-fuchsia-500 to-pink-500 transition-all duration-500" style="width: 0%"></div>
+        </div>
+      </div>
+      <!-- Casier des Récompenses à équiper -->
+      <div id="rewardsLockerContainer" class="space-y-6 mt-6"></div>
     </section>
   </main>
 
