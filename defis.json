@@ -26,9 +26,9 @@
   {
     "id": "d4",
     "title": "Tireur d'Élite",
-    "desc": "Réaliser 10 éliminations au Fusil de précision ou Tactique",
-    "current": 6,
-    "target": 10,
+    "desc": "Réaliser 250 éliminations au Fusil de précision ou Tactique",
+    "current": 0,
+    "target": 250,
     "xp": "2,000 XP"
   },
   {
