@@ -491,6 +491,10 @@
         </div>
         <div class="flex items-center gap-2">
           <span id="defisCompletedCount" class="text-xs font-bold text-slate-300 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl">0 / 0 accomplis</span>
+          <button type="button" onclick="resetDefisToDefault()" class="btn-metal px-3 py-1.5 rounded-xl text-xs font-bold text-slate-300 hover:text-white flex items-center gap-1.5">
+            <i class="fa-solid fa-rotate-left text-purple-400"></i>
+            <span>Réinitialiser</span>
+          </button>
         </div>
       </div>
 
@@ -1758,6 +1762,13 @@
       if (typeof syncPlayerXP === 'function') {
         syncPlayerXP(totalXP);
       }
+    }
+
+    function resetDefisToDefault() {
+      defis = DEFAULT_DEFIS.map(d => ({ ...d }));
+      saveDefisToStorage();
+      renderDefis();
+      showToast("Défis réinitialisés.", "info");
     }
 
     /* ==================== NOUVEAU MATCH MODAL & CONTEXTUAL LOGIC ==================== */
