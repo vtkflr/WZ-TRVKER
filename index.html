@@ -1091,41 +1091,41 @@
       {
             "id": "d1",
             "title": "Domination Résurgence",
-            "desc": "Faire 25 éliminations en mode Résurgence",
+            "desc": "Faire 1 000 éliminations en mode Résurgence",
             "current": 0,
-            "target": 25,
+            "target": 1000,
             "xp": "2,500 XP"
       },
       {
             "id": "d2",
             "title": "Maître du Top 1",
-            "desc": "Décrocher 3 victoires (Top 1) toutes cartes confondues",
+            "desc": "Décrocher 50 victoires (Top 1) toutes cartes confondues",
             "current": 0,
-            "target": 3,
+            "target": 50,
             "xp": "5,000 XP"
       },
       {
             "id": "d3",
             "title": "Artillerie Lourde",
-            "desc": "Infliger 15 000 points de dégâts cumulés",
+            "desc": "Infliger 650 000 points de dégâts cumulés",
             "current": 0,
-            "target": 15000,
+            "target": 650000,
             "xp": "3,000 XP"
       },
       {
             "id": "d4",
             "title": "Tireur d'Élite",
-            "desc": "Réaliser 10 éliminations au Fusil de précision ou Tactique",
+            "desc": "Réaliser 250 éliminations au Fusil de précision ou Tactique",
             "current": 0,
-            "target": 10,
+            "target": 250,
             "xp": "2,000 XP"
       },
       {
             "id": "d5",
             "title": "Contrat Rempli",
-            "desc": "Exécuter 15 contrats en partie",
+            "desc": "Faire 600 partie",
             "current": 0,
-            "target": 15,
+            "target": 600,
             "xp": "4,000 XP"
       }
 ];
@@ -2000,6 +2000,8 @@
             d.current = Math.max(0, (Number(d.current) || 0) + sign * dmg);
           } else if (d.id === 'd4' && hasPrecisionOrTactical) {
             d.current = Math.max(0, (Number(d.current) || 0) + sign * kills);
+          } else if (d.id === 'd5') {
+            d.current = Math.max(0, (Number(d.current) || 0) + sign * 1);
           }
         });
         saveDefisToStorage();
@@ -2050,6 +2052,8 @@
               d.current = Math.max(0, (Number(d.current) || 0) - dmg);
             } else if (d.id === 'd4' && hasPrecisionOrTactical) {
               d.current = Math.max(0, (Number(d.current) || 0) - kills);
+            } else if (d.id === 'd5') {
+              d.current = Math.max(0, (Number(d.current) || 0) - 1);
             }
           });
           saveDefisToStorage();
