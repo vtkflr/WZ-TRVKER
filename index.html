@@ -2029,14 +2029,45 @@
         date
       };
 
+      function applyMatchToDefis(m, sign) {
+        if (!Array.isArray(defis) || !m) return;
+        const kills = Number(m.kills) || 0;
+        const dmg = Number(m.damage) || 0;
+        const isResurgence =
+          m.mode === 'Résurgence' ||
+          (m.mode === 'Classé' && m.modeClasse === 'Résurgence') ||
+          (m.mode === 'Tournois' && m.modeTournoi === 'Résurgence');
+        const hasPrecisionOrTactical =
+          m.weapon1Cat === 'Fusil de précision' ||
+          m.weapon1Cat === 'Fusil tactique' ||
+          m.weapon2Cat === 'Fusil de précision' ||
+          m.weapon2Cat === 'Fusil tactique';
+
+        defis.forEach(d => {
+          if (d.id === 'd1' && isResurgence) {
+            d.current = Math.max(0, (Number(d.current) || 0) + sign * kills);
+          } else if (d.id === 'd2' && Number(m.placement) === 1) {
+            d.current = Math.max(0, (Number(d.current) || 0) + sign * 1);
+          } else if (d.id === 'd3') {
+            d.current = Math.max(0, (Number(d.current) || 0) + sign * dmg);
+          } else if (d.id === 'd4' && hasPrecisionOrTactical) {
+            d.current = Math.max(0, (Number(d.current) || 0) + sign * kills);
+          }
+        });
+        saveDefisToStorage();
+      }
+
       if (editId) {
         const index = matches.findIndex(m => m.id === editId);
         if (index !== -1) {
+          applyMatchToDefis(matches[index], -1);
           matches[index] = matchObj;
+          applyMatchToDefis(matchObj, 1);
         }
         showToast("Match mis à jour avec succès !", "success");
       } else {
         matches.unshift(matchObj);
+        applyMatchToDefis(matchObj, 1);
         showToast("Nouveau match enregistré !", "success");
       }
 
@@ -2048,6 +2079,33 @@
 
     function deleteMatch(id) {
       if (confirm('Es-tu sûr de vouloir supprimer ce match ?')) {
+        const targetMatch = matches.find(m => m.id === id);
+        if (targetMatch && Array.isArray(defis)) {
+          const kills = Number(targetMatch.kills) || 0;
+          const dmg = Number(targetMatch.damage) || 0;
+          const isResurgence =
+            targetMatch.mode === 'Résurgence' ||
+            (targetMatch.mode === 'Classé' && targetMatch.modeClasse === 'Résurgence') ||
+            (targetMatch.mode === 'Tournois' && targetMatch.modeTournoi === 'Résurgence');
+          const hasPrecisionOrTactical =
+            targetMatch.weapon1Cat === 'Fusil de précision' ||
+            targetMatch.weapon1Cat === 'Fusil tactique' ||
+            targetMatch.weapon2Cat === 'Fusil de précision' ||
+            targetMatch.weapon2Cat === 'Fusil tactique';
+
+          defis.forEach(d => {
+            if (d.id === 'd1' && isResurgence) {
+              d.current = Math.max(0, (Number(d.current) || 0) - kills);
+            } else if (d.id === 'd2' && Number(targetMatch.placement) === 1) {
+              d.current = Math.max(0, (Number(d.current) || 0) - 1);
+            } else if (d.id === 'd3') {
+              d.current = Math.max(0, (Number(d.current) || 0) - dmg);
+            } else if (d.id === 'd4' && hasPrecisionOrTactical) {
+              d.current = Math.max(0, (Number(d.current) || 0) - kills);
+            }
+          });
+          saveDefisToStorage();
+        }
         matches = matches.filter(m => m.id !== id);
         saveMatchesToStorage();
         renderDashboard();
