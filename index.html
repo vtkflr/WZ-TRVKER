@@ -1,0 +1,2142 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>WARZONE TRACKER — Saison 1 • MW4</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Google Fonts - Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              purple: '#7c3aed',
+              pink: '#ec4899',
+              dark: '#06060b',
+              card: '#111625'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: #06060b;
+      color: #f1f5f9;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Prevents auto-zoom on mobile iOS/Android inputs */
+    input, select, textarea, button {
+      font-size: 16px !important;
+    }
+    @media (min-width: 640px) {
+      input, select, textarea, button {
+        font-size: 0.875rem !important;
+      }
+    }
+
+    /* Background Ambient Glows */
+    .bg-ambient-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(124, 58, 237, 0.20) 0%, transparent 45%),
+        radial-gradient(circle at 85% 65%, rgba(236, 72, 153, 0.16) 0%, transparent 50%),
+        radial-gradient(circle at 50% 95%, rgba(14, 165, 233, 0.10) 0%, transparent 40%);
+    }
+
+    /* Dark Matte Glassmorphism */
+    .glass-card {
+      background: rgba(14, 18, 30, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+      border-radius: 1rem;
+    }
+
+    .glass-card-hover {
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-card-hover:hover {
+      transform: translateY(-2px);
+      border-color: rgba(168, 85, 247, 0.35);
+      box-shadow: 0 15px 35px -10px rgba(124, 58, 237, 0.25);
+    }
+
+    .glass-modal {
+      background: rgba(10, 14, 26, 0.95);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    /* Futuristic Input */
+    .input-futuristic, .glass-input {
+      background-color: rgba(10, 12, 22, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f8fafc;
+      border-radius: 10px;
+      padding: 10px 14px;
+      width: 100%;
+      transition: all 0.2s ease;
+    }
+    .input-futuristic:focus, .glass-input:focus {
+      outline: none;
+      border-color: #a855f7;
+      box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.25);
+    }
+
+    /* Titanium Metallic Buttons */
+    .btn-metal {
+      background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.03) 100%), #1e1b2e;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+      font-weight: 600;
+      border-radius: 10px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-metal:hover {
+      background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.06) 100%), #29233e;
+      border-color: rgba(168, 85, 247, 0.5);
+      transform: translateY(-1px);
+    }
+
+    /* Accent Button */
+    .btn-accent {
+      background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
+      color: #ffffff;
+      font-weight: 800;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+    }
+    .btn-accent:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(236, 72, 153, 0.5);
+    }
+
+    /* Level Tag Badge */
+    .lvl-tag {
+      display: inline-block;
+      background-color: rgba(30, 41, 59, 0.9);
+      color: #38bdf8;
+      font-size: 0.70rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #06060b;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #7c3aed;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col relative select-none pb-20 md:pb-8">
+  <!-- Background Glow -->
+  <div class="bg-ambient-glow"></div>
+
+  <!-- FIXED STICKY HEADER -->
+  <header class="sticky top-0 z-40 bg-slate-950/85 backdrop-blur-xl border-b border-slate-800/80 px-4 py-3">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
+      <!-- Brand Logo & Badge dynamique -->
+      <div class="flex items-center gap-3 cursor-pointer" onclick="switchMainTab('dashboard')">
+        <div id="headerAvatarBorder" class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 via-fuchsia-600 to-pink-500 p-0.5 shadow-lg shadow-purple-950/50">
+          <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
+            <i id="headerAvatarIcon" class="fa-solid fa-crosshair text-purple-400 text-base"></i>
+          </div>
+        </div>
+        <div>
+          <h1 class="text-base sm:text-lg font-black tracking-wider text-white uppercase flex items-center gap-2 leading-none">
+            WARZONE <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">TRACKER</span>
+          </h1>
+          <span id="headerEquippedTitle" class="text-[9px] font-extrabold tracking-widest text-purple-300 uppercase bg-purple-950/70 border border-purple-800/60 px-2 py-0.5 rounded-full inline-block mt-1">
+            NIV. 1 • Opérateur Saison 1
+          </span>
+        </div>
+      </div>
+
+      <!-- Desktop Navigation Tabs -->
+      <nav class="hidden md:flex items-center bg-slate-900/90 p-1 rounded-2xl border border-slate-800">
+        <button id="navTabDashboard" onclick="switchMainTab('dashboard')" class="px-4 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-md">
+          <i class="fa-solid fa-chart-pie"></i>
+          <span>Dashboard</span>
+        </button>
+        <button id="navTabMeta" onclick="switchMainTab('meta')" class="px-4 py-2 rounded-xl text-xs font-extrabold text-slate-400 hover:text-white transition flex items-center gap-2">
+          <i class="fa-solid fa-gun"></i>
+          <span>Méta Armes</span>
+        </button>
+        <button id="navTabDefis" onclick="switchMainTab('defis')" class="px-4 py-2 rounded-xl text-xs font-extrabold text-slate-400 hover:text-white transition flex items-center gap-2">
+          <i class="fa-solid fa-trophy"></i>
+          <span>Défis Hebdo</span>
+        </button>
+      </nav>
+
+      <!-- Right Action Group -->
+      <div class="flex items-center gap-2">
+        <button onclick="openMatchModal()" class="btn-accent px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-2 uppercase tracking-wide">
+          <i class="fa-solid fa-circle-plus text-base"></i>
+          <span class="hidden sm:inline">Nouveau Match</span>
+          <span class="sm:hidden">Match</span>
+        </button>
+        <button onclick="toggleSideDrawer(true)" class="btn-metal text-slate-200 px-3 py-2 rounded-xl flex items-center justify-center gap-2 hover:text-white" title="Menu Options">
+          <i class="fa-solid fa-bars text-base"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE BOTTOM NAVBAR -->
+  <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-950/95 backdrop-blur-xl border-t border-slate-800/80 p-2">
+    <div class="grid grid-cols-3 gap-1 max-w-md mx-auto">
+      <button id="mobNavDashboard" onclick="switchMainTab('dashboard')" class="flex flex-col items-center justify-center py-2 px-1 rounded-xl text-[11px] font-bold text-purple-400 bg-purple-950/60 border border-purple-800/40">
+        <i class="fa-solid fa-chart-pie text-base mb-1"></i>
+        <span>Dashboard</span>
+      </button>
+      <button id="mobNavMeta" onclick="switchMainTab('meta')" class="flex flex-col items-center justify-center py-2 px-1 rounded-xl text-[11px] font-bold text-slate-400 hover:text-white">
+        <i class="fa-solid fa-gun text-base mb-1"></i>
+        <span>Méta Armes</span>
+      </button>
+      <button id="mobNavDefis" onclick="switchMainTab('defis')" class="flex flex-col items-center justify-center py-2 px-1 rounded-xl text-[11px] font-bold text-slate-400 hover:text-white">
+        <i class="fa-solid fa-trophy text-base mb-1"></i>
+        <span>Défis</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 py-6">
+
+    <!-- ==================== TAB 1: DASHBOARD ==================== -->
+    <section id="sectionDashboard" class="space-y-6">
+      <!-- Dynamic Filters Section -->
+      <div class="glass-card p-4 space-y-3">
+        <div class="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
+          <h3 class="text-xs font-black uppercase tracking-wider text-slate-300 flex items-center gap-2">
+            <i class="fa-solid fa-filter text-purple-400"></i> Filtres d'Analyse
+          </h3>
+          <button onclick="resetFilters()" class="text-[11px] font-bold text-slate-400 hover:text-purple-400 transition flex items-center gap-1">
+            <i class="fa-solid fa-rotate-left"></i> Réinitialiser
+          </button>
+        </div>
+
+        <!-- Filter Row -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <!-- Period Pill Buttons -->
+          <div>
+            <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1.5">Période</label>
+            <div class="flex flex-wrap gap-1 bg-slate-950/60 p-1 rounded-xl border border-slate-800">
+              <button onclick="setPeriodFilter('7d')" class="filter-period-btn px-2.5 py-1 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition" data-period="7d">7j</button>
+              <button onclick="setPeriodFilter('30d')" class="filter-period-btn px-2.5 py-1 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition" data-period="30d">30j</button>
+              <button onclick="setPeriodFilter('90d')" class="filter-period-btn px-2.5 py-1 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition" data-period="90d">90j</button>
+              <button onclick="setPeriodFilter('ALL')" class="filter-period-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-purple-600 text-white shadow" data-period="ALL">Tout</button>
+            </div>
+          </div>
+
+          <!-- Mode Select -->
+          <div>
+            <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1.5">Mode de Jeu</label>
+            <select id="filterMode" onchange="renderDashboard()" class="input-futuristic w-full rounded-xl px-3 py-1.5 text-xs font-semibold">
+              <option value="ALL">Tous les modes</option>
+              <option value="Battle Royale">Battle Royale</option>
+              <option value="Résurgence">Résurgence</option>
+              <option value="Classé">Classé</option>
+              <option value="Tournois">Tournois</option>
+            </select>
+          </div>
+
+          <!-- Official Maps Filter (Hajin, Zodiac, Rebirth Island) -->
+          <div>
+            <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1.5">Carte (Map)</label>
+            <select id="filterMap" onchange="renderDashboard()" class="input-futuristic w-full rounded-xl px-3 py-1.5 text-xs font-semibold">
+              <option value="ALL">Toutes les cartes</option>
+              <option value="Hajin">Hajin</option>
+              <option value="Zodiac">Zodiac</option>
+              <option value="Rebirth Island">Rebirth Island</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 Frosted Glass KPI Cards -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+        <!-- KPI 1: Ratio K/D -->
+        <div class="glass-card glass-card-hover p-4 flex flex-col justify-between relative overflow-hidden group">
+          <div class="flex items-center justify-between text-slate-400 text-xs font-semibold mb-1">
+            <span>Ratio K/D</span>
+            <i class="fa-solid fa-skull text-pink-400"></i>
+          </div>
+          <div id="kpiAvgKd" class="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">0,00</div>
+          <div id="kpiKillsDeaths" class="text-[10px] font-medium text-slate-400 mt-1">0 Kills / 0 Morts</div>
+        </div>
+
+        <!-- KPI 2: Win Rate -->
+        <div class="glass-card glass-card-hover p-4 flex flex-col justify-between relative overflow-hidden group">
+          <div class="flex items-center justify-between text-slate-400 text-xs font-semibold mb-1">
+            <span>Victoires</span>
+            <i class="fa-solid fa-crown text-amber-400"></i>
+          </div>
+          <div id="kpiWinRate" class="text-2xl sm:text-3xl font-black text-amber-400">0,0%</div>
+          <div id="kpiTotalWins" class="text-[10px] font-medium text-slate-400 mt-1">0 Top 1</div>
+        </div>
+
+        <!-- KPI 3: Kills Total & Avg -->
+        <div class="glass-card glass-card-hover p-4 flex flex-col justify-between relative overflow-hidden group">
+          <div class="flex items-center justify-between text-slate-400 text-xs font-semibold mb-1">
+            <span>Éliminations</span>
+            <i class="fa-solid fa-crosshair text-purple-400"></i>
+          </div>
+          <div id="kpiTotalKills" class="text-2xl sm:text-3xl font-black text-white">0</div>
+          <div id="kpiAvgKills" class="text-[10px] font-medium text-slate-400 mt-1">0,0 / match</div>
+        </div>
+
+        <!-- KPI 4: Average Damage -->
+        <div class="glass-card glass-card-hover p-4 flex flex-col justify-between relative overflow-hidden group">
+          <div class="flex items-center justify-between text-slate-400 text-xs font-semibold mb-1">
+            <span>Dégâts Moyens</span>
+            <i class="fa-solid fa-fire text-cyan-400"></i>
+          </div>
+          <div id="kpiAvgDamage" class="text-2xl sm:text-3xl font-black text-cyan-400">0</div>
+          <div id="kpiMaxDamage" class="text-[10px] font-medium text-slate-400 mt-1">Max: 0</div>
+        </div>
+
+        <!-- KPI 5: Top 5 Rate -->
+        <div class="glass-card glass-card-hover p-4 flex flex-col justify-between relative overflow-hidden group">
+          <div class="flex items-center justify-between text-slate-400 text-xs font-semibold mb-1">
+            <span>Taux Top 5</span>
+            <i class="fa-solid fa-award text-emerald-400"></i>
+          </div>
+          <div id="kpiTop5Rate" class="text-2xl sm:text-3xl font-black text-emerald-400">0,0%</div>
+          <div id="kpiTotalTop5" class="text-[10px] font-medium text-slate-400 mt-1">0 fois</div>
+        </div>
+
+        <!-- KPI 6: Total Matches -->
+        <div class="glass-card glass-card-hover p-4 flex flex-col justify-between relative overflow-hidden group">
+          <div class="flex items-center justify-between text-slate-400 text-xs font-semibold mb-1">
+            <span>Matchs Joués</span>
+            <i class="fa-solid fa-gamepad text-indigo-400"></i>
+          </div>
+          <div id="kpiTotalMatches" class="text-2xl sm:text-3xl font-black text-white">0</div>
+          <div class="text-[10px] font-medium text-slate-400 mt-1">Enregistrés</div>
+        </div>
+      </div>
+
+      <!-- HTML5 Canvas Interactive Performance Chart -->
+      <div class="glass-card p-5 relative">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+          <div>
+            <h3 class="text-sm font-black text-white uppercase tracking-tight flex items-center gap-2">
+              <i class="fa-solid fa-chart-line text-purple-400"></i> Graphique de Progression
+            </h3>
+            <p class="text-[11px] text-slate-400">Évolutions des statistiques au fil des parties sélectionnées</p>
+          </div>
+
+          <!-- Chart Metric Selector -->
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-semibold text-slate-400">Métrique :</span>
+            <select id="chartMetric" onchange="drawPerformanceChart()" class="input-futuristic rounded-xl px-3 py-1 text-xs font-bold">
+              <option value="KD">Ratio K/D</option>
+              <option value="Kills">Éliminations (Kills)</option>
+              <option value="Damage">Dégâts Infligés</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="relative w-full h-60 sm:h-64">
+          <canvas id="performanceChart" class="w-full h-full block rounded-xl cursor-crosshair"></canvas>
+          <!-- Tooltip -->
+          <div id="chartTooltip" class="absolute hidden bg-slate-950/95 border border-purple-500/50 p-2.5 rounded-xl text-xs shadow-xl pointer-events-none z-20"></div>
+        </div>
+      </div>
+
+      <!-- Match History List -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <h3 class="text-base font-black text-white uppercase tracking-wider flex items-center gap-2">
+            <i class="fa-solid fa-clock-rotate-left text-pink-400"></i> Historique des Matchs
+          </h3>
+          <span id="matchListCount" class="text-xs font-bold text-slate-400 bg-slate-900 border border-slate-800 px-3 py-1 rounded-full">0 match(s)</span>
+        </div>
+
+        <div id="matchListContainer" class="space-y-3">
+          <!-- Dynamically populated or empty state -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: MÉTA ARMES ==================== -->
+    <section id="sectionMeta" class="hidden space-y-6">
+      <div class="glass-card p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span class="text-xs font-extrabold uppercase tracking-widest text-pink-400">Saison 1 • MW4</span>
+          <h2 class="text-2xl font-black text-white uppercase tracking-tight">Arsenal & Atouts Méta</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Configurations officielles, niveaux de déblocage et atouts recommandés</p>
+        </div>
+
+        <!-- Meta Search & Filters -->
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+          <input
+            type="text"
+            id="searchMetaWeapon"
+            oninput="renderMetaGrid()"
+            placeholder="Rechercher une arme..."
+            class="input-futuristic rounded-xl px-3.5 py-2 text-xs font-semibold w-full sm:w-48"
+          />
+          <select id="filterMetaCategory" onchange="renderMetaGrid()" class="input-futuristic rounded-xl px-3.5 py-2 text-xs font-semibold">
+            <option value="ALL">Toutes catégories</option>
+            <option value="Fusil d'assaut">Fusil d'assaut</option>
+            <option value="Mitraillette">Mitraillette</option>
+            <option value="Fusil tactique & précision">Fusil tactique & précision</option>
+          </select>
+          <select id="filterMetaTier" onchange="renderMetaGrid()" class="input-futuristic rounded-xl px-3.5 py-2 text-xs font-semibold">
+            <option value="ALL">Tous les Tiers</option>
+            <option value="TIER S">Tier S</option>
+            <option value="TIER A">Tier A</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Meta Perks Section -->
+      <div class="space-y-3">
+        <h3 class="text-sm font-black uppercase text-purple-300 tracking-wider flex items-center gap-2">
+          <i class="fa-solid fa-shield-halved"></i> Packages d'Atouts Méta
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Perk 1 -->
+          <div class="glass-card p-4 border-l-4 border-l-purple-500">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-sm font-black text-white">Pack Polyvalent / Agression</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-black bg-amber-500/20 text-amber-400 border border-amber-500/40">TIER S</span>
+            </div>
+            <ul class="text-xs text-slate-300 space-y-1">
+              <li><strong class="text-purple-400">Emplacement 1 :</strong> Pas de course (Double Time) ou Pillard</li>
+              <li><strong class="text-purple-400">Emplacement 2 :</strong> Mains agiles (Fast Hands) ou Ruée vers le sang</li>
+              <li><strong class="text-purple-400">Emplacement 3 :</strong> Alerte maximale (High Alert) ou Fantôme (Ghost)</li>
+            </ul>
+          </div>
+          <!-- Perk 2 -->
+          <div class="glass-card p-4 border-l-4 border-l-pink-500">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-sm font-black text-white">Pack Furtif / Fin de zone</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-black bg-amber-500/20 text-amber-400 border border-amber-500/40">TIER S</span>
+            </div>
+            <ul class="text-xs text-slate-300 space-y-1">
+              <li><strong class="text-pink-400">Emplacement 1 :</strong> Escouade de déminage (E.O.D.)</li>
+              <li><strong class="text-pink-400">Emplacement 2 :</strong> Sang-froid (Cold-Blooded)</li>
+              <li><strong class="text-pink-400">Emplacement 3 :</strong> Fantôme (Ghost) + Ninja</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Meta Weapons Cards Grid -->
+      <div id="metaWeaponsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Dynamically injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: DÉFIS HEBDO ==================== -->
+    <section id="sectionDefis" class="hidden space-y-6">
+      <div class="glass-card p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <span class="text-xs font-extrabold uppercase tracking-widest text-purple-400">Progression Saison 1 • MW4</span>
+          <h2 class="text-2xl font-black text-white uppercase tracking-tight">Défis Hebdomadaires</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Complète les défis pour débloquer de l'expérience et des récompenses exclusives</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span id="defisCompletedCount" class="text-xs font-bold text-slate-300 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl">0 / 0 accomplis</span>
+        </div>
+      </div>
+
+      <!-- Defis Grid Container -->
+      <div id="defisGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Dynamically rendered via JavaScript -->
+      </div>
+
+      <!-- Carte Niveau & Progression Globale -->
+      <div class="glass-card rounded-2xl p-5 border border-purple-500/20">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span id="lockerLevelNum" class="text-xs font-black px-2.5 py-0.5 rounded-md bg-purple-600 text-white uppercase">NIVEAU 1</span>
+              <span id="lockerRankName" class="text-sm font-extrabold text-purple-300 uppercase tracking-wider">Recrue</span>
+            </div>
+            <div id="lockerActiveTitle" class="text-lg sm:text-xl font-black text-white mt-1">« Opérateur Saison 1 »</div>
+          </div>
+          <div class="text-left sm:text-right">
+            <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Progression XP Totale</div>
+            <div id="lockerXpText" class="text-sm font-black text-emerald-400 mt-0.5">0 / 2 500 XP</div>
+          </div>
+        </div>
+        <div class="mt-4 w-full h-2.5 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+          <div id="lockerXpBar" class="h-full bg-gradient-to-r from-purple-600 via-fuchsia-500 to-pink-500 transition-all duration-500" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <!-- Casier des Récompenses à équiper -->
+      <div id="rewardsLockerContainer" class="space-y-6"></div>
+    </section>
+  </main>
+
+  <!-- ==================== MODIFIED NOUVEAU MATCH MODAL ==================== -->
+  <div id="matchModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
+    <div class="glass-modal w-full max-w-2xl rounded-3xl border border-purple-500/30 shadow-2xl relative overflow-hidden my-auto">
+
+      <!-- Modal Header -->
+      <div class="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between bg-purple-950/30">
+        <div>
+          <h3 id="modalTitle" class="text-lg font-black text-white uppercase tracking-wider">Nouveau Match</h3>
+          <p class="text-xs text-purple-300/80">Enregistrez vos statistiques de partie</p>
+        </div>
+        <button onclick="closeMatchModal()" class="text-slate-400 hover:text-white p-1.5 rounded-lg bg-slate-900/50 hover:bg-slate-800 transition-all">
+          <i class="fa-solid fa-xmark text-base"></i>
+        </button>
+      </div>
+
+      <!-- Modal Form Body (LOCKED 2-COLUMN MODE / CONTEXT GRID) -->
+      <form id="matchForm" onsubmit="handleMatchFormSubmit(event)" class="p-4 sm:p-6 space-y-4">
+        <input type="hidden" id="matchEditId" value="" />
+
+        <!-- Locked 2-Column Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+          <!-- Column 1: Primary Mode Selection -->
+          <div class="space-y-1.5">
+            <label class="text-xs font-bold text-purple-300 uppercase tracking-wider block">Mode de jeu *</label>
+            <select id="modalMode" onchange="handleModalModeChange()" class="glass-input" required>
+              <option value="Battle Royale">Battle Royale</option>
+              <option value="Résurgence">Résurgence</option>
+              <option value="Classé">Classé</option>
+              <option value="Tournois">Tournois</option>
+            </select>
+          </div>
+
+          <!-- Column 2: Contextual Conditional Fields -->
+          <div id="modalContextContainer" class="space-y-3">
+            <!-- Dynamically populated via JS -->
+          </div>
+
+        </div>
+
+        <!-- Kills & Deaths Steppers Grid -->
+        <div class="grid grid-cols-2 gap-4 pt-2 border-t border-white/5">
+          <!-- Stepper Éliminations -->
+          <div class="space-y-1.5">
+            <label class="text-xs font-bold text-pink-400 uppercase tracking-wider block">Éliminations (Kills)</label>
+            <div class="flex items-center gap-1.5">
+              <button type="button" onclick="adjustStepper('modalKills', -1)" class="btn-metal px-3 py-2 text-lg font-bold rounded-lg">-</button>
+              <input type="number" id="modalKills" min="0" value="0" class="glass-input text-center font-bold text-lg" required>
+              <button type="button" onclick="adjustStepper('modalKills', 1)" class="btn-metal px-3 py-2 text-lg font-bold rounded-lg">+</button>
+            </div>
+          </div>
+
+          <!-- Stepper Morts -->
+          <div class="space-y-1.5">
+            <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Morts (Deaths)</label>
+            <div class="flex items-center gap-1.5">
+              <button type="button" onclick="adjustStepper('modalDeaths', -1)" class="btn-metal px-3 py-2 text-lg font-bold rounded-lg">-</button>
+              <input type="number" id="modalDeaths" min="0" value="0" class="glass-input text-center font-bold text-lg" required>
+              <button type="button" onclick="adjustStepper('modalDeaths', 1)" class="btn-metal px-3 py-2 text-lg font-bold rounded-lg">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Damage & Placement Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Damage Input -->
+          <div class="space-y-1.5">
+            <label class="text-xs font-bold text-amber-400 uppercase tracking-wider block">Dégâts infligés</label>
+            <input type="number" id="modalDamage" min="0" step="1" placeholder="Ex: 3450" class="glass-input" required>
+          </div>
+
+          <!-- Placement Input + Quick Top 1 Button -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between items-center">
+              <label class="text-xs font-bold text-cyan-400 uppercase tracking-wider block">Classement / Top *</label>
+              <button type="button" onclick="setTopOne()" class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-500/30">
+                🏆 TOP 1
+              </button>
+            </div>
+            <input type="number" id="modalPlacement" min="1" max="150" placeholder="Ex: 1" class="glass-input" required>
+          </div>
+        </div>
+
+        <!-- Weapons Categories Grid (ONLY CATEGORY DROPDOWNS) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-white/5">
+          <!-- Arme 1 Category -->
+          <div class="space-y-1.5">
+            <label class="text-xs font-bold text-purple-300 uppercase tracking-wider block">Arme 1 (Principale)</label>
+            <select id="modalWeapon1Cat" class="glass-input" required>
+              <option value="Fusil d'assaut">Fusil d'assaut</option>
+              <option value="Mitraillette">Mitraillette</option>
+              <option value="Fusil de précision">Fusil de précision</option>
+              <option value="Fusil tactique">Fusil tactique</option>
+              <option value="Mitrailleuse">Mitrailleuse</option>
+              <option value="Fusil à pompe">Fusil à pompe</option>
+              <option value="Arme de poing">Arme de poing</option>
+              <option value="Lanceur">Lanceur</option>
+              <option value="Corps à corps">Corps à corps</option>
+              <option value="Arme spéciale">Arme spéciale</option>
+            </select>
+          </div>
+
+          <!-- Arme 2 Category -->
+          <div class="space-y-1.5">
+            <label class="text-xs font-bold text-pink-300 uppercase tracking-wider block">Arme 2 (Secondaire)</label>
+            <select id="modalWeapon2Cat" class="glass-input" required>
+              <option value="Mitraillette">Mitraillette</option>
+              <option value="Fusil d'assaut">Fusil d'assaut</option>
+              <option value="Arme de poing">Arme de poing</option>
+              <option value="Fusil de précision">Fusil de précision</option>
+              <option value="Fusil tactique">Fusil tactique</option>
+              <option value="Mitrailleuse">Mitrailleuse</option>
+              <option value="Fusil à pompe">Fusil à pompe</option>
+              <option value="Lanceur">Lanceur</option>
+              <option value="Corps à corps">Corps à corps</option>
+              <option value="Arme spéciale">Arme spéciale</option>
+              <option value="Aucune">Aucune</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Date & Heure Single Input -->
+        <div class="space-y-1.5 pt-2 border-t border-white/5">
+          <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block">Date & Heure</label>
+          <input type="datetime-local" id="modalDateTime" class="glass-input" required>
+        </div>
+
+        <!-- Modal Footer Actions -->
+        <div class="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+          <button type="button" onclick="closeMatchModal()" class="btn-metal px-4 py-2.5 text-xs uppercase tracking-wider">Annuler</button>
+          <button type="submit" class="btn-accent px-6 py-2.5 text-xs uppercase tracking-wider">Sauvegarder</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- SIDE DRAWER MENU -->
+  <div id="sideDrawer" class="fixed inset-0 z-50 pointer-events-none hidden">
+    <!-- Backdrop -->
+    <div id="drawerBackdrop" onclick="toggleSideDrawer(false)" class="absolute inset-0 bg-black/70 backdrop-blur-sm opacity-0 transition-opacity duration-300 pointer-events-auto"></div>
+
+    <!-- Content Drawer -->
+    <div id="drawerContent" class="absolute top-0 right-0 bottom-0 w-80 max-w-[85vw] glass-modal border-l border-slate-700/80 p-5 space-y-6 transform translate-x-full transition-transform duration-300 pointer-events-auto flex flex-col justify-between">
+      <div class="space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+          <h3 class="text-base font-black text-white uppercase flex items-center gap-2">
+            <i class="fa-solid fa-sliders text-purple-400"></i> Options & Données
+          </h3>
+          <button onclick="toggleSideDrawer(false)" class="text-slate-400 hover:text-white p-1">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+
+        <div class="space-y-3">
+          <h4 class="text-xs font-extrabold uppercase text-slate-400 tracking-wider">Gestion des données</h4>
+          <button onclick="exportData()" class="w-full btn-metal p-3 rounded-xl text-xs font-bold text-left flex items-center gap-2">
+            <i class="fa-solid fa-download text-purple-400"></i> Exporter les matchs (JSON)
+          </button>
+          <label class="w-full btn-metal p-3 rounded-xl text-xs font-bold text-left flex items-center gap-2 cursor-pointer">
+            <i class="fa-solid fa-upload text-pink-400"></i> Importer des matchs
+            <input type="file" accept=".json" onchange="importData(event)" class="hidden" />
+          </label>
+          <button onclick="resetDataToDefault()" class="w-full btn-metal p-3 rounded-xl text-xs font-bold text-left text-red-400 hover:text-red-300 flex items-center gap-2">
+            <i class="fa-solid fa-rotate-left"></i> Réinitialiser aux exemples
+          </button>
+        </div>
+
+        <div class="space-y-3 border-t border-slate-800 pt-4">
+          <h4 class="text-xs font-extrabold uppercase text-slate-400 tracking-wider">Infos Saison 1</h4>
+          <div class="p-3 glass-card text-xs space-y-1 text-slate-300">
+            <p><strong class="text-white">Jeu :</strong> Call of Duty MW4 / Warzone</p>
+            <p><strong class="text-white">Saison :</strong> Saison 1</p>
+            <p><strong class="text-white">Cartes :</strong> Hajin, Zodiac, Rebirth Island</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center text-[10px] text-slate-500 uppercase tracking-widest border-t border-slate-800 pt-4">
+        Warzone Tracker &copy; 2026
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toastContainer" class="fixed bottom-20 md:bottom-5 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- JAVASCRIPT APP LOGIC -->
+  <script>
+    /* ==================== GLOBAL STATE & MOCK DATA ==================== */
+    const STORAGE_KEY = 'WZ_TRACKER_MATCHES_V2';
+    const DEFIS_KEY = 'WZ_TRACKER_DEFIS_V1';
+
+    const INITIAL_MATCHES = [
+      {
+        id: 'm1',
+        mode: 'Battle Royale',
+        typePartie: 'Normal',
+        map: 'Hajin',
+        placement: 1,
+        kills: 12,
+        deaths: 1,
+        damage: 4520,
+        weapon1Cat: "Fusil d'assaut",
+        weapon2Cat: 'Mitraillette',
+        datetime: '2026-11-20T21:15',
+        date: '2026-11-20'
+      },
+      {
+        id: 'm2',
+        mode: 'Résurgence',
+        typePartie: 'Normal',
+        map: 'Rebirth Island',
+        placement: 3,
+        kills: 9,
+        deaths: 3,
+        damage: 3200,
+        weapon1Cat: "Fusil d'assaut",
+        weapon2Cat: 'Mitraillette',
+        datetime: '2026-11-19T22:40',
+        date: '2026-11-19'
+      },
+      {
+        id: 'm3',
+        mode: 'Classé',
+        modeClasse: 'Résurgence',
+        rank: 'Or',
+        map: 'Zodiac',
+        placement: 2,
+        kills: 7,
+        deaths: 2,
+        damage: 2890,
+        weapon1Cat: "Fusil d'assaut",
+        weapon2Cat: 'Mitraillette',
+        datetime: '2026-11-18T20:05',
+        date: '2026-11-18'
+      },
+      {
+        id: 'm4',
+        mode: 'Résurgence',
+        typePartie: 'Décontracté',
+        map: 'Zodiac',
+        placement: 1,
+        kills: 15,
+        deaths: 2,
+        damage: 5100,
+        weapon1Cat: 'Mitraillette',
+        weapon2Cat: 'Fusil de précision',
+        datetime: '2026-11-17T23:10',
+        date: '2026-11-17'
+      },
+      {
+        id: 'm5',
+        mode: 'Tournois',
+        format: '2v2',
+        modeTournoi: 'Battle Royale',
+        objective: 'Course au kill',
+        map: 'Hajin',
+        placement: 5,
+        kills: 6,
+        deaths: 3,
+        damage: 2400,
+        weapon1Cat: "Fusil d'assaut",
+        weapon2Cat: 'Mitraillette',
+        datetime: '2026-11-15T19:30',
+        date: '2026-11-15'
+      }
+    ];
+
+    let META_WEAPONS = [];
+    let DEFAULT_DEFIS = [];
+
+    const FALLBACK_META_WEAPONS = [
+      {
+            "name": "Cronen Osprey",
+            "type": "Fusil d'assaut",
+            "role": "Longue portée",
+            "tier": "TIER S",
+            "rankText": "TIER S • N°1",
+            "badgeClass": "bg-amber-500/20 text-amber-400 border-amber-500",
+            "unlock": "🔓 Arme : Passe de combat Saison 1 (Palier 16 gratuit)",
+            "attachments": [
+                  {
+                        "name": "FSS IS300",
+                        "slot": "Bouche",
+                        "lvl": "Niv. 21"
+                  },
+                  {
+                        "name": "FSS Tac90 Grip",
+                        "slot": "Sous le canon",
+                        "lvl": "Niv. 6"
+                  },
+                  {
+                        "name": "A56 Stout",
+                        "slot": "Poignée arrière",
+                        "lvl": "Niv. 46"
+                  },
+                  {
+                        "name": "FT Stalwart MK2",
+                        "slot": "Crosse",
+                        "lvl": "Niv. 50"
+                  },
+                  {
+                        "name": "SA Laz-500",
+                        "slot": "Laser",
+                        "lvl": "Niv. 52"
+                  },
+                  {
+                        "name": "Cronen Helix Mk. II",
+                        "slot": "Apex (Bonus)",
+                        "lvl": "Niv. 70"
+                  }
+            ],
+            "perks": "Fantôme • Mains agiles • Pas de course | Fumigène + Semtex"
+      },
+      {
+            "name": "Axion",
+            "type": "Fusil d'assaut",
+            "role": "Longue portée",
+            "tier": "TIER S",
+            "rankText": "TIER S",
+            "badgeClass": "bg-amber-500/20 text-amber-400 border-amber-500",
+            "unlock": "🔓 Arme : Niveau de joueur 1 (Débloqué dès le début)",
+            "attachments": [
+                  {
+                        "name": "FSS IS40",
+                        "slot": "Bouche",
+                        "lvl": "Niv. 56"
+                  },
+                  {
+                        "name": "SA DMN-L 30\"",
+                        "slot": "Canon",
+                        "lvl": "Niv. 6"
+                  },
+                  {
+                        "name": "FSS Fireline Grip",
+                        "slot": "Sous le canon",
+                        "lvl": "Niv. 7"
+                  },
+                  {
+                        "name": "GS50 Grip",
+                        "slot": "Poignée arrière",
+                        "lvl": "Niv. 55"
+                  },
+                  {
+                        "name": "XRK Clutch-LS",
+                        "slot": "Laser",
+                        "lvl": "Niv. 44"
+                  },
+                  {
+                        "name": "Axion Clearcut",
+                        "slot": "Apex (Bonus)",
+                        "lvl": "Niv. 69"
+                  }
+            ],
+            "perks": "Escouade de déminage • Mains agiles • Alerte maximale | Fumigène + Semtex"
+      },
+      {
+            "name": "M4",
+            "type": "Fusil d'assaut",
+            "role": "Polyvalent",
+            "tier": "TIER S",
+            "rankText": "TIER S",
+            "badgeClass": "bg-amber-500/20 text-amber-400 border-amber-500",
+            "unlock": "🔓 Arme : Niveau de joueur 14",
+            "attachments": [
+                  {
+                        "name": "FSS IS300",
+                        "slot": "Bouche",
+                        "lvl": "Niv. 4"
+                  },
+                  {
+                        "name": "18 LE Crosswind",
+                        "slot": "Canon",
+                        "lvl": "Niv. 32"
+                  },
+                  {
+                        "name": "FSS Fireline Grip",
+                        "slot": "Sous le canon",
+                        "lvl": "Niv. 38"
+                  },
+                  {
+                        "name": "Chargeur tambour 60 coups",
+                        "slot": "Chargeur",
+                        "lvl": "Niv. 39"
+                  },
+                  {
+                        "name": "ZLR ASP50 Stock",
+                        "slot": "Crosse",
+                        "lvl": "Niv. 44"
+                  }
+            ],
+            "perks": "Pas de course • Mains agiles • Fantôme | Fumigène + Semtex"
+      },
+      {
+            "name": "ISO Nightshade",
+            "type": "Mitraillette",
+            "role": "Courte portée",
+            "tier": "TIER S",
+            "rankText": "TIER S • N°1 SMG",
+            "badgeClass": "bg-amber-500/20 text-amber-400 border-amber-500",
+            "unlock": "🔓 Arme : Niveau de joueur 4",
+            "attachments": [
+                  {
+                        "name": "XRK Herder 40",
+                        "slot": "Bouche",
+                        "lvl": "Niv. 17"
+                  },
+                  {
+                        "name": "ZLR Carbon-900",
+                        "slot": "Canon",
+                        "lvl": "Niv. 41"
+                  },
+                  {
+                        "name": "FSS TAC90 Grip",
+                        "slot": "Sous le canon",
+                        "lvl": "Niv. 55"
+                  },
+                  {
+                        "name": "Demo STP-1",
+                        "slot": "Poignée arrière",
+                        "lvl": "Niv. 6"
+                  },
+                  {
+                        "name": "Schlager Visiv-5",
+                        "slot": "Laser",
+                        "lvl": "Niv. 43"
+                  }
+            ],
+            "perks": "Pas de course • Ruée vers le sang • Ninja | Stimulant + Couteau de lancer"
+      },
+      {
+            "name": "Wz.55 Striga",
+            "type": "Mitraillette",
+            "role": "Courte portée",
+            "tier": "TIER S",
+            "rankText": "TIER S",
+            "badgeClass": "bg-amber-500/20 text-amber-400 border-amber-500",
+            "unlock": "🔓 Arme : Niveau de joueur 18",
+            "attachments": [
+                  {
+                        "name": "Full Port Comp",
+                        "slot": "Bouche",
+                        "lvl": "Niv. 3"
+                  },
+                  {
+                        "name": "GW Sender 500",
+                        "slot": "Canon",
+                        "lvl": "Niv. 5"
+                  },
+                  {
+                        "name": "50 Round Drum Mag",
+                        "slot": "Chargeur",
+                        "lvl": "Niv. 49"
+                  },
+                  {
+                        "name": "Matuzek 532-L Grip",
+                        "slot": "Poignée arrière",
+                        "lvl": "Niv. 15"
+                  },
+                  {
+                        "name": "Wire Stock",
+                        "slot": "Crosse",
+                        "lvl": "Niv. 52"
+                  },
+                  {
+                        "name": "Wz.55 Striga Carnage",
+                        "slot": "Apex (Akimbo)",
+                        "lvl": "Niv. 60"
+                  }
+            ],
+            "perks": "Pas de course • Réparation rapide • Fantôme | Fumigène + Semtex"
+      },
+      {
+            "name": "VEL 46",
+            "type": "Mitraillette",
+            "role": "Courte portée",
+            "tier": "TIER A",
+            "rankText": "TIER A",
+            "badgeClass": "bg-sky-500/20 text-sky-400 border-sky-500",
+            "unlock": "🔓 Arme : Niveau de joueur 27",
+            "attachments": [
+                  {
+                        "name": "TA TacPro-56",
+                        "slot": "Bouche",
+                        "lvl": "Niv. 42"
+                  },
+                  {
+                        "name": "SZ SRE-7",
+                        "slot": "Lunette",
+                        "lvl": "Niv. 29"
+                  },
+                  {
+                        "name": "V46 Vert-Tac",
+                        "slot": "Sous le canon",
+                        "lvl": "Niv. 50"
+                  },
+                  {
+                        "name": "Chargeurs 50 cartouches",
+                        "slot": "Chargeur",
+                        "lvl": "Niv. 31"
+                  },
+                  {
+                        "name": "Poignée ZLR Combat",
+                        "slot": "Poignée arrière",
+                        "lvl": "Niv. 38"
+                  }
+            ],
+            "perks": "Pas de course • Mains agiles • Ninja | Stimulant + Thermite"
+      },
+      {
+            "name": "CSG-35",
+            "type": "Mitraillette",
+            "role": "Courte portée",
+            "tier": "TIER A",
+            "rankText": "TIER A",
+            "badgeClass": "bg-sky-500/20 text-sky-400 border-sky-500",
+            "unlock": "🔓 Arme : Passe de combat Saison 1 (Palier 36 gratuit)",
+            "attachments": [
+                  {
+                        "name": "Bruen Clash-40",
+                        "slot": "Lunette",
+                        "lvl": "Niv. 10"
+                  },
+                  {
+                        "name": "Butée de combat rapproché",
+                        "slot": "Sous le canon",
+                        "lvl": "Niv. 28"
+                  },
+                  {
+                        "name": "Chargeurs 40 cartouches",
+                        "slot": "Chargeur",
+                        "lvl": "Niv. 22"
+                  },
+                  {
+                        "name": "Matuzek Fire-Pro",
+                        "slot": "Poignée arrière",
+                        "lvl": "Niv. 34"
+                  },
+                  {
+                        "name": "Crosse légère XRK",
+                        "slot": "Crosse",
+                        "lvl": "Niv. 39"
+                  },
+                  {
+                        "name": "CSG Frappe Croisée",
+                        "slot": "Apex (Bonus)",
+                        "lvl": "Niv. 42"
+                  }
+            ],
+            "perks": "Pas de course • Ruée vers le sang • Fantôme | Fumigène + Semtex"
+      },
+      {
+            "name": "Mosin-Nagant",
+            "type": "Fusil tactique & précision",
+            "role": "Fusil tactique",
+            "tier": "TIER S",
+            "rankText": "TIER S",
+            "badgeClass": "bg-amber-500/20 text-amber-400 border-amber-500",
+            "unlock": "🔓 Arme : Niveau de joueur 36",
+            "attachments": [
+                  {
+                        "name": "330TC2 Gridlock",
+                        "slot": "Bouche",
+                        "lvl": "Niv. 37"
+                  },
+                  {
+                        "name": "762 Dozor Barrel",
+                        "slot": "Canon",
+                        "lvl": "Niv. 41"
+                  },
+                  {
+                        "name": "Cronen R808",
+                        "slot": "Lunette",
+                        "lvl": "Niv. 9"
+                  },
+                  {
+                        "name": "Lockwood Eagle Stock",
+                        "slot": "Crosse",
+                        "lvl": "Niv. 27"
+                  },
+                  {
+                        "name": "TV-Light 7-Bolt",
+                        "slot": "Culasse",
+                        "lvl": "Niv. 57"
+                  }
+            ],
+            "perks": "Pas de course • Mains agiles • Fantôme | Fumigène + Couteau de lancer"
+      },
+      {
+            "name": "KG-7 Vulcan",
+            "type": "Fusil tactique & précision",
+            "role": "Sniper",
+            "tier": "TIER S",
+            "rankText": "TIER S",
+            "badgeClass": "bg-amber-500/20 text-amber-400 border-amber-500",
+            "unlock": "🔓 Arme : Niveau de joueur 4",
+            "attachments": [
+                  {
+                        "name": "Haebang Naseon V.5 26\"",
+                        "slot": "Canon",
+                        "lvl": "Niv. 22"
+                  },
+                  {
+                        "name": "Schlager Visiv-5",
+                        "slot": "Laser",
+                        "lvl": "Niv. 7"
+                  },
+                  {
+                        "name": "TT G76-RP Stock",
+                        "slot": "Crosse",
+                        "lvl": "Niv. 47"
+                  },
+                  {
+                        "name": "Haebang YNC-45",
+                        "slot": "Busc",
+                        "lvl": "Niv. 34"
+                  },
+                  {
+                        "name": "KT76 Light Bolt",
+                        "slot": "Culasse",
+                        "lvl": "Niv. 63"
+                  },
+                  {
+                        "name": "KG-7 Drillcharge",
+                        "slot": "Apex (Bonus)",
+                        "lvl": "Niv. 75"
+                  }
+            ],
+            "perks": "Sang-froid • Mains agiles • Alerte maximale | Fumigène + Mine de proximité"
+      }
+];
+
+    const FALLBACK_DEFAULT_DEFIS = [
+      {
+            "id": "d1",
+            "title": "Domination Résurgence",
+            "desc": "Faire 25 éliminations en mode Résurgence",
+            "current": 24,
+            "target": 25,
+            "xp": "2,500 XP"
+      },
+      {
+            "id": "d2",
+            "title": "Maître du Top 1",
+            "desc": "Décrocher 3 victoires (Top 1) toutes cartes confondues",
+            "current": 2,
+            "target": 3,
+            "xp": "5,000 XP"
+      },
+      {
+            "id": "d3",
+            "title": "Artillerie Lourde",
+            "desc": "Infliger 15 000 points de dégâts cumulés",
+            "current": 18760,
+            "target": 15000,
+            "xp": "3,000 XP"
+      },
+      {
+            "id": "d4",
+            "title": "Tireur d'Élite",
+            "desc": "Réaliser 10 éliminations au Fusil de précision ou Tactique",
+            "current": 6,
+            "target": 10,
+            "xp": "2,000 XP"
+      },
+      {
+            "id": "d5",
+            "title": "Contrat Rempli",
+            "desc": "Exécuter 15 contrats en partie",
+            "current": 15,
+            "target": 15,
+            "xp": "4,000 XP"
+      }
+];
+
+    let matches = [];
+    let defis = [];
+    let currentPeriodFilter = 'ALL';
+
+    /* ==================== INIT & STORAGE ==================== */
+    async function loadExternalSeasonData() {
+      try {
+        const [metaRes, defisRes] = await Promise.all([
+          fetch('./meta.json', { cache: 'no-store' }),
+          fetch('./defis.json', { cache: 'no-store' })
+        ]);
+        if (!metaRes.ok) throw new Error('meta.json introuvable');
+        if (!defisRes.ok) throw new Error('defis.json introuvable');
+        const loadedMeta = await metaRes.json();
+        const loadedDefis = await defisRes.json();
+        META_WEAPONS = Array.isArray(loadedMeta) ? loadedMeta : (loadedMeta.weapons || FALLBACK_META_WEAPONS);
+        DEFAULT_DEFIS = Array.isArray(loadedDefis) ? loadedDefis : (loadedDefis.defis || FALLBACK_DEFAULT_DEFIS);
+      } catch (err) {
+        console.warn('Chargement JSON distant impossible, utilisation des données intégrées :', err);
+        META_WEAPONS = [...FALLBACK_META_WEAPONS];
+        DEFAULT_DEFIS = [...FALLBACK_DEFAULT_DEFIS];
+      }
+    }
+
+    window.onload = async function () {
+      await loadExternalSeasonData();
+      loadData();
+      loadDefis();
+      initFormDefaults();
+      handleModalModeChange();
+      renderDashboard();
+      renderMetaGrid();
+      renderDefis();
+
+      window.addEventListener('resize', () => {
+        drawPerformanceChart();
+      });
+    };
+
+    function loadData() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        try {
+          matches = JSON.parse(stored);
+        } catch (e) {
+          matches = [...INITIAL_MATCHES];
+        }
+      } else {
+        matches = [...INITIAL_MATCHES];
+        saveMatchesToStorage();
+      }
+    }
+
+    function saveMatchesToStorage() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(matches));
+    }
+
+    function loadDefis() {
+      const stored = localStorage.getItem(DEFIS_KEY);
+      if (stored) {
+        try { defis = JSON.parse(stored); } catch (e) { defis = [...DEFAULT_DEFIS]; }
+      } else {
+        defis = [...DEFAULT_DEFIS];
+        saveDefisToStorage();
+      }
+    }
+
+    function saveDefisToStorage() {
+      localStorage.setItem(DEFIS_KEY, JSON.stringify(defis));
+    }
+
+    function initFormDefaults() {
+      const now = new Date();
+      now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+      document.getElementById('modalDateTime').value = now.toISOString().slice(0, 16);
+    }
+
+    function getMatchTimestamp(m) {
+      if (m.datetime) {
+        const ts = new Date(m.datetime).getTime();
+        if (!Number.isNaN(ts)) return ts;
+      }
+      if (m.date) {
+        const ts = new Date(m.date + 'T12:00:00').getTime();
+        if (!Number.isNaN(ts)) return ts;
+      }
+      return Date.now();
+    }
+
+    /* ==================== NAVIGATION TAB SWITCHER ==================== */
+    function switchMainTab(tab) {
+      document.getElementById('sectionDashboard').classList.add('hidden');
+      document.getElementById('sectionMeta').classList.add('hidden');
+      document.getElementById('sectionDefis').classList.add('hidden');
+
+      const navBtns = ['navTabDashboard', 'navTabMeta', 'navTabDefis'];
+      const mobBtns = ['mobNavDashboard', 'mobNavMeta', 'mobNavDefis'];
+
+      navBtns.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.className = "px-4 py-2 rounded-xl text-xs font-extrabold text-slate-400 hover:text-white transition flex items-center gap-2";
+        }
+      });
+      mobBtns.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.className = "flex flex-col items-center justify-center py-2 px-1 rounded-xl text-[11px] font-bold text-slate-400 hover:text-white";
+        }
+      });
+
+      if (tab === 'dashboard') {
+        document.getElementById('sectionDashboard').classList.remove('hidden');
+        document.getElementById('navTabDashboard').className = "px-4 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-md";
+        document.getElementById('mobNavDashboard').className = "flex flex-col items-center justify-center py-2 px-1 rounded-xl text-[11px] font-bold text-purple-400 bg-purple-950/60 border border-purple-800/40";
+        renderDashboard();
+      } else if (tab === 'meta') {
+        document.getElementById('sectionMeta').classList.remove('hidden');
+        document.getElementById('navTabMeta').className = "px-4 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-md";
+        document.getElementById('mobNavMeta').className = "flex flex-col items-center justify-center py-2 px-1 rounded-xl text-[11px] font-bold text-purple-400 bg-purple-950/60 border border-purple-800/40";
+      } else if (tab === 'defis') {
+        document.getElementById('sectionDefis').classList.remove('hidden');
+        document.getElementById('navTabDefis').className = "px-4 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-md";
+        document.getElementById('mobNavDefis').className = "flex flex-col items-center justify-center py-2 px-1 rounded-xl text-[11px] font-bold text-purple-400 bg-purple-950/60 border border-purple-800/40";
+      }
+    }
+
+    /* ==================== FILTERS & DASHBOARD RENDERING ==================== */
+    function setPeriodFilter(period) {
+      currentPeriodFilter = period;
+      document.querySelectorAll('.filter-period-btn').forEach(btn => {
+        if (btn.getAttribute('data-period') === period) {
+          btn.className = "filter-period-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-purple-600 text-white shadow";
+        } else {
+          btn.className = "filter-period-btn px-2.5 py-1 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition";
+        }
+      });
+      renderDashboard();
+    }
+
+    function resetFilters() {
+      currentPeriodFilter = 'ALL';
+      setPeriodFilter('ALL');
+      document.getElementById('filterMode').value = 'ALL';
+      document.getElementById('filterMap').value = 'ALL';
+      renderDashboard();
+    }
+
+    function getFilteredMatches() {
+      let filtered = [...matches];
+
+      if (currentPeriodFilter !== 'ALL') {
+        const now = new Date();
+        let days = 7;
+        if (currentPeriodFilter === '30d') days = 30;
+        if (currentPeriodFilter === '90d') days = 90;
+        const cutoff = new Date(now.getTime() - days * 24 * 60 * 60 * 1000);
+
+        filtered = filtered.filter(m => getMatchTimestamp(m) >= cutoff.getTime());
+      }
+
+      const selectedMode = document.getElementById('filterMode').value;
+      if (selectedMode !== 'ALL') {
+        filtered = filtered.filter(m => m.mode === selectedMode);
+      }
+
+      const selectedMap = document.getElementById('filterMap').value;
+      if (selectedMap !== 'ALL') {
+        filtered = filtered.filter(m => m.map === selectedMap);
+      }
+
+      return filtered.sort((a, b) => getMatchTimestamp(b) - getMatchTimestamp(a));
+    }
+
+    function renderDashboard() {
+      const filtered = getFilteredMatches();
+
+      const totalMatches = filtered.length;
+      let totalKills = 0;
+      let totalDeaths = 0;
+      let totalDamage = 0;
+      let maxDamage = 0;
+      let wins = 0;
+      let top5Count = 0;
+
+      filtered.forEach(m => {
+        const k = Number(m.kills) || 0;
+        const d = Number(m.deaths) || 0;
+        const dmg = Number(m.damage) || 0;
+        const place = Number(m.placement) || 99;
+
+        totalKills += k;
+        totalDeaths += d;
+        totalDamage += dmg;
+        if (dmg > maxDamage) maxDamage = dmg;
+        if (place === 1) wins++;
+        if (place <= 5) top5Count++;
+      });
+
+      const kdRatio = totalDeaths > 0 ? (totalKills / totalDeaths).toFixed(2) : totalKills.toFixed(2);
+      const winRate = totalMatches > 0 ? ((wins / totalMatches) * 100).toFixed(1) : '0.0';
+      const avgKills = totalMatches > 0 ? (totalKills / totalMatches).toFixed(1) : '0.0';
+      const avgDamage = totalMatches > 0 ? Math.round(totalDamage / totalMatches) : 0;
+      const top5Rate = totalMatches > 0 ? ((top5Count / totalMatches) * 100).toFixed(1) : '0.0';
+
+      document.getElementById('kpiTotalMatches').innerText = totalMatches;
+      document.getElementById('kpiAvgKd').innerText = String(kdRatio).replace('.', ',');
+      document.getElementById('kpiKillsDeaths').innerText = `${totalKills} Kills / ${totalDeaths} Morts`;
+      document.getElementById('kpiWinRate').innerText = `${String(winRate).replace('.', ',')}%`;
+      document.getElementById('kpiTotalWins').innerText = `${wins} Top 1`;
+      document.getElementById('kpiTotalKills').innerText = totalKills;
+      document.getElementById('kpiAvgKills').innerText = `${String(avgKills).replace('.', ',')} / match`;
+      document.getElementById('kpiAvgDamage').innerText = avgDamage.toLocaleString('fr-FR');
+      document.getElementById('kpiMaxDamage').innerText = `Max: ${maxDamage.toLocaleString('fr-FR')}`;
+      document.getElementById('kpiTop5Rate').innerText = `${String(top5Rate).replace('.', ',')}%`;
+      document.getElementById('kpiTotalTop5').innerText = `${top5Count} fois`;
+
+      renderMatchHistory(filtered);
+      drawPerformanceChart(filtered);
+    }
+
+    function renderMatchHistory(filteredList) {
+      const container = document.getElementById('matchListContainer');
+      document.getElementById('matchListCount').innerText = `${filteredList.length} match(s)`;
+
+      if (filteredList.length === 0) {
+        container.innerHTML = `
+          <div class="glass-card p-8 text-center border border-slate-800">
+            <div class="w-12 h-12 mx-auto mb-3 rounded-2xl bg-purple-950/60 border border-purple-800/50 flex items-center justify-center text-purple-400">
+              <i class="fa-solid fa-folder-open text-xl"></i>
+            </div>
+            <h4 class="text-sm font-bold text-white mb-1">Aucun match trouvé</h4>
+            <p class="text-xs text-slate-400">Essaie d'ajuster tes filtres ou d'enregistrer une nouvelle partie.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filteredList.map(m => {
+        const kd = m.deaths > 0 ? (m.kills / m.deaths).toFixed(2) : Number(m.kills).toFixed(2);
+        const isWin = Number(m.placement) === 1;
+        const isTop5 = Number(m.placement) <= 5;
+
+        let badgeStyle = "bg-slate-800 text-slate-300 border-slate-700";
+        if (isWin) badgeStyle = "bg-amber-500/20 text-amber-400 border-amber-500/50 shadow-sm shadow-amber-950";
+        else if (isTop5) badgeStyle = "bg-emerald-500/20 text-emerald-400 border-emerald-500/50";
+
+        let extraBadge = '';
+        if (m.mode === 'Classé' && m.rank) {
+          extraBadge = `<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30">${m.rank}</span>`;
+        } else if (m.mode === 'Tournois' && m.format) {
+          extraBadge = `<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">${m.format}</span>`;
+        } else if (m.typePartie) {
+          extraBadge = `<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/30">${m.typePartie}</span>`;
+        }
+
+        const dateDisplay = m.datetime
+          ? new Date(m.datetime).toLocaleString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+          : m.date;
+
+        const weaponsLine = (m.weapon1Cat || m.weapon2Cat)
+          ? ` • <span class="text-purple-300 font-semibold">${m.weapon1Cat || ''}</span>${m.weapon2Cat ? ` + <span class="text-pink-300 font-semibold">${m.weapon2Cat}</span>` : ''}`
+          : '';
+
+        return `
+          <div class="glass-card glass-card-hover p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border border-slate-800/90">
+            <div class="flex items-center gap-3">
+              <div class="px-3 py-2 rounded-xl border font-black text-xs text-center min-w-[65px] ${badgeStyle}">
+                <div class="text-[9px] uppercase tracking-widest font-semibold opacity-80">TOP</div>
+                <div class="text-base leading-tight">#${m.placement}</div>
+              </div>
+              <div>
+                <div class="flex flex-wrap items-center gap-2">
+                  <h4 class="text-sm font-black text-white">${m.mode}</h4>
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-900 text-slate-300 border border-slate-800">${m.map}</span>
+                  ${extraBadge}
+                </div>
+                <p class="text-[11px] text-slate-400 mt-0.5">
+                  <i class="fa-regular fa-calendar text-[10px] mr-1"></i>${dateDisplay}${weaponsLine}
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-4 sm:gap-6 border-t sm:border-t-0 border-slate-800/80 pt-2 sm:pt-0">
+              <div class="text-center">
+                <span class="text-[9px] uppercase font-extrabold text-slate-400 block">Kills / Morts</span>
+                <span class="text-xs font-black text-white">${m.kills} / ${m.deaths} <span class="text-purple-400 text-[10px]">(${kd} K/D)</span></span>
+              </div>
+              <div class="text-center">
+                <span class="text-[9px] uppercase font-extrabold text-slate-400 block">Dégâts</span>
+                <span class="text-xs font-black text-cyan-400">${Number(m.damage).toLocaleString('fr-FR')}</span>
+              </div>
+              <div class="flex items-center gap-1">
+                <button onclick="openMatchModal('${m.id}')" class="p-2 rounded-lg text-slate-400 hover:text-purple-400 hover:bg-slate-900 transition" title="Éditer">
+                  <i class="fa-solid fa-pen-to-square text-xs"></i>
+                </button>
+                <button onclick="deleteMatch('${m.id}')" class="p-2 rounded-lg text-slate-400 hover:text-red-400 hover:bg-slate-900 transition" title="Supprimer">
+                  <i class="fa-solid fa-trash-can text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    /* ==================== HTML5 CANVAS PROGRESSION CHART ==================== */
+    function drawPerformanceChart(matchesData) {
+      const canvas = document.getElementById('performanceChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      const data = matchesData || getFilteredMatches();
+      const chronos = [...data].reverse();
+
+      const rect = canvas.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return;
+
+      canvas.width = rect.width * window.devicePixelRatio;
+      canvas.height = rect.height * window.devicePixelRatio;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+      const w = rect.width;
+      const h = rect.height;
+
+      ctx.clearRect(0, 0, w, h);
+
+      if (chronos.length === 0) {
+        ctx.fillStyle = '#64748b';
+        ctx.font = '12px Inter, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('Aucune donnée de match disponible pour le graphique', w / 2, h / 2);
+        return;
+      }
+
+      const metric = document.getElementById('chartMetric').value;
+
+      const points = chronos.map(m => {
+        if (metric === 'KD') return m.deaths > 0 ? (m.kills / m.deaths) : Number(m.kills);
+        if (metric === 'Kills') return Number(m.kills);
+        if (metric === 'Damage') return Number(m.damage);
+        return 0;
+      });
+
+      const maxVal = Math.max(...points, 1);
+      const padding = 35;
+      const chartW = w - padding * 2;
+      const chartH = h - padding * 2;
+
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+      ctx.lineWidth = 1;
+      for (let i = 0; i <= 4; i++) {
+        const y = padding + (chartH / 4) * i;
+        ctx.beginPath();
+        ctx.moveTo(padding, y);
+        ctx.lineTo(w - padding, y);
+        ctx.stroke();
+
+        const val = Math.round((maxVal - (maxVal / 4) * i) * 10) / 10;
+        ctx.fillStyle = '#64748b';
+        ctx.font = '10px Inter';
+        ctx.textAlign = 'right';
+        ctx.fillText(val, padding - 8, y + 3);
+      }
+
+      const coords = points.map((val, idx) => {
+        const x = chronos.length === 1 ? w / 2 : padding + (chartW / (chronos.length - 1)) * idx;
+        const y = padding + chartH - (val / maxVal) * chartH;
+        return { x, y, val, match: chronos[idx] };
+      });
+
+      if (coords.length > 1) {
+        const gradient = ctx.createLinearGradient(0, padding, 0, h - padding);
+        gradient.addColorStop(0, 'rgba(124, 58, 237, 0.35)');
+        gradient.addColorStop(1, 'rgba(236, 72, 153, 0.0)');
+
+        ctx.beginPath();
+        ctx.moveTo(coords[0].x, h - padding);
+        coords.forEach(pt => ctx.lineTo(pt.x, pt.y));
+        ctx.lineTo(coords[coords.length - 1].x, h - padding);
+        ctx.closePath();
+        ctx.fillStyle = gradient;
+        ctx.fill();
+      }
+
+      ctx.beginPath();
+      ctx.strokeStyle = '#ec4899';
+      ctx.lineWidth = 3;
+      coords.forEach((pt, idx) => {
+        if (idx === 0) ctx.moveTo(pt.x, pt.y);
+        else ctx.lineTo(pt.x, pt.y);
+      });
+      ctx.stroke();
+
+      coords.forEach(pt => {
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, 5, 0, Math.PI * 2);
+        ctx.fillStyle = '#7c3aed';
+        ctx.fill();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#ffffff';
+        ctx.stroke();
+      });
+
+      setupChartTooltip(canvas, coords, metric);
+    }
+
+    function setupChartTooltip(canvas, coords, metric) {
+      const tooltip = document.getElementById('chartTooltip');
+
+      const handleMove = (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+
+        let closest = null;
+        let minDistance = 30;
+
+        coords.forEach(pt => {
+          const dist = Math.hypot(pt.x - x, pt.y - y);
+          if (dist < minDistance) {
+            minDistance = dist;
+            closest = pt;
+          }
+        });
+
+        if (closest) {
+          tooltip.classList.remove('hidden');
+          tooltip.style.left = `${closest.x + 10}px`;
+          tooltip.style.top = `${closest.y - 40}px`;
+
+          let metricLabel = 'Ratio K/D';
+          let valDisplay = closest.val.toFixed(2);
+          if (metric === 'Kills') { metricLabel = 'Kills'; valDisplay = closest.val; }
+          if (metric === 'Damage') { metricLabel = 'Dégâts'; valDisplay = closest.val.toLocaleString('fr-FR'); }
+
+          tooltip.innerHTML = `
+            <div class="font-bold text-white">${closest.match.mode} (${closest.match.map})</div>
+            <div class="text-[10px] text-purple-300">${metricLabel}: <span class="font-extrabold text-white">${valDisplay}</span></div>
+            <div class="text-[9px] text-slate-400">Date: ${closest.match.date || ''}</div>
+          `;
+        } else {
+          tooltip.classList.add('hidden');
+        }
+      };
+
+      canvas.onmousemove = handleMove;
+      canvas.ontouchstart = handleMove;
+      canvas.ontouchmove = handleMove;
+      canvas.onmouseleave = () => tooltip.classList.add('hidden');
+    }
+
+    /* ==================== MÉTA WEAPONS & PERKS ==================== */
+    function renderMetaGrid() {
+      const grid = document.getElementById('metaWeaponsGrid');
+      const search = document.getElementById('searchMetaWeapon').value.toLowerCase();
+      const category = document.getElementById('filterMetaCategory').value;
+      const tier = document.getElementById('filterMetaTier').value;
+
+      const filtered = META_WEAPONS.filter(w => {
+        const matchSearch = w.name.toLowerCase().includes(search) || w.role.toLowerCase().includes(search);
+        const matchCategory = category === 'ALL' || w.type === category;
+        const matchTier = tier === 'ALL' || w.tier === tier;
+        return matchSearch && matchCategory && matchTier;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full glass-card p-8 text-center border border-slate-800">
+            <p class="text-xs text-slate-400">Aucune arme méta ne correspond à ta recherche.</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(w => {
+        return `
+          <div class="glass-card glass-card-hover p-4 flex flex-col justify-between border border-slate-800">
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-base font-black text-white">${w.name}</span>
+                <span class="text-[10px] font-black px-2 py-0.5 rounded border ${w.badgeClass}">${w.rankText}</span>
+              </div>
+              <div class="text-[11px] font-bold text-purple-400 mb-2">${w.type} • ${w.role}</div>
+              <div class="text-[11px] text-emerald-400 font-medium mb-3">${w.unlock}</div>
+
+              <div class="space-y-1 border-t border-b border-slate-800/80 py-2.5 mb-3">
+                ${w.attachments.map(att => `
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="text-slate-400 font-medium">${att.slot}</span>
+                    <div class="flex items-center gap-1.5">
+                      <span class="text-slate-200 font-semibold">${att.name}</span>
+                      <span class="lvl-tag">${att.lvl}</span>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <div class="bg-slate-950/70 p-2.5 rounded-xl border border-slate-800/80 text-[11px]">
+              <span class="text-purple-400 font-extrabold block mb-0.5"><i class="fa-solid fa-bolt mr-1"></i>Atouts & Équipements :</span>
+              <p class="text-slate-300 font-medium leading-relaxed">${w.perks}</p>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    /* ==================== DÉFIS HEBDO ==================== */
+    function renderDefis() {
+      const grid = document.getElementById('defisGrid');
+      let completed = 0;
+
+      grid.innerHTML = defis.map(d => {
+        const isDone = d.current >= d.target;
+        if (isDone) completed++;
+        const pct = Math.min(100, Math.round((d.current / d.target) * 100));
+
+        return `
+          <div class="glass-card p-4 flex flex-col justify-between border border-slate-800/90">
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <h4 class="text-sm font-black text-white flex items-center gap-2">
+                  ${isDone ? '<i class="fa-solid fa-circle-check text-emerald-400"></i>' : '<i class="fa-regular fa-circle text-slate-500"></i>'}
+                  ${d.title}
+                </h4>
+                <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-800/50">${d.xp}</span>
+              </div>
+              <p class="text-xs text-slate-400 mb-3">${d.desc}</p>
+            </div>
+
+            <div class="space-y-1.5">
+              <div class="flex justify-between items-center text-[11px] font-bold">
+                <span class="text-slate-400">Progression</span>
+                <span class="${isDone ? 'text-emerald-400' : 'text-purple-300'}">${d.current} / ${d.target} (${pct}%)</span>
+              </div>
+              <div class="w-full h-2 rounded-full bg-slate-950 overflow-hidden p-0.5 border border-slate-800">
+                <div class="h-full rounded-full ${isDone ? 'bg-emerald-400' : 'bg-gradient-to-r from-purple-500 to-pink-500'}" style="width: ${pct}%"></div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('defisCompletedCount').innerText = `${completed} / ${defis.length} accomplis`;
+    }
+
+    /* ==================== NOUVEAU MATCH MODAL & CONTEXTUAL LOGIC ==================== */
+    function handleModalModeChange() {
+      const mode = document.getElementById('modalMode').value;
+      const container = document.getElementById('modalContextContainer');
+      container.innerHTML = "";
+
+      if (mode === 'Battle Royale' || mode === 'Résurgence') {
+        const mapsOptions = mode === 'Battle Royale'
+          ? `<option value="Hajin">Hajin</option>`
+          : `<option value="Zodiac">Zodiac</option><option value="Rebirth Island">Rebirth Island</option>`;
+
+        container.innerHTML = `
+          <div class="space-y-1.5">
+            <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block">Type de partie</label>
+            <select id="modalTypePartie" class="glass-input" required>
+              <option value="Normal">Normal</option>
+              <option value="Décontracté">Décontracté</option>
+            </select>
+          </div>
+          <div class="space-y-1.5">
+            <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block">Carte (Map)</label>
+            <select id="modalMap" class="glass-input" required>
+              ${mapsOptions}
+            </select>
+          </div>
+        `;
+      } else if (mode === 'Classé') {
+        container.innerHTML = `
+          <div class="space-y-1.5">
+            <label class="text-xs font-bold text-purple-300 uppercase tracking-wider block">Mode Classé</label>
+            <select id="modalModeClasse" onchange="handleModalRankMapUpdate()" class="glass-input" required>
+              <option value="Battle Royale">Battle Royale</option>
+              <option value="Résurgence">Résurgence</option>
+            </select>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div class="space-y-1.5">
+              <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block">Carte (Map)</label>
+              <select id="modalMap" class="glass-input" required>
+                <option value="Hajin">Hajin</option>
+              </select>
+            </div>
+            <div class="space-y-1.5">
+              <label class="text-xs font-bold text-amber-400 uppercase tracking-wider block">Rang</label>
+              <select id="modalRank" class="glass-input" required>
+                <option value="Bronze">Bronze</option>
+                <option value="Argent">Argent</option>
+                <option value="Or">Or</option>
+                <option value="Platine">Platine</option>
+                <option value="Diamant">Diamant</option>
+                <option value="Écarlate">Écarlate</option>
+                <option value="Iridescent">Iridescent</option>
+                <option value="Top 250">Top 250</option>
+              </select>
+            </div>
+          </div>
+        `;
+      } else if (mode === 'Tournois') {
+        container.innerHTML = `
+          <div class="grid grid-cols-2 gap-2">
+            <div class="space-y-1.5">
+              <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block">Format</label>
+              <select id="modalFormat" class="glass-input" required>
+                <option value="1v1">1v1</option>
+                <option value="2v2">2v2</option>
+              </select>
+            </div>
+            <div class="space-y-1.5">
+              <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block">Mode Tournoi</label>
+              <select id="modalModeTournoi" onchange="handleModalTournoiMapUpdate()" class="glass-input" required>
+                <option value="Battle Royale">Battle Royale</option>
+                <option value="Résurgence">Résurgence</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div class="space-y-1.5">
+              <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block">Carte (Map)</label>
+              <select id="modalMap" class="glass-input" required>
+                <option value="Hajin">Hajin</option>
+              </select>
+            </div>
+            <div class="space-y-1.5">
+              <label class="text-xs font-bold text-cyan-300 uppercase tracking-wider block">Objectif</label>
+              <select id="modalObjective" class="glass-input" required>
+                <option value="Course au kill">Course au kill</option>
+                <option value="Survie">Survie</option>
+                <option value="Placement">Placement</option>
+                <option value="Points combinés">Points combinés</option>
+              </select>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function handleModalRankMapUpdate() {
+      const mode = document.getElementById('modalModeClasse').value;
+      const mapSelect = document.getElementById('modalMap');
+      if (mode === 'Battle Royale') {
+        mapSelect.innerHTML = `<option value="Hajin">Hajin</option>`;
+      } else {
+        mapSelect.innerHTML = `<option value="Zodiac">Zodiac</option><option value="Rebirth Island">Rebirth Island</option>`;
+      }
+    }
+
+    function handleModalTournoiMapUpdate() {
+      const mode = document.getElementById('modalModeTournoi').value;
+      const mapSelect = document.getElementById('modalMap');
+      if (mode === 'Battle Royale') {
+        mapSelect.innerHTML = `<option value="Hajin">Hajin</option>`;
+      } else {
+        mapSelect.innerHTML = `<option value="Zodiac">Zodiac</option><option value="Rebirth Island">Rebirth Island</option>`;
+      }
+    }
+
+    function adjustStepper(inputId, amount) {
+      const input = document.getElementById(inputId);
+      let val = parseInt(input.value, 10) || 0;
+      val = Math.max(0, val + amount);
+      input.value = val;
+    }
+
+    function setTopOne() {
+      document.getElementById('modalPlacement').value = 1;
+    }
+
+    function openMatchModal(editId = null) {
+      const modal = document.getElementById('matchModal');
+      const modalTitle = document.getElementById('modalTitle');
+      const editInput = document.getElementById('matchEditId');
+
+      if (editId) {
+        const match = matches.find(m => m.id === editId);
+        if (match) {
+          editInput.value = match.id;
+          modalTitle.innerText = "Éditer le Match";
+          document.getElementById('modalMode').value = match.mode || 'Battle Royale';
+          handleModalModeChange();
+
+          if (match.mode === 'Battle Royale' || match.mode === 'Résurgence') {
+            if (match.typePartie && document.getElementById('modalTypePartie')) {
+              document.getElementById('modalTypePartie').value = match.typePartie;
+            }
+            if (match.map && document.getElementById('modalMap')) {
+              const mapEl = document.getElementById('modalMap');
+              if (Array.from(mapEl.options).some(o => o.value === match.map)) {
+                mapEl.value = match.map;
+              }
+            }
+          } else if (match.mode === 'Classé') {
+            if (match.modeClasse && document.getElementById('modalModeClasse')) {
+              document.getElementById('modalModeClasse').value = match.modeClasse;
+              handleModalRankMapUpdate();
+            }
+            if (match.map && document.getElementById('modalMap')) {
+              const mapEl = document.getElementById('modalMap');
+              if (Array.from(mapEl.options).some(o => o.value === match.map)) {
+                mapEl.value = match.map;
+              }
+            }
+            if (match.rank && document.getElementById('modalRank')) {
+              document.getElementById('modalRank').value = match.rank;
+            }
+          } else if (match.mode === 'Tournois') {
+            if (match.format && document.getElementById('modalFormat')) {
+              document.getElementById('modalFormat').value = match.format;
+            }
+            if (match.modeTournoi && document.getElementById('modalModeTournoi')) {
+              document.getElementById('modalModeTournoi').value = match.modeTournoi;
+              handleModalTournoiMapUpdate();
+            }
+            if (match.map && document.getElementById('modalMap')) {
+              const mapEl = document.getElementById('modalMap');
+              if (Array.from(mapEl.options).some(o => o.value === match.map)) {
+                mapEl.value = match.map;
+              }
+            }
+            if (match.objective && document.getElementById('modalObjective')) {
+              document.getElementById('modalObjective').value = match.objective;
+            }
+          }
+
+          document.getElementById('modalKills').value = match.kills ?? 0;
+          document.getElementById('modalDeaths').value = match.deaths ?? 0;
+          document.getElementById('modalDamage').value = match.damage ?? 0;
+          document.getElementById('modalPlacement').value = match.placement ?? 1;
+          document.getElementById('modalWeapon1Cat').value = match.weapon1Cat || "Fusil d'assaut";
+          document.getElementById('modalWeapon2Cat').value = match.weapon2Cat || 'Mitraillette';
+
+          if (match.datetime) {
+            document.getElementById('modalDateTime').value = match.datetime;
+          } else if (match.date) {
+            document.getElementById('modalDateTime').value = `${match.date}T12:00`;
+          } else {
+            initFormDefaults();
+          }
+        }
+      } else {
+        editInput.value = '';
+        modalTitle.innerText = "Nouveau Match";
+        document.getElementById('modalMode').value = 'Battle Royale';
+        handleModalModeChange();
+        document.getElementById('modalKills').value = 0;
+        document.getElementById('modalDeaths').value = 0;
+        document.getElementById('modalDamage').value = '';
+        document.getElementById('modalPlacement').value = '';
+        document.getElementById('modalWeapon1Cat').value = "Fusil d'assaut";
+        document.getElementById('modalWeapon2Cat').value = 'Mitraillette';
+        initFormDefaults();
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeMatchModal() {
+      document.getElementById('matchModal').classList.add('hidden');
+    }
+
+    function handleMatchFormSubmit(e) {
+      e.preventDefault();
+
+      const editId = document.getElementById('matchEditId').value;
+      const mode = document.getElementById('modalMode').value;
+
+      let typePartie = null, modeClasse = null, rank = null, format = null, modeTournoi = null, objective = null;
+      const mapEl = document.getElementById('modalMap');
+      const map = mapEl ? mapEl.value : 'Hajin';
+
+      if (mode === 'Battle Royale' || mode === 'Résurgence') {
+        typePartie = document.getElementById('modalTypePartie')?.value || 'Normal';
+      } else if (mode === 'Classé') {
+        modeClasse = document.getElementById('modalModeClasse')?.value || 'Battle Royale';
+        rank = document.getElementById('modalRank')?.value || 'Bronze';
+      } else if (mode === 'Tournois') {
+        format = document.getElementById('modalFormat')?.value || '1v1';
+        modeTournoi = document.getElementById('modalModeTournoi')?.value || 'Battle Royale';
+        objective = document.getElementById('modalObjective')?.value || 'Course au kill';
+      }
+
+      const kills = parseInt(document.getElementById('modalKills').value, 10) || 0;
+      const deaths = parseInt(document.getElementById('modalDeaths').value, 10) || 0;
+      const damage = parseInt(document.getElementById('modalDamage').value, 10) || 0;
+      const placement = parseInt(document.getElementById('modalPlacement').value, 10) || 1;
+      const weapon1Cat = document.getElementById('modalWeapon1Cat').value;
+      const weapon2Cat = document.getElementById('modalWeapon2Cat').value;
+      const datetime = document.getElementById('modalDateTime').value;
+      const date = datetime ? datetime.slice(0, 10) : new Date().toISOString().split('T')[0];
+
+      const matchObj = {
+        id: editId || ('m_' + Date.now()),
+        mode,
+        typePartie,
+        modeClasse,
+        rank,
+        format,
+        modeTournoi,
+        objective,
+        map,
+        kills,
+        deaths,
+        damage,
+        placement,
+        weapon1Cat,
+        weapon2Cat,
+        datetime,
+        date
+      };
+
+      if (editId) {
+        const index = matches.findIndex(m => m.id === editId);
+        if (index !== -1) {
+          matches[index] = matchObj;
+        }
+        showToast("Match mis à jour avec succès !", "success");
+      } else {
+        matches.unshift(matchObj);
+        showToast("Nouveau match enregistré !", "success");
+      }
+
+      saveMatchesToStorage();
+      closeMatchModal();
+      renderDashboard();
+      renderDefis();
+    }
+
+    function deleteMatch(id) {
+      if (confirm('Es-tu sûr de vouloir supprimer ce match ?')) {
+        matches = matches.filter(m => m.id !== id);
+        saveMatchesToStorage();
+        renderDashboard();
+        renderDefis();
+        showToast("Match supprimé.", "info");
+      }
+    }
+
+    /* ==================== SIDE DRAWER & DATA EXPORT/IMPORT ==================== */
+    function toggleSideDrawer(open) {
+      const drawer = document.getElementById('sideDrawer');
+      const backdrop = document.getElementById('drawerBackdrop');
+      const content = document.getElementById('drawerContent');
+
+      if (open) {
+        drawer.classList.remove('hidden');
+        setTimeout(() => {
+          backdrop.classList.remove('opacity-0');
+          content.classList.remove('translate-x-full');
+        }, 10);
+      } else {
+        backdrop.classList.add('opacity-0');
+        content.classList.add('translate-x-full');
+        setTimeout(() => {
+          drawer.classList.add('hidden');
+        }, 300);
+      }
+    }
+
+    function exportData() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(matches, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `warzone_tracker_backup_${new Date().toISOString().split('T')[0]}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      showToast("Données exportées en JSON", "success");
+    }
+
+    function importData(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        try {
+          const imported = JSON.parse(e.target.result);
+          if (Array.isArray(imported)) {
+            matches = imported;
+          } else if (imported && Array.isArray(imported.matches)) {
+            matches = imported.matches;
+          } else {
+            alert('Format JSON invalide.');
+            return;
+          }
+          saveMatchesToStorage();
+          renderDashboard();
+          renderDefis();
+          toggleSideDrawer(false);
+          showToast("Données importées avec succès !", "success");
+        } catch (err) {
+          alert('Erreur lors de la lecture du fichier JSON.');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function resetDataToDefault() {
+      if (confirm('Réinitialiser toutes les données de matchs aux exemples par défaut ?')) {
+        matches = [...INITIAL_MATCHES];
+        saveMatchesToStorage();
+        renderDashboard();
+        renderDefis();
+        toggleSideDrawer(false);
+        showToast("Données réinitialisées aux exemples.", "info");
+      }
+    }
+
+    /* ==================== TOAST NOTIFICATION ==================== */
+    function showToast(message, type = "info") {
+      const container = document.getElementById('toastContainer');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      let styleClass = "border-purple-500/40 bg-purple-950/90 text-purple-200";
+      if (type === "success") styleClass = "border-emerald-500/40 bg-emerald-950/90 text-emerald-200";
+      if (type === "error") styleClass = "border-rose-500/40 bg-rose-950/90 text-rose-200";
+
+      toast.className = `px-4 py-2.5 text-xs font-bold rounded-xl border ${styleClass} shadow-2xl transition-all duration-300 flex items-center gap-2`;
+      toast.innerHTML = `<span>${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'}</span> ${message}`;
+
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0');
+        setTimeout(() => toast.remove(), 300);
+      }, 2800);
+    }
+  </script>
+  <script src="rewards-system.js"></script>
+</body>
+</html>
