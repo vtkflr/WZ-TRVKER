@@ -1691,10 +1691,10 @@
     }
 
     function resetDefisToDefault() {
-      defis = DEFAULT_DEFIS.map(d => ({ ...d }));
+      defis = DEFAULT_DEFIS.map(d => ({ ...d, current: 0 }));
       saveDefisToStorage();
       renderDefis();
-      showToast("Défis réinitialisés.", "info");
+      showToast("Défis réinitialisés à 0.", "info");
     }
 
     /* ==================== NOUVEAU MATCH MODAL & CONTEXTUAL LOGIC ==================== */
