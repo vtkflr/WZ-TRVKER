@@ -1190,11 +1190,22 @@
     function loadDefis() {
       const stored = localStorage.getItem(DEFIS_KEY);
       if (stored) {
-        try { defis = JSON.parse(stored); } catch (e) { defis = [...DEFAULT_DEFIS]; }
-      } else {
-        defis = [...DEFAULT_DEFIS];
-        saveDefisToStorage();
+        try {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            defis = parsed.map(d => ({
+              ...d,
+              current: Number(d.current) || 0,
+              target: Number(d.target) || 1
+            }));
+            return;
+          }
+        } catch (e) {
+          console.warn('Erreur lecture défis localStorage :', e);
+        }
       }
+      defis = DEFAULT_DEFIS.map(d => ({ ...d, current: Number(d.current) || 0 }));
+      saveDefisToStorage();
     }
 
     function saveDefisToStorage() {
