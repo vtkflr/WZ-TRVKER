@@ -787,14 +787,14 @@
 
         <div class="space-y-3 border-t border-slate-800 pt-4">
           <h4 class="text-xs font-extrabold uppercase text-slate-400 tracking-wider">Contact</h4>
-          <p class="text-[11px] text-slate-400 leading-relaxed">Besoin d'aide, une question ou un partenariat ? Contacte-nous directement :</p>
-          <div class="space-y-2">
-            <a href="mailto:vaianatearikifuller@gmail.com" id="contactEmailLink" class="w-full btn-metal p-2.5 rounded-xl text-xs font-bold text-left flex items-center gap-2 text-cyan-200 hover:text-white">
-              <i class="fa-solid fa-envelope text-cyan-400"></i> <span id="contactEmailText">vaianatearikifuller@gmail.com</span>
+          <div class="grid grid-cols-2 gap-2">
+            <a href="mailto:vaianatearikifuller@gmail.com" id="contactEmailLink" title="Ouvrir l'application mail (vaianatearikifuller@gmail.com)" class="btn-metal p-3 rounded-xl text-xs font-extrabold flex items-center justify-center gap-2 text-cyan-200 hover:text-white">
+              <i class="fa-solid fa-envelope text-cyan-400 text-sm"></i>
+              <span>E-mail</span>
             </a>
-            <button type="button" onclick="copyDiscordContact()" id="contactDiscordBtn" class="w-full btn-metal p-2.5 rounded-xl text-xs font-bold text-left flex items-center justify-between gap-2 text-indigo-200 hover:text-white">
-              <span class="flex items-center gap-2 truncate"><i class="fa-brands fa-discord text-indigo-400 shrink-0"></i> <span id="contactDiscordText" class="truncate">Discord : idfound.jm</span></span>
-              <i class="fa-regular fa-copy text-[11px] text-indigo-300 shrink-0"></i>
+            <button type="button" onclick="openDiscordContact()" id="contactDiscordBtn" title="Ouvrir Discord et copier le pseudo idfound.jm" class="btn-metal p-3 rounded-xl text-xs font-extrabold flex items-center justify-center gap-2 text-indigo-200 hover:text-white">
+              <i class="fa-brands fa-discord text-indigo-400 text-sm"></i>
+              <span>Discord</span>
             </button>
           </div>
         </div>
@@ -2580,13 +2580,18 @@
     }
 
 
-    function copyDiscordContact() {
+    function openDiscordContact() {
       const handle = 'idfound.jm';
-      navigator.clipboard?.writeText(handle).then(() => {
-        showToast('Pseudo Discord copié : ' + handle, 'success');
-      }).catch(() => {
-        showToast('Discord : ' + handle, 'info');
-      });
+      if (navigator.clipboard?.writeText) {
+        navigator.clipboard.writeText(handle).catch(() => {});
+      }
+      showToast('Pseudo copié : ' + handle + ' — Ouverture de Discord...', 'success');
+      window.open('discord://-/users/idfound.jm', '_blank') || (window.location.href = 'https://discord.com/app');
+      setTimeout(() => {
+        if (!document.hidden) {
+          window.open('https://discord.com/app', '_blank', 'noopener,noreferrer');
+        }
+      }, 600);
     }
 
     function copyFriendCode() {
