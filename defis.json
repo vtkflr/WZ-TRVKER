@@ -2,41 +2,41 @@
   {
     "id": "d1",
     "title": "Domination Résurgence",
-    "desc": "Faire 1 000 éliminations en mode Résurgence",
+    "desc": "Faire 1 500 éliminations en mode Résurgence",
     "current": 0,
-    "target": 1000,
-    "xp": "2,500 XP"
+    "target": 1500,
+    "xp": "4,000 XP"
   },
   {
     "id": "d2",
     "title": "Maître du Top 1",
-    "desc": "Décrocher 50 victoires (Top 1) toutes cartes confondues",
+    "desc": "Décrocher 75 victoires (Top 1) toutes cartes confondues",
     "current": 0,
-    "target": 50,
-    "xp": "5,000 XP"
+    "target": 75,
+    "xp": "7,500 XP"
   },
   {
     "id": "d3",
     "title": "Artillerie Lourde",
-    "desc": "Infliger 650 000 points de dégâts cumulés",
+    "desc": "Infliger 1 000 000 points de dégâts cumulés",
     "current": 0,
-    "target": 650000,
-    "xp": "3,000 XP"
+    "target": 1000000,
+    "xp": "5,000 XP"
   },
   {
     "id": "d4",
     "title": "Tireur d'Élite",
-    "desc": "Réaliser 250 éliminations au Fusil de précision ou Tactique",
+    "desc": "Réaliser 500 éliminations au Fusil de précision ou Tactique",
     "current": 0,
-    "target": 250,
-    "xp": "2,000 XP"
+    "target": 500,
+    "xp": "4,500 XP"
   },
   {
     "id": "d5",
-    "title": "Contrat Rempli",
-    "desc": "Faire 600 partie",
+    "title": "Marathonien Saison 1",
+    "desc": "Jouer 800 parties complètes",
     "current": 0,
-    "target": 600,
-    "xp": "4,000 XP"
+    "target": 800,
+    "xp": "6,000 XP"
   }
 ]

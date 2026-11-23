@@ -465,7 +465,7 @@
         </div>
         <button type="button" onclick="openAccountModal()" class="btn-metal px-4 py-2 rounded-xl text-xs font-bold text-cyan-300 flex items-center gap-2">
           <i class="fa-solid fa-user-plus"></i>
-          <span>Gérer mon compte / amis</span>
+          <span>Mon compte</span>
         </button>
       </div>
 
@@ -785,7 +785,7 @@
           </div>
           <div id="drawerLoggedInActions" class="hidden space-y-2">
             <button onclick="toggleSideDrawer(false); openAccountModal();" class="w-full btn-metal p-3 rounded-xl text-xs font-bold text-left flex items-center justify-between gap-2 text-cyan-200">
-              <span class="flex items-center gap-2"><i class="fa-solid fa-user-group text-cyan-400"></i> Mon profil & Amis</span>
+              <span class="flex items-center gap-2"><i class="fa-solid fa-user-gear text-cyan-400"></i> Mon compte</span>
               <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
             </button>
           </div>
@@ -901,15 +901,15 @@
   </div>
 
   <div id="accountModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto">
-    <div class="glass-modal w-full max-w-2xl rounded-3xl border border-cyan-500/35 shadow-2xl relative overflow-hidden my-auto max-h-[92vh] flex flex-col">
+    <div class="glass-modal w-full max-w-xl rounded-3xl border border-cyan-500/35 shadow-2xl relative overflow-hidden my-auto max-h-[92vh] flex flex-col">
       <div class="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between bg-gradient-to-r from-cyan-950/50 to-purple-950/40 shrink-0">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-xl bg-cyan-500/15 border border-cyan-400/40 flex items-center justify-center text-cyan-300 shrink-0">
-            <i class="fa-solid fa-user-group text-lg"></i>
+            <i class="fa-solid fa-user-gear text-lg"></i>
           </div>
           <div>
-            <span class="text-[10px] font-extrabold uppercase tracking-widest text-cyan-400">Synchronisation Cloud & Social</span>
-            <h3 class="text-lg font-black text-white uppercase tracking-wider">Compte & Amis</h3>
+            <span class="text-[10px] font-extrabold uppercase tracking-widest text-cyan-400">Profil & Synchronisation Cloud</span>
+            <h3 class="text-lg font-black text-white uppercase tracking-wider">Mon Compte</h3>
           </div>
         </div>
         <button onclick="closeAccountModal()" class="text-slate-400 hover:text-white p-1.5 rounded-lg bg-slate-900/50 hover:bg-slate-800 transition-all">
@@ -958,7 +958,8 @@
             <div>
               <div class="text-[10px] font-extrabold uppercase text-cyan-400">Connecté en tant que</div>
               <div id="profileUsernameDisplay" class="text-lg font-black text-white mt-0.5">Joueur</div>
-              <div class="flex items-center gap-2 mt-1.5">
+              <div id="profileEmailDisplay" class="text-[11px] text-slate-400 mt-0.5"></div>
+              <div class="flex items-center gap-2 mt-2">
                 <span class="text-[11px] text-slate-400">Code Ami :</span>
                 <code id="profileFriendCodeDisplay" class="text-xs font-black px-2.5 py-0.5 rounded-lg bg-purple-950 text-purple-200 border border-purple-700/60 select-all">WZ-000000</code>
                 <button type="button" onclick="copyFriendCode()" class="text-[11px] font-bold text-cyan-400 hover:text-cyan-300">
@@ -966,7 +967,7 @@
                 </button>
               </div>
             </div>
-            <div class="flex items-center gap-2">
+            <div class="flex flex-wrap items-center gap-2">
               <button type="button" onclick="syncCloudNow()" class="btn-metal px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5">
                 <i class="fa-solid fa-cloud-arrow-up text-emerald-400"></i> Synchroniser
               </button>
@@ -977,48 +978,14 @@
           </div>
 
           <div class="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-2.5">
-            <h4 class="text-xs font-black uppercase text-white tracking-wider flex items-center gap-2">
-              <i class="fa-solid fa-user-plus text-pink-400"></i> Ajouter un ami
-            </h4>
-            <form onsubmit="handleAddFriend(event)" class="flex flex-col sm:flex-row gap-2">
-              <input type="text" id="friendSearchInput" placeholder="Entre le code ami (ex: WZ-AB12CD) ou son pseudo..." class="glass-input text-xs flex-1" required />
-              <button type="submit" class="btn-accent px-4 py-2 text-xs uppercase tracking-wider shrink-0">Envoyer</button>
-            </form>
-          </div>
-
-          <div class="space-y-2">
-            <h4 class="text-xs font-black uppercase text-amber-300 tracking-wider flex items-center gap-2">
-              <i class="fa-solid fa-bell"></i> Demandes d'amis reçues
-            </h4>
-            <div id="pendingRequestsContainer" class="space-y-2">
-              <div class="text-xs text-slate-500">Aucune demande en attente.</div>
-            </div>
-          </div>
-
-          <div class="space-y-2">
             <h4 class="text-xs font-black uppercase text-purple-300 tracking-wider flex items-center gap-2">
-              <i class="fa-solid fa-users"></i> Mes Amis
+              <i class="fa-solid fa-pen text-purple-400"></i> Modifier mon pseudo
             </h4>
-            <div id="friendsListContainer" class="space-y-2">
-              <div class="text-xs text-slate-500">Aucun ami accepté pour le moment.</div>
-            </div>
-          </div>
-
-          <div id="friendsStatsCategorySection" class="hidden p-4 rounded-2xl bg-slate-950/80 border border-cyan-500/30 space-y-3">
-            <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
-              <h4 class="text-xs font-black uppercase text-cyan-300 tracking-wider flex items-center gap-2">
-                <i class="fa-solid fa-ranking-star text-amber-400"></i> Amis et Statistique
-              </h4>
-              <span class="text-[10px] font-bold text-slate-400">Classement • Kills • K/D • Top 1</span>
-            </div>
-            <div id="friendsLeaderboardContainer" class="space-y-2"></div>
-            <div id="friendStatsDetailBox" class="hidden p-4 rounded-2xl bg-purple-950/30 border border-purple-500/35 space-y-3">
-              <div class="flex items-center justify-between">
-                <h5 id="friendStatsTitle" class="text-xs font-black uppercase text-white">Statistiques de l'ami</h5>
-                <button type="button" onclick="document.getElementById('friendStatsDetailBox').classList.add('hidden')" class="text-xs text-slate-400 hover:text-white">Fermer</button>
-              </div>
-              <div id="friendStatsGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5"></div>
-            </div>
+            <form onsubmit="handleUpdateUsername(event)" class="flex flex-col sm:flex-row gap-2">
+              <input type="text" id="newUsernameInput" minlength="2" maxlength="24" placeholder="Nouveau pseudo..." class="glass-input text-xs flex-1" required />
+              <button type="submit" id="updateUsernameBtn" class="btn-accent px-4 py-2 text-xs uppercase tracking-wider shrink-0">Enregistrer</button>
+            </form>
+            <p class="text-[11px] text-slate-400">Ce pseudo sera visible par tes amis dans la section Amis & Classement.</p>
           </div>
         </div>
       </div>
@@ -1074,11 +1041,11 @@
     ];
 
     const FALLBACK_DEFAULT_DEFIS = [
-      { "id": "d1", "title": "Domination Résurgence", "desc": "Faire 1 000 éliminations en mode Résurgence", "current": 0, "target": 1000, "xp": "2,500 XP" },
-      { "id": "d2", "title": "Maître du Top 1", "desc": "Décrocher 50 victoires (Top 1) toutes cartes confondues", "current": 0, "target": 50, "xp": "5,000 XP" },
-      { "id": "d3", "title": "Artillerie Lourde", "desc": "Infliger 650 000 points de dégâts cumulés", "current": 0, "target": 650000, "xp": "3,000 XP" },
-      { "id": "d4", "title": "Tireur d'Élite", "desc": "Réaliser 250 éliminations au Fusil de précision ou Tactique", "current": 0, "target": 250, "xp": "2,000 XP" },
-      { "id": "d5", "title": "Contrat Rempli", "desc": "Faire 600 partie", "current": 0, "target": 600, "xp": "4,000 XP" }
+      { "id": "d1", "title": "Domination Résurgence", "desc": "Faire 1 500 éliminations en mode Résurgence", "current": 0, "target": 1500, "xp": "4,000 XP" },
+      { "id": "d2", "title": "Maître du Top 1", "desc": "Décrocher 75 victoires (Top 1) toutes cartes confondues", "current": 0, "target": 75, "xp": "7,500 XP" },
+      { "id": "d3", "title": "Artillerie Lourde", "desc": "Infliger 1 000 000 points de dégâts cumulés", "current": 0, "target": 1000000, "xp": "5,000 XP" },
+      { "id": "d4", "title": "Tireur d'Élite", "desc": "Réaliser 500 éliminations au Fusil de précision ou Tactique", "current": 0, "target": 500, "xp": "4,500 XP" },
+      { "id": "d5", "title": "Marathonien Saison 1", "desc": "Jouer 800 parties complètes", "current": 0, "target": 800, "xp": "6,000 XP" }
     ];
 
     let matches = [];
@@ -1144,11 +1111,17 @@
         try {
           const parsed = JSON.parse(stored);
           if (Array.isArray(parsed) && parsed.length > 0) {
-            defis = parsed.map(d => ({
-              ...d,
-              current: Number(d.current) || 0,
-              target: Number(d.target) || 1
-            }));
+            const byId = new Map(parsed.map(x => [x.id, x]));
+            const baseList = DEFAULT_DEFIS.length > 0 ? DEFAULT_DEFIS : parsed;
+            defis = baseList.map(defItem => {
+              const savedItem = byId.get(defItem.id);
+              return {
+                ...defItem,
+                current: savedItem ? (Number(savedItem.current) || 0) : (Number(defItem.current) || 0),
+                target: Number(defItem.target) || 1
+              };
+            });
+            saveDefisToStorage();
             return;
           }
         } catch (e) {}
@@ -2583,6 +2556,10 @@
         inView.classList.remove('hidden');
         if (!currentProfile || !currentProfile.friend_code) currentProfile = getLocalFallbackProfile(currentUser);
         document.getElementById('profileUsernameDisplay').innerText = currentProfile?.username || currentUser.email;
+        const emailEl = document.getElementById('profileEmailDisplay');
+        if (emailEl) emailEl.innerText = currentUser.email || '';
+        const newUserInput = document.getElementById('newUsernameInput');
+        if (newUserInput) newUserInput.value = currentProfile?.username || '';
         document.getElementById('profileFriendCodeDisplay').innerText = currentProfile?.friend_code || generateFriendCode();
       } else {
         outView.classList.remove('hidden');
@@ -2652,6 +2629,58 @@
       updateAccountHeaderUI();
       renderAmisTab();
       showToast('Déconnecté.', 'info');
+    }
+
+    async function handleUpdateUsername(e) {
+      e.preventDefault();
+      if (!currentUser) return;
+      const input = document.getElementById('newUsernameInput');
+      const btn = document.getElementById('updateUsernameBtn');
+      const rawName = (input?.value || '').trim();
+      if (rawName.length < 2) {
+        showToast('Le pseudo doit contenir au moins 2 caractères.', 'error');
+        return;
+      }
+      const cleanName = rawName.slice(0, 24);
+      const origHtml = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> ...';
+      }
+      try {
+        if (supabaseClient) {
+          const { data: updated, error } = await supabaseClient
+            .from('profiles')
+            .update({ username: cleanName })
+            .eq('id', currentUser.id)
+            .select()
+            .maybeSingle();
+          if (error) {
+            if (error.code === '23505') {
+              showToast('Ce pseudo est déjà utilisé par un autre joueur.', 'error');
+              return;
+            }
+            throw error;
+          }
+          currentProfile = updated || { ...(currentProfile || {}), id: currentUser.id, username: cleanName };
+        } else {
+          currentProfile = { ...(currentProfile || {}), id: currentUser.id, username: cleanName };
+        }
+        try {
+          localStorage.setItem(`WZ_LOCAL_PROFILE_${currentUser.id}`, JSON.stringify(currentProfile));
+        } catch (_) {}
+        renderAccountModalViews();
+        updateAccountHeaderUI();
+        if (typeof refreshFriendsData === 'function') await refreshFriendsData();
+        showToast('Pseudo mis à jour : ' + cleanName, 'success');
+      } catch (err) {
+        showToast(err?.message || 'Impossible de modifier le pseudo.', 'error');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = origHtml;
+        }
+      }
     }
 
 
@@ -2840,13 +2869,17 @@
         const friendsHtml = acceptedRel.map(rel => {
           const fid = rel.requester_id === currentUser.id ? rel.addressee_id : rel.requester_id;
           const p = profileMap.get(fid);
-          const safeName = (p?.username || 'Ami').replace(/'/g, '');
+          const safeName = (p?.username || 'Ami').replace(/'/g, '\\\'');
           return `
             <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center justify-between gap-2">
               <div>
                 <div class="text-xs font-black text-white">${p?.username || 'Ami'}</div>
                 <div class="text-[10px] text-slate-400">Code : ${p?.friend_code || '---'}</div>
               </div>
+              <button type="button" onclick="removeFriend('${rel.id}', '${safeName}')" class="px-2.5 py-1.5 rounded-lg bg-rose-950/60 hover:bg-rose-600 text-rose-300 hover:text-white border border-rose-500/30 text-[11px] font-bold transition flex items-center gap-1.5" title="Supprimer cet ami">
+                <i class="fa-solid fa-user-minus"></i>
+                <span>Supprimer</span>
+              </button>
             </div>
           `;
         }).join('');
@@ -2918,6 +2951,23 @@
         showToast('Demande refusée.', 'info');
       }
       await refreshFriendsData();
+    }
+
+    async function removeFriend(friendshipId, friendName) {
+      if (!supabaseClient || !currentUser) return;
+      const label = friendName || 'cet ami';
+      if (!confirm(`Supprimer ${label} de ta liste d'amis ?`)) return;
+      try {
+        const { error } = await supabaseClient
+          .from('friendships')
+          .delete()
+          .eq('id', friendshipId);
+        if (error) throw error;
+        showToast(`${label} a été supprimé de tes amis.`, 'info');
+        await refreshFriendsData();
+      } catch (err) {
+        showToast(err?.message || 'Erreur lors de la suppression de l’ami.', 'error');
+      }
     }
 
     function computeStatsSummary(list) {
@@ -3110,7 +3160,7 @@
             const keys = await caches.keys();
             await Promise.all(keys.map(k => caches.delete(k)));
           }
-          const reg = await navigator.serviceWorker.register('./sw.js?v=31');
+          const reg = await navigator.serviceWorker.register('./sw.js?v=32');
           await reg.update();
         } catch (_) {}
       });
