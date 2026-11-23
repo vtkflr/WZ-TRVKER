@@ -1,313 +1,184 @@
-/**
- * WARZONE TRACKER - SYSTÈME DE RÉCOMPENSES, NIVEAUX & PERSONNALISATION
- * Fichier autonome prêt pour GitHub Pages / Hébergement statique
- */
+(function () {
+  const REWARDS_STORAGE_KEY = 'WZ_TRACKER_REWARDS_V1';
 
-const REWARDS_CONFIG = {
-  // Paliers de Niveaux (XP requise)
-  levels: [
-    { level: 1,  xp: 0,      rank: "Recrue" },
-    { level: 2,  xp: 2500,   rank: "Soldat" },
-    { level: 3,  xp: 6000,   rank: "Caporal" },
-    { level: 4,  xp: 12000,  rank: "Sergent" },
-    { level: 5,  xp: 20000,  rank: "Lieutenant" },
-    { level: 6,  xp: 32000,  rank: "Commandant" },
-    { level: 7,  xp: 50000,  rank: "Général" },
-    { level: 8,  xp: 75000,  rank: "Prestige 1" },
-    { level: 9,  xp: 110000, rank: "Maître Prestige" },
-    { level: 10, xp: 150000, rank: "Légende Warzone" }
-  ],
+  const RANKS = [
+    { minLevel: 1, name: 'Recrue', color: 'text-slate-300' },
+    { minLevel: 5, name: 'Opérateur', color: 'text-sky-400' },
+    { minLevel: 10, name: 'Vétéran', color: 'text-purple-400' },
+    { minLevel: 15, name: 'Élite', color: 'text-fuchsia-400' },
+    { minLevel: 20, name: 'Légende', color: 'text-amber-400' }
+  ];
 
-  // 1. TITRES D'OPÉRATEUR
-  titles: [
-    { id: "t_default", name: "Opérateur Saison 1",     reqXP: 0,      rarity: "Commun" },
-    { id: "t_hunter",  name: "Chasseur de Primes",     reqXP: 5000,   rarity: "Rare" },
-    { id: "t_demon",   name: "Démon de la Résurgence", reqXP: 15000,  rarity: "Épique" },
-    { id: "t_reaper",  name: "Faucheuse du Goulag",    reqXP: 35000,  rarity: "Épique" },
-    { id: "t_nuke",    name: "Porteur de Bombe Nuke",  reqXP: 75000,  rarity: "Légendaire" },
-    { id: "t_iri",     name: "Seigneur Iridescent",    reqXP: 120000, rarity: "Ultime" }
-  ],
+  const TITLES = [
+    { id: 't_recrue', label: 'Opérateur Saison 1', unlockLevel: 1, rarity: 'Commun' },
+    { id: 't_resurgence', label: 'Fléau de la Résurgence', unlockLevel: 3, rarity: 'Rare' },
+    { id: 't_top1', label: 'Chasseur de Top 1', unlockLevel: 6, rarity: 'Épique' },
+    { id: 't_sniper', label: 'Œil de Lynx', unlockLevel: 9, rarity: 'Épique' },
+    { id: 't_warlord', label: 'Seigneur de Guerre MW4', unlockLevel: 15, rarity: 'Légendaire' }
+  ];
 
-  // 2. EMBLÈMES (Pour le cadre en haut à gauche)
-  emblems: [
-    { id: "e_crosshair", name: "Viseur Tactique", icon: "fa-crosshair", color: "text-purple-400", reqXP: 0 },
-    { id: "e_skull",     name: "Crâne Élite",     icon: "fa-skull",     color: "text-slate-200",  reqXP: 8000 },
-    { id: "e_fire",      name: "Série Sanglante", icon: "fa-fire",      color: "text-orange-400", reqXP: 25000 },
-    { id: "e_crown",     name: "Roi du Top 1",    icon: "fa-crown",     color: "text-amber-400",  reqXP: 50000 },
-    { id: "e_dragon",    name: "Bête Mythique",   icon: "fa-dragon",    color: "text-rose-500",   reqXP: 90000 },
-    { id: "e_gem",       name: "Diamant Pur",     icon: "fa-gem",       color: "text-cyan-400",   reqXP: 140000 }
-  ],
+  const AVATARS = [
+    { id: 'a_crosshair', name: 'Viseur Tactique', icon: 'fa-crosshair', border: 'from-purple-600 via-fuchsia-600 to-pink-500', unlockLevel: 1 },
+    { id: 'a_skull', name: 'Crâne Opérateur', icon: 'fa-skull', border: 'from-rose-600 via-pink-600 to-purple-500', unlockLevel: 4 },
+    { id: 'a_crown', name: 'Couronne Royale', icon: 'fa-crown', border: 'from-amber-400 via-yellow-500 to-orange-500', unlockLevel: 8 },
+    { id: 'a_bolt', name: 'Foudre de Zone', icon: 'fa-bolt', border: 'from-cyan-400 via-sky-500 to-indigo-500', unlockLevel: 12 },
+    { id: 'a_dragon', name: 'Apex Mythique', icon: 'fa-fire-flame-curved', border: 'from-fuchsia-500 via-rose-500 to-amber-400', unlockLevel: 18 }
+  ];
 
-  // 3. BORDURES D'AVATAR (Contour du carré en haut à gauche)
-  borders: [
-    { id: "b_purple", name: "Néon Dark Matter",  css: "from-purple-600 via-fuchsia-600 to-pink-500", reqXP: 0 },
-    { id: "b_gold",   name: "Or Prestige",       css: "from-amber-400 via-yellow-500 to-orange-600", reqXP: 12000 },
-    { id: "b_toxic",  name: "Gaz Nova 6",        css: "from-emerald-400 via-green-500 to-teal-600",  reqXP: 30000 },
-    { id: "b_crimson",name: "Sang Crimson",      css: "from-red-600 via-rose-600 to-orange-500",     reqXP: 65000 },
-    { id: "b_iri",    name: "Prisme Iridescent", css: "from-cyan-400 via-purple-500 to-pink-500 animate-pulse", reqXP: 110000 }
-  ],
+  function calculateLevelFromXp(xp) {
+    const safeXp = Math.max(0, Number(xp) || 0);
+    const xpPerLevel = 2500;
+    const level = Math.floor(safeXp / xpPerLevel) + 1;
+    const currentLevelXp = safeXp % xpPerLevel;
+    return { level, currentLevelXp, xpPerLevel, totalXp: safeXp };
+  }
 
-  // 4. THÈMES DE COULEURS DU SITE
-  themes: [
-    {
-      id: "th_default",
-      name: "Dark Matter (Défaut)",
-      reqXP: 0,
-      preview: "bg-gradient-to-r from-purple-600 to-pink-600",
-      glow: "radial-gradient(circle at 15% 15%, rgba(124, 58, 237, 0.18) 0%, transparent 45%), radial-gradient(circle at 85% 65%, rgba(236, 72, 153, 0.14) 0%, transparent 50%)"
-    },
-    {
-      id: "th_gold",
-      name: "Or & Carbone",
-      reqXP: 20000,
-      preview: "bg-gradient-to-r from-amber-500 to-yellow-600",
-      glow: "radial-gradient(circle at 15% 15%, rgba(245, 158, 11, 0.18) 0%, transparent 45%), radial-gradient(circle at 85% 65%, rgba(234, 179, 8, 0.12) 0%, transparent 50%)"
-    },
-    {
-      id: "th_emerald",
-      name: "Vision Nocturne",
-      reqXP: 45000,
-      preview: "bg-gradient-to-r from-emerald-500 to-teal-600",
-      glow: "radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.18) 0%, transparent 45%), radial-gradient(circle at 85% 65%, rgba(20, 184, 166, 0.12) 0%, transparent 50%)"
-    },
-    {
-      id: "th_crimson",
-      name: "Alerte Rouge",
-      reqXP: 85000,
-      preview: "bg-gradient-to-r from-red-600 to-orange-600",
-      glow: "radial-gradient(circle at 15% 15%, rgba(220, 38, 38, 0.20) 0%, transparent 45%), radial-gradient(circle at 85% 65%, rgba(234, 88, 12, 0.14) 0%, transparent 50%)"
+  function getRankForLevel(level) {
+    let current = RANKS[0];
+    for (const r of RANKS) {
+      if (level >= r.minLevel) current = r;
     }
-  ]
-};
+    return current;
+  }
 
-// État sauvegardé du joueur
-const STORAGE_REWARDS_KEY = "wz_tracker_profile_rewards_v1";
+  function loadRewardsState() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(REWARDS_STORAGE_KEY) || '{}');
+      return {
+        equippedTitle: saved.equippedTitle || 't_recrue',
+        equippedAvatar: saved.equippedAvatar || 'a_crosshair',
+        totalXp: Number(saved.totalXp) || 0
+      };
+    } catch (_) {
+      return { equippedTitle: 't_recrue', equippedAvatar: 'a_crosshair', totalXp: 0 };
+    }
+  }
 
-function getPlayerProfile() {
-  const defaultProfile = {
-    xp: 0,
-    equippedTitle: "t_default",
-    equippedEmblem: "e_crosshair",
-    equippedBorder: "b_purple",
-    equippedTheme: "th_default"
+  function saveRewardsState(state) {
+    localStorage.setItem(REWARDS_STORAGE_KEY, JSON.stringify(state));
+  }
+
+  window.equipRewardTitle = function (titleId) {
+    const state = loadRewardsState();
+    const { level } = calculateLevelFromXp(state.totalXp);
+    const item = TITLES.find(t => t.id === titleId);
+    if (!item || level < item.unlockLevel) return;
+    state.equippedTitle = titleId;
+    saveRewardsState(state);
+    window.syncPlayerXP(state.totalXp);
   };
-  try {
-    return { ...defaultProfile, ...JSON.parse(localStorage.getItem(STORAGE_REWARDS_KEY) || "{}") };
-  } catch (e) {
-    return defaultProfile;
-  }
-}
 
-function savePlayerProfile(profile) {
-  localStorage.setItem(STORAGE_REWARDS_KEY, JSON.stringify(profile));
-  applyProfileCosmetics();
-  renderRewardsLocker();
-}
+  window.equipRewardAvatar = function (avatarId) {
+    const state = loadRewardsState();
+    const { level } = calculateLevelFromXp(state.totalXp);
+    const item = AVATARS.find(a => a.id === avatarId);
+    if (!item || level < item.unlockLevel) return;
+    state.equippedAvatar = avatarId;
+    saveRewardsState(state);
+    window.syncPlayerXP(state.totalXp);
+  };
 
-// Ajouter de l'XP (à appeler quand un défi est validé ou un match joué)
-function addPlayerXP(amount) {
-  const profile = getPlayerProfile();
-  profile.xp = Math.max(0, (parseInt(profile.xp, 10) || 0) + (parseInt(amount, 10) || 0));
-  savePlayerProfile(profile);
-}
+  window.syncPlayerXP = function (newXp) {
+    const state = loadRewardsState();
+    state.totalXp = Math.max(0, Number(newXp) || 0);
+    const { level, currentLevelXp, xpPerLevel, totalXp } = calculateLevelFromXp(state.totalXp);
+    const rank = getRankForLevel(level);
 
-// Définir l'XP exacte (utile pour synchroniser avec le total de vos défis)
-function syncPlayerXP(totalXP) {
-  const profile = getPlayerProfile();
-  profile.xp = Math.max(0, parseInt(totalXP, 10) || 0);
-  savePlayerProfile(profile);
-}
-
-// Équiper un élément débloqué
-function equipCosmetic(category, id) {
-  const profile = getPlayerProfile();
-  if (category === "title") profile.equippedTitle = id;
-  if (category === "emblem") profile.equippedEmblem = id;
-  if (category === "border") profile.equippedBorder = id;
-  if (category === "theme") profile.equippedTheme = id;
-  savePlayerProfile(profile);
-}
-
-// Calculer le niveau actuel du joueur
-function getLevelInfo(xp) {
-  let current = REWARDS_CONFIG.levels[0];
-  let next = null;
-  for (let i = 0; i < REWARDS_CONFIG.levels.length; i++) {
-    if (xp >= REWARDS_CONFIG.levels[i].xp) {
-      current = REWARDS_CONFIG.levels[i];
-      next = REWARDS_CONFIG.levels[i + 1] || null;
+    let activeTitle = TITLES.find(t => t.id === state.equippedTitle && level >= t.unlockLevel);
+    if (!activeTitle) {
+      activeTitle = [...TITLES].reverse().find(t => level >= t.unlockLevel) || TITLES[0];
+      state.equippedTitle = activeTitle.id;
     }
-  }
-  return { current, next };
-}
 
-// Appliquer visuellement les récompenses équipées sur tout le site
-function applyProfileCosmetics() {
-  const profile = getPlayerProfile();
-  const { current, next } = getLevelInfo(profile.xp);
-
-  // 1. Appliquer l'Emblème et la Bordure dans le Header (carré en haut à gauche)
-  const headerBorderEl = document.getElementById("headerAvatarBorder");
-  const headerIconEl = document.getElementById("headerAvatarIcon");
-  const borderObj = REWARDS_CONFIG.borders.find(b => b.id === profile.equippedBorder) || REWARDS_CONFIG.borders[0];
-  const emblemObj = REWARDS_CONFIG.emblems.find(e => e.id === profile.equippedEmblem) || REWARDS_CONFIG.emblems[0];
-
-  if (headerBorderEl) {
-    headerBorderEl.className = `w-10 h-10 rounded-xl bg-gradient-to-tr ${borderObj.css} p-0.5 shadow-lg transition-all duration-300`;
-  }
-  if (headerIconEl) {
-    headerIconEl.className = `fa-solid ${emblemObj.icon} ${emblemObj.color} text-base transition-all duration-300`;
-  }
-
-  // 2. Appliquer le Titre équipé
-  const titleObj = REWARDS_CONFIG.titles.find(t => t.id === profile.equippedTitle) || REWARDS_CONFIG.titles[0];
-  const headerTitleBadge = document.getElementById("headerEquippedTitle");
-  if (headerTitleBadge) {
-    headerTitleBadge.textContent = `NIV. ${current.level} • ${titleObj.name}`;
-  }
-
-  // 3. Appliquer le Thème de fond
-  const themeObj = REWARDS_CONFIG.themes.find(th => th.id === profile.equippedTheme) || REWARDS_CONFIG.themes[0];
-  const glowBg = document.querySelector(".bg-ambient-glow");
-  if (glowBg) {
-    glowBg.style.background = themeObj.glow;
-  }
-
-  // 4. Mettre à jour la carte de profil dans l'onglet Récompenses / Défis
-  const lvlNumEl = document.getElementById("lockerLevelNum");
-  const lvlRankEl = document.getElementById("lockerRankName");
-  const xpTextEl = document.getElementById("lockerXpText");
-  const xpBarEl = document.getElementById("lockerXpBar");
-  const activeTitleEl = document.getElementById("lockerActiveTitle");
-
-  if (lvlNumEl) lvlNumEl.textContent = `NIVEAU ${current.level}`;
-  if (lvlRankEl) lvlRankEl.textContent = current.rank;
-  if (activeTitleEl) activeTitleEl.textContent = `« ${titleObj.name} »`;
-
-  if (xpTextEl && xpBarEl) {
-    if (next) {
-      const pct = Math.min(100, Math.round(((profile.xp - current.xp) / (next.xp - current.xp)) * 100));
-      xpTextEl.textContent = `${profile.xp.toLocaleString("fr-FR")} / ${next.xp.toLocaleString("fr-FR")} XP`;
-      xpBarEl.style.width = `${pct}%`;
-    } else {
-      xpTextEl.textContent = `${profile.xp.toLocaleString("fr-FR")} XP (NIVEAU MAX)`;
-      xpBarEl.style.width = "100%";
+    let activeAvatar = AVATARS.find(a => a.id === state.equippedAvatar && level >= a.unlockLevel);
+    if (!activeAvatar) {
+      activeAvatar = [...AVATARS].reverse().find(a => level >= a.unlockLevel) || AVATARS[0];
+      state.equippedAvatar = activeAvatar.id;
     }
-  }
-}
 
-// Générer l'interface du Casier de Récompenses (Locker)
-function renderRewardsLocker() {
-  const container = document.getElementById("rewardsLockerContainer");
-  if (!container) return;
+    saveRewardsState(state);
 
-  const profile = getPlayerProfile();
-  const xp = profile.xp;
+    const headerTitle = document.getElementById('headerEquippedTitle');
+    if (headerTitle) headerTitle.innerText = `NIV. ${level} • ${activeTitle.label}`;
 
-  const renderSection = (title, icon, items, categoryKey, equippedId, renderPreview) => `
-    <div class="glass-card rounded-2xl p-5 space-y-3">
-      <h3 class="text-xs font-black uppercase tracking-wider text-slate-300 flex items-center gap-2 border-b border-slate-800/80 pb-2.5">
-        <i class="fa-solid ${icon} text-purple-400"></i> ${title}
-      </h3>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-        ${items.map(item => {
-          const isUnlocked = xp >= item.reqXP;
-          const isEquipped = equippedId === item.id;
-          return `
-            <div class="p-3.5 rounded-xl border transition flex flex-col justify-between gap-3 ${
-              isEquipped
-                ? "bg-purple-950/30 border-purple-500/60"
-                : isUnlocked
-                  ? "bg-slate-900/70 border-slate-800 hover:border-slate-600"
-                  : "bg-slate-950/60 border-slate-900 opacity-60"
-            }">
-              <div class="flex items-center gap-3">
-                ${renderPreview(item, isUnlocked)}
-                <div>
-                  <div class="text-xs font-bold text-white">${item.name}</div>
-                  <div class="text-[10px] font-semibold ${isUnlocked ? "text-emerald-400" : "text-slate-400"}">
-                    ${isUnlocked ? "Débloqué" : `<i class="fa-solid fa-lock mr-1"></i>Requis : ${item.reqXP.toLocaleString("fr-FR")} XP`}
+    const headerIcon = document.getElementById('headerAvatarIcon');
+    if (headerIcon) headerIcon.className = `fa-solid ${activeAvatar.icon} text-purple-400 text-base`;
+
+    const headerBorder = document.getElementById('headerAvatarBorder');
+    if (headerBorder) headerBorder.className = `w-10 h-10 rounded-xl bg-gradient-to-tr ${activeAvatar.border} p-0.5 shadow-lg shadow-purple-950/50`;
+
+    const lvlNumEl = document.getElementById('lockerLevelNum');
+    if (lvlNumEl) lvlNumEl.innerText = `NIVEAU ${level}`;
+
+    const rankNameEl = document.getElementById('lockerRankName');
+    if (rankNameEl) rankNameEl.innerText = rank.name;
+
+    const activeTitleEl = document.getElementById('lockerActiveTitle');
+    if (activeTitleEl) activeTitleEl.innerText = `« ${activeTitle.label} »`;
+
+    const xpTextEl = document.getElementById('lockerXpText');
+    if (xpTextEl) xpTextEl.innerText = `${currentLevelXp.toLocaleString('fr-FR')} / ${xpPerLevel.toLocaleString('fr-FR')} XP (${totalXp.toLocaleString('fr-FR')} total)`;
+
+    const xpBarEl = document.getElementById('lockerXpBar');
+    if (xpBarEl) xpBarEl.style.width = `${Math.min(100, Math.round((currentLevelXp / xpPerLevel) * 100))}%`;
+
+    const lockerContainer = document.getElementById('rewardsLockerContainer');
+    if (lockerContainer) {
+      lockerContainer.innerHTML = `
+        <div class="glass-card p-5 space-y-3">
+          <h3 class="text-xs font-black uppercase text-purple-300 tracking-wider">Titres d'Opérateur</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            ${TITLES.map(t => {
+              const unlocked = level >= t.unlockLevel;
+              const equipped = state.equippedTitle === t.id;
+              return `
+                <div class="p-3 rounded-xl bg-slate-950/80 border ${equipped ? 'border-purple-500' : 'border-slate-800'} flex items-center justify-between gap-2">
+                  <div>
+                    <div class="text-xs font-black text-white">${t.label}</div>
+                    <div class="text-[10px] text-slate-400">${unlocked ? t.rarity : `Débloqué Niv. ${t.unlockLevel}`}</div>
                   </div>
+                  <button type="button" ${unlocked ? `onclick="equipRewardTitle('${t.id}')"` : 'disabled'} class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold ${equipped ? 'bg-purple-600 text-white' : unlocked ? 'btn-metal text-purple-200' : 'bg-slate-900 text-slate-600 cursor-not-allowed'}">
+                    ${equipped ? 'Équipé' : unlocked ? 'Équiper' : 'Verrouillé'}
+                  </button>
                 </div>
-              </div>
-              ${
-                isEquipped
-                  ? `<span class="w-full py-1.5 text-center rounded-lg bg-purple-600/30 border border-purple-500/40 text-purple-300 text-[10px] font-black uppercase tracking-wider">Équipé</span>`
-                  : isUnlocked
-                    ? `<button onclick="equipCosmetic('${categoryKey}', '${item.id}')" class="w-full py-1.5 rounded-lg btn-metal text-white text-[10px] font-extrabold uppercase tracking-wider">Équiper</button>`
-                    : `<div class="w-full py-1.5 text-center rounded-lg bg-slate-900 text-slate-500 text-[10px] font-bold uppercase">Verrouillé</div>`
-              }
-            </div>
-          `;
-        }).join("")}
-      </div>
-    </div>
-  `;
+              `;
+            }).join('')}
+          </div>
+        </div>
 
-  container.innerHTML = `
-    ${renderSection(
-      "Emblèmes d'Opérateur",
-      "fa-shield-halved",
-      REWARDS_CONFIG.emblems,
-      "emblem",
-      profile.equippedEmblem,
-      (item) => `<div class="w-10 h-10 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center shrink-0"><i class="fa-solid ${item.icon} ${item.color} text-base"></i></div>`
-    )}
-    ${renderSection(
-      "Bordures d'Avatar",
-      "fa-square",
-      REWARDS_CONFIG.borders,
-      "border",
-      profile.equippedBorder,
-      (item) => `<div class="w-10 h-10 rounded-xl bg-gradient-to-tr ${item.css} p-0.5 shrink-0"><div class="w-full h-full bg-slate-950 rounded-[10px]"></div></div>`
-    )}
-    ${renderSection(
-      "Titres de Profil",
-      "fa-id-badge",
-      REWARDS_CONFIG.titles,
-      "title",
-      profile.equippedTitle,
-      (item) => `<div class="w-10 h-10 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center shrink-0 text-purple-400 font-black text-xs">ID</div>`
-    )}
-    ${renderSection(
-      "Thèmes d'Interface",
-      "fa-palette",
-      REWARDS_CONFIG.themes,
-      "theme",
-      profile.equippedTheme,
-      (item) => `<div class="w-10 h-10 rounded-xl ${item.preview} border border-white/10 shrink-0"></div>`
-    )}
-  `;
-}
+        <div class="glass-card p-5 space-y-3">
+          <h3 class="text-xs font-black uppercase text-pink-300 tracking-wider">Emblèmes d'Avatar</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            ${AVATARS.map(a => {
+              const unlocked = level >= a.unlockLevel;
+              const equipped = state.equippedAvatar === a.id;
+              return `
+                <div class="p-3 rounded-xl bg-slate-950/80 border ${equipped ? 'border-pink-500' : 'border-slate-800'} flex items-center justify-between gap-2">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-tr ${a.border} p-0.5 shrink-0">
+                      <div class="w-full h-full bg-slate-950 rounded-[6px] flex items-center justify-center">
+                        <i class="fa-solid ${a.icon} text-xs text-white"></i>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="text-xs font-black text-white">${a.name}</div>
+                      <div class="text-[10px] text-slate-400">${unlocked ? 'Débloqué' : `Niveau ${a.unlockLevel} requis`}</div>
+                    </div>
+                  </div>
+                  <button type="button" ${unlocked ? `onclick="equipRewardAvatar('${a.id}')"` : 'disabled'} class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold ${equipped ? 'bg-pink-600 text-white' : unlocked ? 'btn-metal text-pink-200' : 'bg-slate-900 text-slate-600 cursor-not-allowed'}">
+                    ${equipped ? 'Équipé' : unlocked ? 'Équiper' : 'Verrouillé'}
+                  </button>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    }
+  };
 
-// Initialisation au chargement
-document.addEventListener("DOMContentLoaded", () => {
-  applyProfileCosmetics();
-  renderRewardsLocker();
-});
-// Détection automatique de l'XP des défis terminés (100%)
-function autoSyncDefisXP() {
-  let detectedXP = 0;
-  const defisSection = document.getElementById("sectionDefis");
-  if (defisSection) {
-    defisSection.querySelectorAll("div").forEach(card => {
-      if (card.textContent.includes("(100%)") && card.textContent.includes("XP") && card.querySelectorAll("div").length < 6) {
-        const match = card.textContent.match(/([\d\s,]+)\s*XP/i);
-        if (match) {
-          const val = parseInt(match[1].replace(/[\s,]/g, ""), 10);
-          if (!isNaN(val) && val > 0 && val <= 50000) detectedXP += val;
-        }
-      }
-    });
-  }
-  const profile = getPlayerProfile();
-  if (detectedXP > profile.xp) {
-    profile.xp = detectedXP;
-    localStorage.setItem(STORAGE_REWARDS_KEY, JSON.stringify(profile));
-  }
-}
-
-setInterval(() => {
-  autoSyncDefisXP();
-  applyProfileCosmetics();
-}, 1500);
+  document.addEventListener('DOMContentLoaded', () => {
+    const initialState = loadRewardsState();
+    window.syncPlayerXP(initialState.totalXp);
+  });
+})();
