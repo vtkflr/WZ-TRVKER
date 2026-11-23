@@ -792,10 +792,10 @@
               <i class="fa-solid fa-envelope text-cyan-400 text-sm"></i>
               <span>E-mail</span>
             </a>
-            <button type="button" onclick="openDiscordContact()" id="contactDiscordBtn" title="Ouvrir Discord et copier le pseudo idfound.jm" class="btn-metal p-3 rounded-xl text-xs font-extrabold flex items-center justify-center gap-2 text-indigo-200 hover:text-white">
+            <a href="discord://-/app" onclick="return openDiscordContact(event)" id="contactDiscordBtn" title="Ouvrir Discord et copier le pseudo idfound.jm" class="btn-metal p-3 rounded-xl text-xs font-extrabold flex items-center justify-center gap-2 text-indigo-200 hover:text-white cursor-pointer">
               <i class="fa-brands fa-discord text-indigo-400 text-sm"></i>
               <span>Discord</span>
-            </button>
+            </a>
           </div>
         </div>
 
@@ -2580,18 +2580,35 @@
     }
 
 
-    function openDiscordContact() {
-      const handle = 'idfound.jm';
-      if (navigator.clipboard?.writeText) {
-        navigator.clipboard.writeText(handle).catch(() => {});
+    function copyTextFallback(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).catch(() => {});
       }
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      } catch (_) {}
+    }
+
+    function openDiscordContact(e) {
+      const handle = 'idfound.jm';
+      copyTextFallback(handle);
       showToast('Pseudo copié : ' + handle + ' — Ouverture de Discord...', 'success');
-      window.open('discord://-/users/idfound.jm', '_blank') || (window.location.href = 'https://discord.com/app');
+      // Let the native <a href="discord://-/app"> trigger the desktop protocol directly,
+      // and open Discord Web in a new tab after a short delay if the desktop app didn't take focus.
       setTimeout(() => {
         if (!document.hidden) {
           window.open('https://discord.com/app', '_blank', 'noopener,noreferrer');
         }
-      }, 600);
+      }, 800);
+      return true;
     }
 
     function copyFriendCode() {
