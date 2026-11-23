@@ -2876,7 +2876,7 @@
       const friendsBox = document.getElementById('friendsListContainer');
       const tabPendingBox = document.getElementById('tabPendingRequestsContainer');
       const tabFriendsBox = document.getElementById('tabFriendsListContainer');
-      if (!pendingBox || !friendsBox) return;
+      if (!pendingBox && !friendsBox && !tabPendingBox && !tabFriendsBox) return;
 
       const localFriendsKey = `WZ_LOCAL_FRIENDS_${currentUser.id}`;
       let cachedFriends = [];
@@ -2963,7 +2963,7 @@
         ? `<div class="text-xs text-slate-500">Aucune demande en attente.</div>`
         : `${incomingHtml}${outgoingHtml}`;
 
-      pendingBox.innerHTML = pendingHtml;
+      if (pendingBox) pendingBox.innerHTML = pendingHtml;
       if (tabPendingBox) tabPendingBox.innerHTML = pendingHtml;
 
       const leaderboardBox = document.getElementById('friendsLeaderboardContainer');
@@ -2973,7 +2973,7 @@
 
       if (acceptedRel.length === 0) {
         const emptyFriendsHtml = `<div class="text-xs text-slate-500">Aucun ami accepté pour le moment.</div>`;
-        friendsBox.innerHTML = emptyFriendsHtml;
+        if (friendsBox) friendsBox.innerHTML = emptyFriendsHtml;
         if (tabFriendsBox) tabFriendsBox.innerHTML = emptyFriendsHtml;
         statsCategorySection?.classList.add('hidden');
         tabStatsCategorySection?.classList.add('hidden');
@@ -3003,7 +3003,7 @@
           `;
         }).join('');
 
-        friendsBox.innerHTML = friendsHtml;
+        if (friendsBox) friendsBox.innerHTML = friendsHtml;
         if (tabFriendsBox) tabFriendsBox.innerHTML = friendsHtml;
 
         const loadingHtml = `<div class="text-xs text-slate-400">Chargement du classement entre amis...</div>`;
@@ -3285,7 +3285,7 @@
             const keys = await caches.keys();
             await Promise.all(keys.map(k => caches.delete(k)));
           }
-          const reg = await navigator.serviceWorker.register('./sw.js?v=33');
+          const reg = await navigator.serviceWorker.register('./sw.js?v=34');
           await reg.update();
         } catch (_) {}
       });
