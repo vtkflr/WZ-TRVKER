@@ -2751,27 +2751,29 @@
 
         const leaderboardHtml = entries.map((item, idx) => {
           const rankMedal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `#${idx + 1}`;
-          const safeName = item.name.replace(/'/g, '');
           return `
-            <div class="p-3 rounded-xl ${item.isMe ? 'bg-purple-950/40 border border-purple-500/40' : 'bg-slate-900/70 border border-slate-800'} flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <div class="flex items-center gap-2.5">
-                <span class="text-xs font-black px-2 py-1 rounded-lg bg-slate-950 border border-slate-800 text-amber-300">${rankMedal}</span>
-                <div>
-                  <div class="text-xs font-black text-white">${item.name}</div>
-                  <div class="text-[10px] text-slate-400">${item.totalM} matchs • ${item.wins} Top 1 • ${item.avgDmg} dégâts moy.</div>
+            <div class="space-y-2">
+              <div class="p-3 rounded-xl ${item.isMe ? 'bg-purple-950/40 border border-purple-500/40' : 'bg-slate-900/70 border border-slate-800'} flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div class="flex items-center gap-2.5">
+                  <span class="text-xs font-black px-2 py-1 rounded-lg bg-slate-950 border border-slate-800 text-amber-300">${rankMedal}</span>
+                  <div>
+                    <div class="text-xs font-black text-white">${item.name}</div>
+                    <div class="text-[10px] text-slate-400">${item.totalM} matchs • ${item.wins} Top 1 • ${item.avgDmg} dégâts moy.</div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-4 text-right">
+                  <div>
+                    <div class="text-[9px] uppercase font-bold text-slate-400">Kills</div>
+                    <div class="text-xs font-black text-pink-400">${item.kills}</div>
+                  </div>
+                  <div>
+                    <div class="text-[9px] uppercase font-bold text-slate-400">K/D</div>
+                    <div class="text-xs font-black text-purple-400">${String(item.kd).replace('.', ',')}</div>
+                  </div>
+                  ${item.isMe ? '' : `<button type="button" onclick="viewFriendStats('${item.id}', '${encodeURIComponent(item.name || 'Ami')}')" class="btn-metal px-2.5 py-1 rounded-lg text-[10px] font-bold text-cyan-300">Détails</button>`}
                 </div>
               </div>
-              <div class="flex items-center gap-4 text-right">
-                <div>
-                  <div class="text-[9px] uppercase font-bold text-slate-400">Kills</div>
-                  <div class="text-xs font-black text-pink-400">${item.kills}</div>
-                </div>
-                <div>
-                  <div class="text-[9px] uppercase font-bold text-slate-400">K/D</div>
-                  <div class="text-xs font-black text-purple-400">${String(item.kd).replace('.', ',')}</div>
-                </div>
-                ${item.isMe ? '' : `<button type="button" onclick="viewFriendStats('${item.id}', '${encodeURIComponent(item.name || 'Ami')}')" class="btn-metal px-2.5 py-1 rounded-lg text-[10px] font-bold text-cyan-300">Détails</button>`}
-              </div>
+              ${item.isMe ? '' : `<div id="friendInlineStats_${item.id}" class="hidden p-3.5 rounded-2xl bg-purple-950/35 border border-purple-500/40 space-y-2.5"></div>`}
             </div>
           `;
         }).join('');
@@ -2820,12 +2822,31 @@
       };
     }
 
+    function closeFriendInlineStats(friendId) {
+      const el = document.getElementById(`friendInlineStats_${friendId}`);
+      if (el) {
+        el.classList.add('hidden');
+        el.innerHTML = '';
+      }
+    }
+
     async function viewFriendStats(friendId, friendName) {
       if (!supabaseClient) {
         if (typeof showToast === 'function') showToast('Client Supabase non initialisé.', 'error');
         return;
       }
       const decodedName = decodeURIComponent(friendName || 'Ami');
+      const label = `Suivi statistiques — ${decodedName}`;
+
+      // Close any other open inline cards first
+      document.querySelectorAll('[id^="friendInlineStats_"]').forEach(el => {
+        if (el.id !== `friendInlineStats_${friendId}`) {
+          el.classList.add('hidden');
+          el.innerHTML = '';
+        }
+      });
+
+      const inlineBox = document.getElementById(`friendInlineStats_${friendId}`);
       const box = document.getElementById('friendStatsDetailBox');
       const title = document.getElementById('friendStatsTitle');
       const grid = document.getElementById('friendStatsGrid');
@@ -2833,78 +2854,112 @@
       const tabTitle = document.getElementById('tabFriendStatsTitle');
       const tabGrid = document.getElementById('tabFriendStatsGrid');
 
-      const label = `Suivi statistiques — ${decodedName}`;
       const loadingGrid = `<div class="col-span-full text-xs text-slate-400">Chargement des statistiques...</div>`;
 
-      const inAmisTab = document.getElementById('sectionAmis') && !document.getElementById('sectionAmis').classList.contains('hidden');
-      const inAccountModal = document.getElementById('accountModal') && !document.getElementById('accountModal').classList.contains('hidden');
-
-      if (inAmisTab || !inAccountModal) {
-        if (tabTitle) tabTitle.innerText = label;
-        tabBox?.classList.remove('hidden');
-        if (tabGrid) tabGrid.innerHTML = loadingGrid;
-        tabBox?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      if (inlineBox) {
+        if (!inlineBox.classList.contains('hidden') && inlineBox.dataset.loaded === '1') {
+          inlineBox.classList.add('hidden');
+          inlineBox.dataset.loaded = '';
+          return;
+        }
+        inlineBox.classList.remove('hidden');
+        inlineBox.dataset.loaded = '1';
+        inlineBox.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black uppercase text-white">${label}</span>
+            <button type="button" onclick="closeFriendInlineStats('${friendId}')" class="text-xs text-slate-400 hover:text-white">Fermer</button>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">${loadingGrid}</div>
+        `;
+        inlineBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       } else {
-        if (title) title.innerText = label;
-        box?.classList.remove('hidden');
-        if (grid) grid.innerHTML = loadingGrid;
-        box?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        const inAmisTab = document.getElementById('sectionAmis') && !document.getElementById('sectionAmis').classList.contains('hidden');
+        const inAccountModal = document.getElementById('accountModal') && !document.getElementById('accountModal').classList.contains('hidden');
+        if (inAmisTab || !inAccountModal) {
+          if (tabTitle) tabTitle.innerText = label;
+          tabBox?.classList.remove('hidden');
+          if (tabGrid) tabGrid.innerHTML = loadingGrid;
+          tabBox?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+          if (title) title.innerText = label;
+          box?.classList.remove('hidden');
+          if (grid) grid.innerHTML = loadingGrid;
+          box?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
       }
 
       try {
         const { data: rows, error } = await supabaseClient.from('matches').select('*').eq('user_id', friendId);
         if (error) throw error;
         const list = (rows || []).map(r => r && (r.data || r)).filter(m => m && (m.kills !== undefined || m.deaths !== undefined || m.damage !== undefined || m.placement !== undefined));
-      const fs = computeStatsSummary(list);
-      const ms = computeStatsSummary(matches);
+        const fs = computeStatsSummary(list);
+        const ms = computeStatsSummary(matches);
 
-      const kdDiff = fs.kdNum - ms.kdNum;
-      const kdDiffStr = `${kdDiff >= 0 ? '+' : ''}${kdDiff.toFixed(2).replace('.', ',')}`;
-      const dmgDiff = fs.avgDmgNum - ms.avgDmgNum;
-      const dmgDiffStr = `${dmgDiff >= 0 ? '+' : ''}${dmgDiff.toLocaleString('fr-FR')}`;
+        const kdDiff = fs.kdNum - ms.kdNum;
+        const kdDiffStr = `${kdDiff >= 0 ? '+' : ''}${kdDiff.toFixed(2).replace('.', ',')}`;
+        const dmgDiff = fs.avgDmgNum - ms.avgDmgNum;
+        const dmgDiffStr = `${dmgDiff >= 0 ? '+' : ''}${dmgDiff.toLocaleString('fr-FR')}`;
 
-      const statsCardsHtml = `
-        <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-center">
-          <div class="text-[9px] uppercase font-bold text-slate-400">Matchs</div>
-          <div class="text-sm font-black text-white mt-0.5">${fs.totalM}</div>
-          <div class="text-[10px] text-slate-500">Toi : ${ms.totalM}</div>
-        </div>
-        <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-center">
-          <div class="text-[9px] uppercase font-bold text-slate-400">Ratio K/D</div>
-          <div class="text-sm font-black text-purple-400 mt-0.5">${String(fs.kd).replace('.', ',')}</div>
-          <div class="text-[10px] ${kdDiff >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${kdDiffStr} vs toi</div>
-        </div>
-        <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-center">
-          <div class="text-[9px] uppercase font-bold text-slate-400">Ratio E/D</div>
-          <div class="text-sm font-black text-emerald-400 mt-0.5">${String(fs.ed).replace('.', ',')}</div>
-          <div class="text-[10px] text-slate-500">${fs.assists} assists</div>
-        </div>
-        <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-center">
-          <div class="text-[9px] uppercase font-bold text-slate-400">Top 1 / Win%</div>
-          <div class="text-sm font-black text-amber-400 mt-0.5">${fs.wins} <span class="text-[11px]">(${String(fs.winRate).replace('.', ',')}%)</span></div>
-          <div class="text-[10px] text-slate-500">Top 5 : ${fs.top5}</div>
-        </div>
-        <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-center">
-          <div class="text-[9px] uppercase font-bold text-slate-400">Kills totaux</div>
-          <div class="text-sm font-black text-pink-400 mt-0.5">${fs.kills}</div>
-          <div class="text-[10px] text-slate-500">Toi : ${ms.kills}</div>
-        </div>
-        <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-center">
-          <div class="text-[9px] uppercase font-bold text-slate-400">Dégâts moy.</div>
-          <div class="text-sm font-black text-cyan-400 mt-0.5">${fs.avgDmg}</div>
-          <div class="text-[10px] ${dmgDiff >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${dmgDiffStr} vs toi</div>
-        </div>
-        <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-center col-span-2">
-          <div class="text-[9px] uppercase font-bold text-slate-400">Score moyen & Dégâts cumulés</div>
-          <div class="text-xs font-black text-indigo-300 mt-0.5">Score moy. : ${fs.avgScore} • Dégâts totaux : ${fs.dmg.toLocaleString('fr-FR')}</div>
-        </div>
-      `;
+        const statsCardsHtml = `
+          <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-center">
+            <div class="text-[9px] uppercase font-bold text-slate-400">Matchs</div>
+            <div class="text-sm font-black text-white mt-0.5">${fs.totalM}</div>
+            <div class="text-[10px] text-slate-500">Toi : ${ms.totalM}</div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-center">
+            <div class="text-[9px] uppercase font-bold text-slate-400">Ratio K/D</div>
+            <div class="text-sm font-black text-purple-400 mt-0.5">${String(fs.kd).replace('.', ',')}</div>
+            <div class="text-[10px] ${kdDiff >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${kdDiffStr} vs toi</div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-center">
+            <div class="text-[9px] uppercase font-bold text-slate-400">Ratio E/D</div>
+            <div class="text-sm font-black text-emerald-400 mt-0.5">${String(fs.ed).replace('.', ',')}</div>
+            <div class="text-[10px] text-slate-500">${fs.assists} assists</div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-center">
+            <div class="text-[9px] uppercase font-bold text-slate-400">Top 1 / Win%</div>
+            <div class="text-sm font-black text-amber-400 mt-0.5">${fs.wins} <span class="text-[11px]">(${String(fs.winRate).replace('.', ',')}%)</span></div>
+            <div class="text-[10px] text-slate-500">Top 5 : ${fs.top5}</div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-center">
+            <div class="text-[9px] uppercase font-bold text-slate-400">Kills totaux</div>
+            <div class="text-sm font-black text-pink-400 mt-0.5">${fs.kills}</div>
+            <div class="text-[10px] text-slate-500">Toi : ${ms.kills}</div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-center">
+            <div class="text-[9px] uppercase font-bold text-slate-400">Dégâts moy.</div>
+            <div class="text-sm font-black text-cyan-400 mt-0.5">${fs.avgDmg}</div>
+            <div class="text-[10px] ${dmgDiff >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${dmgDiffStr} vs toi</div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-center col-span-2">
+            <div class="text-[9px] uppercase font-bold text-slate-400">Score moyen & Dégâts cumulés</div>
+            <div class="text-xs font-black text-indigo-300 mt-0.5">Score moy. : ${fs.avgScore} • Dégâts totaux : ${fs.dmg.toLocaleString('fr-FR')}</div>
+          </div>
+        `;
 
-      if (grid) grid.innerHTML = statsCardsHtml;
-      if (tabGrid) tabGrid.innerHTML = statsCardsHtml;
+        if (inlineBox) {
+          inlineBox.innerHTML = `
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-black uppercase text-white">${label}</span>
+              <button type="button" onclick="closeFriendInlineStats('${friendId}')" class="text-xs text-slate-400 hover:text-white">Fermer</button>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">${statsCardsHtml}</div>
+          `;
+        }
+        if (grid) grid.innerHTML = statsCardsHtml;
+        if (tabGrid) tabGrid.innerHTML = statsCardsHtml;
       } catch (err) {
         const errMsg = err?.message ? ` (${err.message})` : '';
         const errHtml = `<div class="col-span-full text-xs text-rose-400">Impossible de charger les statistiques de cet ami${errMsg}. Vérifie la politique RLS SELECT sur la table matches dans Supabase.</div>`;
+        if (inlineBox) {
+          inlineBox.innerHTML = `
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-black uppercase text-white">${label}</span>
+              <button type="button" onclick="closeFriendInlineStats('${friendId}')" class="text-xs text-slate-400 hover:text-white">Fermer</button>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">${errHtml}</div>
+          `;
+        }
         if (grid) grid.innerHTML = errHtml;
         if (tabGrid) tabGrid.innerHTML = errHtml;
         if (typeof showToast === 'function') showToast('Erreur lors du chargement des stats de l’ami.', 'error');
