@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wz-tracker-cache-v27';
+const CACHE_NAME = 'wz-tracker-cache-v29';
 const CORE_ASSETS = [
   './',
   './index.html',
