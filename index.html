@@ -743,7 +743,7 @@
 
   <div id="sideDrawer" class="fixed inset-0 z-50 pointer-events-none hidden">
     <div id="drawerBackdrop" onclick="toggleSideDrawer(false)" class="absolute inset-0 bg-black/70 backdrop-blur-sm opacity-0 transition-opacity duration-300 pointer-events-auto"></div>
-    <div id="drawerContent" class="absolute top-0 right-0 bottom-0 w-80 max-w-[85vw] glass-modal border-l border-slate-700/80 p-5 space-y-6 transform translate-x-full transition-transform duration-300 pointer-events-auto flex flex-col justify-between">
+    <div id="drawerContent" class="absolute top-0 right-0 bottom-0 w-80 max-w-[85vw] glass-modal border-l border-slate-700/80 p-5 space-y-6 transform translate-x-full transition-transform duration-300 pointer-events-auto flex flex-col justify-between overflow-y-auto">
       <div class="space-y-6">
         <div class="flex items-center justify-between border-b border-slate-800 pb-4">
           <h3 class="text-base font-black text-white uppercase flex items-center gap-2">
@@ -783,6 +783,20 @@
           <button onclick="toggleSideDrawer(false); openChangelogModal();" class="w-full btn-metal p-3 rounded-xl text-xs font-bold text-left flex items-center gap-2 text-purple-200">
             <i class="fa-solid fa-sparkles text-purple-400"></i> Notes MAJ
           </button>
+        </div>
+
+        <div class="space-y-3 border-t border-slate-800 pt-4">
+          <h4 class="text-xs font-extrabold uppercase text-slate-400 tracking-wider">Contact</h4>
+          <p class="text-[11px] text-slate-400 leading-relaxed">Besoin d'aide, une question ou un partenariat ? Contacte-nous directement :</p>
+          <div class="space-y-2">
+            <a href="mailto:vaianatearikifuller@gmail.com" id="contactEmailLink" class="w-full btn-metal p-2.5 rounded-xl text-xs font-bold text-left flex items-center gap-2 text-cyan-200 hover:text-white">
+              <i class="fa-solid fa-envelope text-cyan-400"></i> <span id="contactEmailText">vaianatearikifuller@gmail.com</span>
+            </a>
+            <button type="button" onclick="copyDiscordContact()" id="contactDiscordBtn" class="w-full btn-metal p-2.5 rounded-xl text-xs font-bold text-left flex items-center justify-between gap-2 text-indigo-200 hover:text-white">
+              <span class="flex items-center gap-2 truncate"><i class="fa-brands fa-discord text-indigo-400 shrink-0"></i> <span id="contactDiscordText" class="truncate">Discord : idfound.jm</span></span>
+              <i class="fa-regular fa-copy text-[11px] text-indigo-300 shrink-0"></i>
+            </button>
+          </div>
         </div>
 
 
@@ -2565,6 +2579,16 @@
       showToast('Déconnecté.', 'info');
     }
 
+
+    function copyDiscordContact() {
+      const handle = 'idfound.jm';
+      navigator.clipboard?.writeText(handle).then(() => {
+        showToast('Pseudo Discord copié : ' + handle, 'success');
+      }).catch(() => {
+        showToast('Discord : ' + handle, 'info');
+      });
+    }
+
     function copyFriendCode() {
       const code = currentProfile?.friend_code;
       if (!code) return;
@@ -2708,9 +2732,6 @@
                 <div class="text-xs font-black text-white">${p?.username || 'Ami'}</div>
                 <div class="text-[10px] text-slate-400">Code : ${p?.friend_code || '---'}</div>
               </div>
-              <button type="button" onclick="viewFriendStats('${fid}', '${encodeURIComponent(p?.username || 'Ami')}')" class="btn-metal px-3 py-1.5 rounded-lg text-[11px] font-bold text-cyan-300">
-                Voir stats
-              </button>
             </div>
           `;
         }).join('');
@@ -2761,10 +2782,8 @@
                     <div class="text-[9px] uppercase font-bold text-slate-400">K/D</div>
                     <div class="text-xs font-black text-purple-400">${String(item.kd).replace('.', ',')}</div>
                   </div>
-                  ${item.isMe ? '' : `<button type="button" onclick="viewFriendStats('${item.id}', '${encodeURIComponent(item.name || 'Ami')}')" class="btn-metal px-2.5 py-1 rounded-lg text-[10px] font-bold text-cyan-300">Détails</button>`}
                 </div>
               </div>
-              ${item.isMe ? '' : `<div id="friendInlineStats_${item.id}" class="hidden p-3.5 rounded-2xl bg-purple-950/35 border border-purple-500/40 space-y-2.5"></div>`}
             </div>
           `;
         }).join('');
