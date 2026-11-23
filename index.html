@@ -1748,7 +1748,45 @@
       `).join('');
     }
 
+    function recalculateDefisFromMatches() {
+      if (!Array.isArray(defis) || defis.length === 0) return;
+      let resurgenceKills = 0;
+      let top1Count = 0;
+      let totalDamage = 0;
+      let sniperTacticalKills = 0;
+      const totalGames = Array.isArray(matches) ? matches.length : 0;
+
+      (matches || []).forEach(m => {
+        const k = Number(m.kills) || 0;
+        const dmg = Number(m.damage) || 0;
+        const isResurgence =
+          m.mode === 'Résurgence' ||
+          (m.mode === 'Classé' && m.modeClasse === 'Résurgence') ||
+          (m.mode === 'Tournois' && m.modeTournoi === 'Résurgence');
+        const hasPrecisionOrTactical =
+          m.weapon1Cat === 'Fusil de précision' ||
+          m.weapon1Cat === 'Fusil tactique' ||
+          m.weapon2Cat === 'Fusil de précision' ||
+          m.weapon2Cat === 'Fusil tactique';
+
+        if (isResurgence) resurgenceKills += k;
+        if (Number(m.placement) === 1) top1Count += 1;
+        totalDamage += dmg;
+        if (hasPrecisionOrTactical) sniperTacticalKills += k;
+      });
+
+      defis.forEach(d => {
+        if (d.id === 'd1') d.current = resurgenceKills;
+        else if (d.id === 'd2') d.current = top1Count;
+        else if (d.id === 'd3') d.current = totalDamage;
+        else if (d.id === 'd4') d.current = sniperTacticalKills;
+        else if (d.id === 'd5') d.current = totalGames;
+      });
+      saveDefisToStorage();
+    }
+
     function renderDefis() {
+      recalculateDefisFromMatches();
       const grid = document.getElementById('defisGrid');
       let completed = 0;
 
@@ -2754,6 +2792,7 @@
           matches = Array.from(mapById.values()).sort((a, b) => getMatchTimestamp(b) - getMatchTimestamp(a));
           _origSaveMatchesToStorage();
           renderDashboard();
+          renderDefis();
         }
         if (!silent) showToast('Statistiques synchronisées avec le cloud !', 'success');
       } catch (err) {
@@ -2775,14 +2814,44 @@
       if (error || !target) { showToast('Aucun joueur trouvé avec ce code ami ou pseudo.', 'error'); return; }
       if (target.id === currentUser.id) { showToast('Tu ne peux pas t’ajouter toi-même.', 'info'); return; }
 
+      // Check existing relationship in both directions
+      const { data: existingRows } = await supabaseClient
+        .from('friendships')
+        .select('*')
+        .or(`and(requester_id.eq.${currentUser.id},addressee_id.eq.${target.id}),and(requester_id.eq.${target.id},addressee_id.eq.${currentUser.id})`);
+
+      const existing = (existingRows || [])[0];
+      if (existing) {
+        if (existing.status === 'accepted') {
+          showToast(`${target.username} est déjà dans ta liste d'amis !`, 'info');
+          await refreshFriendsData();
+          return;
+        }
+        if (existing.status === 'pending' && existing.addressee_id === currentUser.id) {
+          // Reverse request exists -> accept it automatically!
+          await supabaseClient.from('friendships').update({ status: 'accepted' }).eq('id', existing.id);
+          if (inputEl) inputEl.value = '';
+          showToast(`Demande de ${target.username} acceptée !`, 'success');
+          await refreshFriendsData();
+          return;
+        }
+        if (existing.status === 'pending' && existing.requester_id === currentUser.id) {
+          showToast(`Demande déjà envoyée à ${target.username} (en attente de sa validation).`, 'info');
+          await refreshFriendsData();
+          return;
+        }
+      }
+
       const { error: reqErr } = await supabaseClient.from('friendships').insert({
         requester_id: currentUser.id,
         addressee_id: target.id,
         status: 'pending'
       });
 
-      if (reqErr) showToast('Demande déjà envoyée ou amitié existante.', 'info');
-      else {
+      if (reqErr) {
+        showToast('Demande déjà envoyée ou amitié existante.', 'info');
+        await refreshFriendsData();
+      } else {
         if (inputEl) inputEl.value = '';
         showToast(`Demande d’ami envoyée à ${target.username} !`, 'success');
         await refreshFriendsData();
@@ -2809,40 +2878,90 @@
       const tabFriendsBox = document.getElementById('tabFriendsListContainer');
       if (!pendingBox || !friendsBox) return;
 
-      const { data: rows } = await supabaseClient
+      const localFriendsKey = `WZ_LOCAL_FRIENDS_${currentUser.id}`;
+      let cachedFriends = [];
+      try {
+        const rawCache = localStorage.getItem(localFriendsKey);
+        if (rawCache) cachedFriends = JSON.parse(rawCache) || [];
+      } catch (_) {}
+
+      const { data: rows, error: relErr } = await supabaseClient
         .from('friendships')
         .select('*')
         .or(`requester_id.eq.${currentUser.id},addressee_id.eq.${currentUser.id}`);
 
-      const allRel = rows || [];
-      const incomingPending = allRel.filter(r => r.addressee_id === currentUser.id && r.status === 'pending');
-      const acceptedRel = allRel.filter(r => r.status === 'accepted');
+      let allRel = (!relErr && Array.isArray(rows)) ? rows : [];
+      let incomingPending = allRel.filter(r => r.addressee_id === currentUser.id && r.status === 'pending');
+      let outgoingPending = allRel.filter(r => r.requester_id === currentUser.id && r.status === 'pending');
+      let acceptedRel = allRel.filter(r => r.status === 'accepted');
+
+      if (relErr && acceptedRel.length === 0 && cachedFriends.length > 0) {
+        acceptedRel = cachedFriends.map(cf => ({
+          id: cf.relId || cf.id,
+          requester_id: currentUser.id,
+          addressee_id: cf.id,
+          status: 'accepted',
+          _cachedProfile: cf
+        }));
+      }
 
       const otherIds = Array.from(new Set([
         ...incomingPending.map(r => r.requester_id),
+        ...outgoingPending.map(r => r.addressee_id),
         ...acceptedRel.map(r => r.requester_id === currentUser.id ? r.addressee_id : r.requester_id)
       ]));
 
       let profileMap = new Map();
+      acceptedRel.forEach(r => {
+        if (r._cachedProfile) profileMap.set(r._cachedProfile.id, r._cachedProfile);
+      });
       if (otherIds.length > 0) {
         const { data: profs } = await supabaseClient.from('profiles').select('*').in('id', otherIds);
         (profs || []).forEach(p => profileMap.set(p.id, p));
       }
+      if (!relErr) {
+        const toCache = acceptedRel.map(r => {
+          const fid = r.requester_id === currentUser.id ? r.addressee_id : r.requester_id;
+          const p = profileMap.get(fid);
+          return {
+            id: fid,
+            relId: r.id,
+            username: p?.username || r._cachedProfile?.username || 'Ami',
+            friend_code: p?.friend_code || r._cachedProfile?.friend_code || '---'
+          };
+        });
+        try { localStorage.setItem(localFriendsKey, JSON.stringify(toCache)); } catch (_) {}
+      }
 
-      const pendingHtml = incomingPending.length === 0
+      const incomingHtml = incomingPending.map(req => {
+        const p = profileMap.get(req.requester_id);
+        return `
+          <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center justify-between gap-2">
+            <div class="text-xs font-bold text-white">${p?.username || 'Joueur'} <span class="text-[10px] text-purple-300 font-normal">(${p?.friend_code || ''})</span></div>
+            <div class="flex gap-1.5">
+              <button type="button" onclick="respondFriendRequest('${req.id}', true)" class="px-2.5 py-1 rounded-lg bg-emerald-600 text-white text-[11px] font-bold">Accepter</button>
+              <button type="button" onclick="respondFriendRequest('${req.id}', false)" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 text-[11px] font-bold">Refuser</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      const outgoingHtml = outgoingPending.map(req => {
+        const p = profileMap.get(req.addressee_id);
+        return `
+          <div class="p-2.5 rounded-xl bg-slate-950/80 border border-amber-500/30 flex items-center justify-between gap-2">
+            <div class="text-xs font-bold text-white">
+              ${p?.username || 'Joueur'} <span class="text-[10px] text-purple-300 font-normal">(${p?.friend_code || ''})</span>
+              <span class="block text-[10px] text-amber-300 font-normal">En attente de sa confirmation...</span>
+            </div>
+            <button type="button" onclick="respondFriendRequest('${req.id}', false)" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-rose-900/60 text-slate-300 hover:text-rose-200 text-[11px] font-bold">Annuler</button>
+          </div>
+        `;
+      }).join('');
+
+      const pendingHtml = (incomingPending.length === 0 && outgoingPending.length === 0)
         ? `<div class="text-xs text-slate-500">Aucune demande en attente.</div>`
-        : incomingPending.map(req => {
-            const p = profileMap.get(req.requester_id);
-            return `
-              <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center justify-between gap-2">
-                <div class="text-xs font-bold text-white">${p?.username || 'Joueur'} <span class="text-[10px] text-purple-300 font-normal">(${p?.friend_code || ''})</span></div>
-                <div class="flex gap-1.5">
-                  <button type="button" onclick="respondFriendRequest('${req.id}', true)" class="px-2.5 py-1 rounded-lg bg-emerald-600 text-white text-[11px] font-bold">Accepter</button>
-                  <button type="button" onclick="respondFriendRequest('${req.id}', false)" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 text-[11px] font-bold">Refuser</button>
-                </div>
-              </div>
-            `;
-          }).join('');
+        : `${incomingHtml}${outgoingHtml}`;
 
       pendingBox.innerHTML = pendingHtml;
       if (tabPendingBox) tabPendingBox.innerHTML = pendingHtml;
@@ -2911,13 +3030,18 @@
 
         const leaderboardHtml = entries.map((item, idx) => {
           const rankMedal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `#${idx + 1}`;
+          const encodedName = encodeURIComponent(item.name || 'Ami');
+          const clickAttr = item.isMe ? '' : `onclick="viewFriendStats('${item.id}', '${encodedName}')"`;
           return `
             <div class="space-y-2">
-              <div class="p-3 rounded-xl ${item.isMe ? 'bg-purple-950/40 border border-purple-500/40' : 'bg-slate-900/70 border border-slate-800'} flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div ${clickAttr} class="p-3 rounded-xl ${item.isMe ? 'bg-purple-950/40 border border-purple-500/40' : 'bg-slate-900/70 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/40 cursor-pointer transition'} flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div class="flex items-center gap-2.5">
                   <span class="text-xs font-black px-2 py-1 rounded-lg bg-slate-950 border border-slate-800 text-amber-300">${rankMedal}</span>
                   <div>
-                    <div class="text-xs font-black text-white">${item.name}</div>
+                    <div class="text-xs font-black text-white flex items-center gap-2">
+                      <span>${item.name}</span>
+                      ${!item.isMe ? '<span class="text-[10px] font-bold text-cyan-400 underline">Voir stats</span>' : ''}
+                    </div>
                     <div class="text-[10px] text-slate-400">${item.totalM} matchs • ${item.wins} Top 1 • ${item.avgDmg} dégâts moy.</div>
                   </div>
                 </div>
@@ -2932,6 +3056,7 @@
                   </div>
                 </div>
               </div>
+              ${!item.isMe ? `<div id="friendInlineStats_${item.id}" class="hidden p-4 rounded-2xl bg-purple-950/40 border border-purple-500/45 space-y-3"></div>` : ''}
             </div>
           `;
         }).join('');
@@ -3160,7 +3285,7 @@
             const keys = await caches.keys();
             await Promise.all(keys.map(k => caches.delete(k)));
           }
-          const reg = await navigator.serviceWorker.register('./sw.js?v=32');
+          const reg = await navigator.serviceWorker.register('./sw.js?v=33');
           await reg.update();
         } catch (_) {}
       });
