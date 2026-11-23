@@ -2096,37 +2096,96 @@
       renderDefis();
     }
 
-    function deleteMatch(id) {
-      if (confirm('Es-tu sûr de vouloir supprimer ce match ?')) {
-        const targetMatch = matches.find(m => m.id === id);
-        if (targetMatch && Array.isArray(defis)) {
-          const k = Number(targetMatch.kills) || 0;
-          const dmg = Number(targetMatch.damage) || 0;
-          const isResurgence =
-            targetMatch.mode === 'Résurgence' ||
-            (targetMatch.mode === 'Classé' && targetMatch.modeClasse === 'Résurgence') ||
-            (targetMatch.mode === 'Tournois' && targetMatch.modeTournoi === 'Résurgence');
-          const hasPrecisionOrTactical =
-            targetMatch.weapon1Cat === 'Fusil de précision' ||
-            targetMatch.weapon1Cat === 'Fusil tactique' ||
-            targetMatch.weapon2Cat === 'Fusil de précision' ||
-            targetMatch.weapon2Cat === 'Fusil tactique';
+    const DELETED_MATCH_IDS_KEY = 'WZ_TRACKER_DELETED_MATCH_IDS_V1';
 
-          defis.forEach(d => {
-            if (d.id === 'd1' && isResurgence) d.current = Math.max(0, (Number(d.current) || 0) - k);
-            else if (d.id === 'd2' && Number(targetMatch.placement) === 1) d.current = Math.max(0, (Number(d.current) || 0) - 1);
-            else if (d.id === 'd3') d.current = Math.max(0, (Number(d.current) || 0) - dmg);
-            else if (d.id === 'd4' && hasPrecisionOrTactical) d.current = Math.max(0, (Number(d.current) || 0) - k);
-            else if (d.id === 'd5') d.current = Math.max(0, (Number(d.current) || 0) - 1);
-          });
-          saveDefisToStorage();
-        }
-        matches = matches.filter(m => m.id !== id);
-        saveMatchesToStorage();
-        renderDashboard();
-        renderDefis();
-        showToast("Match supprimé.", "info");
+    function getDeletedMatchIds() {
+      try {
+        const raw = localStorage.getItem(DELETED_MATCH_IDS_KEY);
+        const arr = raw ? JSON.parse(raw) : [];
+        return new Set(Array.isArray(arr) ? arr.map(String) : []);
+      } catch (_) {
+        return new Set();
       }
+    }
+
+    function recordDeletedMatchId(id) {
+      const set = getDeletedMatchIds();
+      set.add(String(id));
+      try {
+        localStorage.setItem(DELETED_MATCH_IDS_KEY, JSON.stringify(Array.from(set)));
+      } catch (_) {}
+    }
+
+    function clearDeletedMatchId(id) {
+      const set = getDeletedMatchIds();
+      if (set.delete(String(id))) {
+        try {
+          localStorage.setItem(DELETED_MATCH_IDS_KEY, JSON.stringify(Array.from(set)));
+        } catch (_) {}
+      }
+    }
+
+    async function deleteMatch(id) {
+      if (!confirm('Es-tu sûr de vouloir supprimer ce match ?')) return;
+
+      const targetId = String(id);
+      const targetMatch = matches.find(m => String(m.id) === targetId);
+
+      // Update local state immediately so UI feels instant
+      if (targetMatch && Array.isArray(defis)) {
+        const k = Number(targetMatch.kills) || 0;
+        const dmg = Number(targetMatch.damage) || 0;
+        const isResurgence =
+          targetMatch.mode === 'Résurgence' ||
+          (targetMatch.mode === 'Classé' && targetMatch.modeClasse === 'Résurgence') ||
+          (targetMatch.mode === 'Tournois' && targetMatch.modeTournoi === 'Résurgence');
+        const hasPrecisionOrTactical =
+          targetMatch.weapon1Cat === 'Fusil de précision' ||
+          targetMatch.weapon1Cat === 'Fusil tactique' ||
+          targetMatch.weapon2Cat === 'Fusil de précision' ||
+          targetMatch.weapon2Cat === 'Fusil tactique';
+
+        defis.forEach(d => {
+          if (d.id === 'd1' && isResurgence) d.current = Math.max(0, (Number(d.current) || 0) - k);
+          else if (d.id === 'd2' && Number(targetMatch.placement) === 1) d.current = Math.max(0, (Number(d.current) || 0) - 1);
+          else if (d.id === 'd3') d.current = Math.max(0, (Number(d.current) || 0) - dmg);
+          else if (d.id === 'd4' && hasPrecisionOrTactical) d.current = Math.max(0, (Number(d.current) || 0) - k);
+          else if (d.id === 'd5') d.current = Math.max(0, (Number(d.current) || 0) - 1);
+        });
+        saveDefisToStorage();
+      }
+
+      matches = matches.filter(m => String(m.id) !== targetId);
+      recordDeletedMatchId(targetId);
+      _origSaveMatchesToStorage();
+      renderDashboard();
+      renderDefis();
+
+      // Also delete from Supabase cloud if connected
+      if (!supabaseClient && typeof initSupabaseClient === 'function') {
+        initSupabaseClient();
+      }
+      if (supabaseClient && currentUser) {
+        try {
+          const { error } = await supabaseClient
+            .from('matches')
+            .delete()
+            .eq('id', targetId)
+            .eq('user_id', currentUser.id);
+          if (error) {
+            showToast('Supprimé en local, mais erreur cloud : ' + error.message, 'error');
+            return;
+          }
+          clearDeletedMatchId(targetId);
+          showToast('Match supprimé (local + cloud) !', 'info');
+          return;
+        } catch (err) {
+          showToast('Supprimé en local (synchronisation cloud en attente).', 'info');
+          return;
+        }
+      }
+
+      showToast('Match supprimé.', 'info');
     }
 
     function toggleSideDrawer(open) {
@@ -2640,13 +2699,31 @@
           const rows = matches.map(m => ({ id: String(m.id), user_id: currentUser.id, data: m }));
           await supabaseClient.from('matches').upsert(rows, { onConflict: 'id' });
         }
+        const deletedSet = getDeletedMatchIds();
+        if (deletedSet.size > 0) {
+          for (const delId of Array.from(deletedSet)) {
+            const { error: delErr } = await supabaseClient
+              .from('matches')
+              .delete()
+              .eq('id', String(delId))
+              .eq('user_id', currentUser.id);
+            if (!delErr) clearDeletedMatchId(delId);
+          }
+        }
+        const activeDeleted = getDeletedMatchIds();
         const { data: cloudRows, error } = await supabaseClient.from('matches').select('data').eq('user_id', currentUser.id);
         if (!error && Array.isArray(cloudRows)) {
           const mapById = new Map();
-          matches.forEach(m => mapById.set(String(m.id), m));
-          cloudRows.forEach(r => { if (r && r.data && r.data.id) mapById.set(String(r.data.id), r.data); });
+          matches.forEach(m => {
+            if (!activeDeleted.has(String(m.id))) mapById.set(String(m.id), m);
+          });
+          cloudRows.forEach(r => {
+            if (r && r.data && r.data.id && !activeDeleted.has(String(r.data.id))) {
+              mapById.set(String(r.data.id), r.data);
+            }
+          });
           matches = Array.from(mapById.values()).sort((a, b) => getMatchTimestamp(b) - getMatchTimestamp(a));
-          saveMatchesToStorage();
+          _origSaveMatchesToStorage();
           renderDashboard();
         }
         if (!silent) showToast('Statistiques synchronisées avec le cloud !', 'success');
@@ -3033,7 +3110,7 @@
             const keys = await caches.keys();
             await Promise.all(keys.map(k => caches.delete(k)));
           }
-          const reg = await navigator.serviceWorker.register('./sw.js?v=30');
+          const reg = await navigator.serviceWorker.register('./sw.js?v=31');
           await reg.update();
         } catch (_) {}
       });

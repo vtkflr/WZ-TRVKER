@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wz-tracker-v30';
+const CACHE_NAME = 'wz-tracker-v31';
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
