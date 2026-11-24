@@ -1,22 +1,18 @@
 {
   "name": "WARZONE TRACKER — Saison 1 • MW4",
   "short_name": "WZ Tracker",
+  "description": "Suivi des statistiques, tournois, défis, camouflages et armes méta Call of Duty: Warzone Saison 1.",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "background_color": "#06060b",
   "theme_color": "#06060b",
   "icons": [
     {
-      "src": "./icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "./icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "src": "data:image/png;base64,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",
+      "sizes": "128x128",
+      "type": "image/png"
     }
   ]
 }

@@ -42,85 +42,6 @@
     "perks": "Fantôme • Mains agiles • Pas de course | Fumigène + Semtex"
   },
   {
-    "name": "Axion",
-    "type": "Fusil d'assaut",
-    "role": "Longue portée",
-    "tier": "TIER S",
-    "rankText": "TIER S",
-    "badgeClass": "bg-amber-500/20 text-amber-400 border-amber-500",
-    "unlock": "🔓 Arme : Niveau de joueur 1 (Débloqué dès le début)",
-    "attachments": [
-      {
-        "name": "FSS IS40",
-        "slot": "Bouche",
-        "lvl": "Niv. 56"
-      },
-      {
-        "name": "SA DMN-L 30\"",
-        "slot": "Canon",
-        "lvl": "Niv. 6"
-      },
-      {
-        "name": "FSS Fireline Grip",
-        "slot": "Sous le canon",
-        "lvl": "Niv. 7"
-      },
-      {
-        "name": "GS50 Grip",
-        "slot": "Poignée arrière",
-        "lvl": "Niv. 55"
-      },
-      {
-        "name": "XRK Clutch-LS",
-        "slot": "Laser",
-        "lvl": "Niv. 44"
-      },
-      {
-        "name": "Axion Clearcut",
-        "slot": "Apex (Bonus)",
-        "lvl": "Niv. 69"
-      }
-    ],
-    "perks": "Escouade de déminage • Mains agiles • Alerte maximale | Fumigène + Semtex"
-  },
-  {
-    "name": "M4",
-    "type": "Fusil d'assaut",
-    "role": "Polyvalent",
-    "tier": "TIER S",
-    "rankText": "TIER S",
-    "badgeClass": "bg-amber-500/20 text-amber-400 border-amber-500",
-    "unlock": "🔓 Arme : Niveau de joueur 14",
-    "attachments": [
-      {
-        "name": "FSS IS300",
-        "slot": "Bouche",
-        "lvl": "Niv. 4"
-      },
-      {
-        "name": "18 LE Crosswind",
-        "slot": "Canon",
-        "lvl": "Niv. 32"
-      },
-      {
-        "name": "FSS Fireline Grip",
-        "slot": "Sous le canon",
-        "lvl": "Niv. 38"
-      },
-      {
-        "name": "Chargeur tambour 60 coups",
-        "slot": "Chargeur",
-        "lvl": "Niv. 39"
-      },
-      {
-        "name": "ZLR ASP50 Stock",
-        "slot": "Crosse",
-        "lvl": "Niv. 44"
-      }
-    ],
-    "perks": "Pas de course • Mains agiles • Fantôme | Fumigène + Semtex"
-  },
-  {
     "name": "ISO Nightshade",
     "type": "Mitraillette",
     "role": "Courte portée",
@@ -158,203 +79,77 @@
     "perks": "Pas de course • Ruée vers le sang • Ninja | Stimulant + Couteau de lancer"
   },
   {
-    "name": "Wz.55 Striga",
-    "type": "Mitraillette",
-    "role": "Courte portée",
+    "name": "M4A1",
+    "type": "Fusil d'assaut",
+    "role": "Polyvalent",
     "tier": "TIER S",
-    "rankText": "TIER S",
+    "rankText": "TIER S • POLYVALENT",
     "badgeClass": "bg-amber-500/20 text-amber-400 border-amber-500",
-    "unlock": "🔓 Arme : Niveau de joueur 18",
+    "unlock": "🔓 Arme : Débloquée dès le départ",
     "attachments": [
       {
-        "name": "Full Port Comp",
+        "name": "Silencieux VT-7 Spiritfire",
         "slot": "Bouche",
-        "lvl": "Niv. 3"
+        "lvl": "Niv. 18"
       },
       {
-        "name": "GW Sender 500",
+        "name": "Canon lourd Hightower 20\"",
         "slot": "Canon",
-        "lvl": "Niv. 5"
-      },
-      {
-        "name": "50 Round Drum Mag",
-        "slot": "Chargeur",
-        "lvl": "Niv. 49"
-      },
-      {
-        "name": "Matuzek 532-L Grip",
-        "slot": "Poignée arrière",
         "lvl": "Niv. 15"
       },
       {
-        "name": "Wire Stock",
-        "slot": "Crosse",
-        "lvl": "Niv. 52"
-      },
-      {
-        "name": "Wz.55 Striga Carnage",
-        "slot": "Apex (Akimbo)",
-        "lvl": "Niv. 60"
-      }
-    ],
-    "perks": "Pas de course • Réparation rapide • Fantôme | Fumigène + Semtex"
-  },
-  {
-    "name": "VEL 46",
-    "type": "Mitraillette",
-    "role": "Courte portée",
-    "tier": "TIER A",
-    "rankText": "TIER A",
-    "badgeClass": "bg-sky-500/20 text-sky-400 border-sky-500",
-    "unlock": "🔓 Arme : Niveau de joueur 27",
-    "attachments": [
-      {
-        "name": "TA TacPro-56",
-        "slot": "Bouche",
-        "lvl": "Niv. 42"
-      },
-      {
-        "name": "SZ SRE-7",
-        "slot": "Lunette",
-        "lvl": "Niv. 29"
-      },
-      {
-        "name": "V46 Vert-Tac",
+        "name": "Poignée Bruen Heavy Support",
         "slot": "Sous le canon",
-        "lvl": "Niv. 50"
+        "lvl": "Niv. 12"
       },
       {
-        "name": "Chargeurs 50 cartouches",
+        "name": "Chargeur 60 cartouches",
         "slot": "Chargeur",
-        "lvl": "Niv. 31"
+        "lvl": "Niv. 24"
       },
       {
-        "name": "Poignée ZLR Combat",
-        "slot": "Poignée arrière",
-        "lvl": "Niv. 38"
-      }
-    ],
-    "perks": "Pas de course • Mains agiles • Ninja | Stimulant + Thermite"
-  },
-  {
-    "name": "CSG-35",
-    "type": "Mitraillette",
-    "role": "Courte portée",
-    "tier": "TIER A",
-    "rankText": "TIER A",
-    "badgeClass": "bg-sky-500/20 text-sky-400 border-sky-500",
-    "unlock": "🔓 Arme : Passe de combat Saison 1 (Palier 36 gratuit)",
-    "attachments": [
-      {
-        "name": "Bruen Clash-40",
-        "slot": "Lunette",
-        "lvl": "Niv. 10"
-      },
-      {
-        "name": "Butée de combat rapproché",
-        "slot": "Sous le canon",
-        "lvl": "Niv. 28"
-      },
-      {
-        "name": "Chargeurs 40 cartouches",
-        "slot": "Chargeur",
-        "lvl": "Niv. 22"
-      },
-      {
-        "name": "Matuzek Fire-Pro",
-        "slot": "Poignée arrière",
-        "lvl": "Niv. 34"
-      },
-      {
-        "name": "Crosse légère XRK",
-        "slot": "Crosse",
-        "lvl": "Niv. 39"
-      },
-      {
-        "name": "CSG Frappe Croisée",
-        "slot": "Apex (Bonus)",
-        "lvl": "Niv. 42"
-      }
-    ],
-    "perks": "Pas de course • Ruée vers le sang • Fantôme | Fumigène + Semtex"
-  },
-  {
-    "name": "Mosin-Nagant",
-    "type": "Fusil tactique & précision",
-    "role": "Fusil tactique",
-    "tier": "TIER S",
-    "rankText": "TIER S",
-    "badgeClass": "bg-amber-500/20 text-amber-400 border-amber-500",
-    "unlock": "🔓 Arme : Niveau de joueur 36",
-    "attachments": [
-      {
-        "name": "330TC2 Gridlock",
-        "slot": "Bouche",
-        "lvl": "Niv. 37"
-      },
-      {
-        "name": "762 Dozor Barrel",
-        "slot": "Canon",
-        "lvl": "Niv. 41"
-      },
-      {
-        "name": "Cronen R808",
+        "name": "Lunette Corio Eagleseye 2.5x",
         "slot": "Lunette",
         "lvl": "Niv. 9"
-      },
-      {
-        "name": "Lockwood Eagle Stock",
-        "slot": "Crosse",
-        "lvl": "Niv. 27"
-      },
-      {
-        "name": "TV-Light 7-Bolt",
-        "slot": "Culasse",
-        "lvl": "Niv. 57"
       }
     ],
-    "perks": "Pas de course • Mains agiles • Fantôme | Fumigène + Couteau de lancer"
+    "perks": "Pas de course • Mains agiles • Alerte maximale | Fumigène + Semtex"
   },
   {
-    "name": "KG-7 Vulcan",
+    "name": "FJX Imperium",
     "type": "Fusil tactique & précision",
-    "role": "Sniper",
-    "tier": "TIER S",
-    "rankText": "TIER S",
-    "badgeClass": "bg-amber-500/20 text-amber-400 border-amber-500",
-    "unlock": "🔓 Arme : Niveau de joueur 4",
+    "role": "One-Shot Longue Portée",
+    "tier": "TIER A",
+    "rankText": "TIER A • SNIPER",
+    "badgeClass": "bg-purple-500/20 text-purple-300 border-purple-500",
+    "unlock": "🔓 Arme : Déblocage Arsenal",
     "attachments": [
       {
-        "name": "Haebang Naseon V.5 26\"",
-        "slot": "Canon",
+        "name": "Silencieux Sonic L",
+        "slot": "Bouche",
         "lvl": "Niv. 22"
       },
       {
-        "name": "Schlager Visiv-5",
-        "slot": "Laser",
-        "lvl": "Niv. 7"
+        "name": "Canon Fahrenheit 29\"",
+        "slot": "Canon",
+        "lvl": "Niv. 19"
       },
       {
-        "name": "TT G76-RP Stock",
-        "slot": "Crosse",
-        "lvl": "Niv. 47"
+        "name": "Munitions explosives .408",
+        "slot": "Munitions",
+        "lvl": "Niv. 14"
       },
       {
-        "name": "Haebang YNC-45",
-        "slot": "Busc",
-        "lvl": "Niv. 34"
-      },
-      {
-        "name": "KT76 Light Bolt",
+        "name": "Verrou FJX Blast",
         "slot": "Culasse",
-        "lvl": "Niv. 63"
+        "lvl": "Niv. 11"
       },
       {
-        "name": "KG-7 Drillcharge",
-        "slot": "Apex (Bonus)",
-        "lvl": "Niv. 75"
+        "name": "Laser VLK LZR 7mW",
+        "slot": "Laser",
+        "lvl": "Niv. 8"
       }
     ],
-    "perks": "Sang-froid • Mains agiles • Alerte maximale | Fumigène + Mine de proximité"
+    "perks": "Escouade de déminage • Sang-froid • Fantôme | Fumigène + Mine de proximité"
   }
 ]

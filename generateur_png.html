@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Générateur de Textures PNG — Warzone MW4</title>
+  <style>
+    body {
+      background: #0b0e14;
+      color: #e2e8f0;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #1e293b;
+      margin-bottom: 2rem;
+    }
+    h1 { font-size: 1.5rem; margin: 0; color: #f8fafc; }
+    p { color: #94a3b8; margin: 0.4rem 0 0; font-size: 0.9rem; }
+    .btn-all {
+      background: #f59e0b;
+      color: #090d16;
+      border: none;
+      padding: 0.85rem 1.5rem;
+      font-weight: 800;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+    }
+    .btn-all:hover { background: #fbbf24; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .item {
+      background: #131823;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    canvas {
+      width: 100%;
+      height: 140px;
+      display: block;
+      background: #000;
+    }
+    .meta {
+      padding: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .meta strong { display: block; font-size: 0.95rem; color: #fff; }
+    .meta span { font-size: 0.72rem; color: #64748b; font-family: monospace; }
+    .btn-dl {
+      background: #1e293b;
+      color: #f8fafc;
+      border: 1px solid #334155;
+      padding: 0.45rem 0.75rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .btn-dl:hover { background: #334155; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Générateur de Textures Camouflage (.PNG)</h1>
+      <p>Cliquez sur « Télécharger les 15 PNG » puis placez chaque fichier dans son dossier indiqué sous la vignette.</p>
+    </div>
+    <button class="btn-all" id="downloadAll">⬇ Télécharger les 15 PNG</button>
+  </header>
+  <div class="grid" id="grid"></div>
+
+  <script>
+    const CAMOS = [
+      // Completionist
+      { name: "Or (Gold)", file: "gold.png", folder: "assets/camos/completionist/", type: "gold" },
+      { name: "Platine (Platinum)", file: "platinum.png", folder: "assets/camos/completionist/", type: "platinum" },
+      { name: "Rupture harmonique", file: "harmonic_break.png", folder: "assets/camos/completionist/", type: "harmonic" },
+      // Prestige
+      { name: "Pyroclast", file: "pyroclast.png", folder: "assets/camos/prestige/", type: "pyro1" },
+      { name: "Pyroclast Terminus", file: "pyroclast_terminus.png", folder: "assets/camos/prestige/", type: "pyro2" },
+      { name: "Pyroclast Scatter", file: "pyroclast_scatter.png", folder: "assets/camos/prestige/", type: "pyro3" },
+      { name: "Pyroclast Cascade", file: "pyroclast_cascade.png", folder: "assets/camos/prestige/", type: "pyro4" },
+      // Warzone Mastery & Secret
+      { name: "Divergence", file: "divergence.png", folder: "assets/camos/warzone/", type: "divergence" },
+      { name: "Parallax", file: "parallax.png", folder: "assets/camos/warzone/", type: "parallax" },
+      { name: "Damascus Reforged", file: "damascus_reforged.png", folder: "assets/camos/warzone/", type: "damascus" },
+      { name: "Empyros", file: "empyros.png", folder: "assets/camos/warzone/", type: "empyros" },
+      { name: "Renaissance", file: "renaissance.png", folder: "assets/camos/warzone/", type: "renaissance" },
+      { name: "Violet Striker", file: "violet_striker.png", folder: "assets/camos/warzone/", type: "violet" },
+      { name: "Neutral Ground", file: "neutral_ground.png", folder: "assets/camos/warzone/", type: "urban" },
+      { name: "Classified Weapon", file: "classified_weapon.png", folder: "assets/camos/warzone/", type: "classified" }
+    ];
+
+    function pseudoRand(seed) {
+      let x = Math.sin(seed) * 10000;
+      return x - Math.floor(x);
+    }
+
+    function drawTexture(canvas, type) {
+      const w = canvas.width = 640;
+      const h = canvas.height = 360;
+      const ctx = canvas.getContext("2d");
+
+      if (type === "gold" || type === "platinum" || type === "renaissance") {
+        const g = ctx.createLinearGradient(0, 0, w, h);
+        if (type === "gold") {
+          g.addColorStop(0, "#422006");
+          g.addColorStop(0.35, "#d97706");
+          g.addColorStop(0.55, "#fef08a");
+          g.addColorStop(0.8, "#b45309");
+          g.addColorStop(1, "#451a03");
+        } else if (type === "platinum") {
+          g.addColorStop(0, "#1e293b");
+          g.addColorStop(0.35, "#94a3b8");
+          g.addColorStop(0.55, "#f8fafc");
+          g.addColorStop(0.8, "#64748b");
+          g.addColorStop(1, "#0f172a");
+        } else {
+          g.addColorStop(0, "#09090b");
+          g.addColorStop(0.5, "#18181b");
+          g.addColorStop(1, "#422006");
+        }
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, w, h);
+
+        // Gravures géométriques / topographiques métalliques
+        ctx.lineWidth = type === "renaissance" ? 2.5 : 1.5;
+        for (let i = -200; i < w + 200; i += 24) {
+          ctx.strokeStyle = type === "platinum"
+            ? "rgba(255,255,255,0.22)"
+            : "rgba(253, 224, 71, 0.28)";
+          ctx.beginPath();
+          for (let y = 0; y <= h; y += 12) {
+            const offset = Math.sin(y * 0.025 + i * 0.02) * 28 + Math.cos(y * 0.06) * 10;
+            if (y === 0) ctx.moveTo(i + offset, y);
+            else ctx.lineTo(i + offset, y);
+          }
+          ctx.stroke();
+        }
+      }
+
+      else if (type.startsWith("pyro")) {
+        // Roche volcanique + veines de magma progressives (1 -> 4)
+        const level = parseInt(type.replace("pyro", ""), 10);
+        ctx.fillStyle = level === 4 ? "#2a0804" : "#110d0c";
+        ctx.fillRect(0, 0, w, h);
+
+        // Plaques de roche sombre
+        for (let i = 0; i < 65; i++) {
+          const cx = pseudoRand(i * 13 + level) * w;
+          const cy = pseudoRand(i * 29 + level) * h;
+          const r = 25 + pseudoRand(i * 7) * 55;
+          ctx.fillStyle = level >= 3 ? "rgba(24, 12, 10, 0.85)" : "rgba(20, 18, 17, 0.92)";
+          ctx.beginPath();
+          for (let a = 0; a < 6; a++) {
+            const ang = (a / 6) * Math.PI * 2;
+            const rad = r * (0.7 + pseudoRand(i * 10 + a) * 0.5);
+            const px = cx + Math.cos(ang) * rad;
+            const py = cy + Math.sin(ang) * rad;
+            if (a === 0) ctx.moveTo(px, py);
+            else ctx.lineTo(px, py);
+          }
+          ctx.closePath();
+          ctx.fill();
+        }
+
+        // Fissures de lave incandescentes
+        const veinCount = 12 + level * 10;
+        for (let v = 0; v < veinCount; v++) {
+          let x = pseudoRand(v * 3.1 + level) * w;
+          let y = 0;
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          while (y < h) {
+            y += 18;
+            x += (pseudoRand(x + y + v) - 0.5) * 44;
+            ctx.lineTo(x, y);
+          }
+          ctx.shadowBlur = 14 + level * 4;
+          ctx.shadowColor = level >= 3 ? "#ef4444" : "#f97316";
+          ctx.strokeStyle = level === 1 ? "#ea580c" : (level === 2 ? "#fb923c" : (level === 3 ? "#f43f5e" : "#fde047"));
+          ctx.lineWidth = 1.5 + level * 0.9;
+          ctx.stroke();
+        }
+        ctx.shadowBlur = 0;
+      }
+
+      else if (type === "harmonic" || type === "divergence" || type === "parallax" || type === "empyros") {
+        const bg = ctx.createLinearGradient(0, 0, w, h);
+        if (type === "harmonic") {
+          bg.addColorStop(0, "#090d16");
+          bg.addColorStop(0.5, "#1e1b4b");
+          bg.addColorStop(1, "#083344");
+        } else if (type === "divergence") {
+          bg.addColorStop(0, "#1e1b4b");
+          bg.addColorStop(0.5, "#4c1d95");
+          bg.addColorStop(1, "#172554");
+        } else if (type === "parallax") {
+          bg.addColorStop(0, "#0f172a");
+          bg.addColorStop(0.3, "#312e81");
+          bg.addColorStop(0.6, "#065f46");
+          bg.addColorStop(1, "#831843");
+        } else {
+          bg.addColorStop(0, "#022c22");
+          bg.addColorStop(0.5, "#064e3b");
+          bg.addColorStop(1, "#172554");
+        }
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, w, h);
+
+        // Ondes énergétiques
+        for (let k = 0; k < 22; k++) {
+          ctx.beginPath();
+          const baseY = (h / 22) * k;
+          for (let x = 0; x <= w; x += 10) {
+            const y = baseY + Math.sin(x * 0.018 + k * 0.6) * 26 * Math.cos(x * 0.007);
+            if (x === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          }
+          ctx.strokeStyle = type === "empyros"
+            ? (k % 2 === 0 ? "rgba(52, 211, 153, 0.55)" : "rgba(56, 189, 248, 0.55)")
+            : (k % 2 === 0 ? "rgba(34, 211, 238, 0.55)" : "rgba(232, 121, 249, 0.55)");
+          ctx.lineWidth = 2.2;
+          ctx.stroke();
+        }
+      }
+
+      else if (type === "damascus") {
+        ctx.fillStyle = "#090d1a";
+        ctx.fillRect(0, 0, w, h);
+        for (let i = 0; i < 36; i++) {
+          ctx.beginPath();
+          const y0 = i * 11;
+          for (let x = 0; x <= w; x += 8) {
+            const y = y0 + Math.sin(x * 0.02 + i * 0.35) * 22 + Math.sin(x * 0.05 - i * 0.2) * 8;
+            if (x === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          }
+          ctx.strokeStyle = i % 3 === 0 ? "rgba(244, 63, 94, 0.7)" : "rgba(59, 130, 246, 0.65)";
+          ctx.lineWidth = 2.4;
+          ctx.stroke();
+        }
+      }
+
+      else if (type === "violet") {
+        ctx.fillStyle = "#09070d";
+        ctx.fillRect(0, 0, w, h);
+        for (let i = -h; i < w + h; i += 28) {
+          ctx.fillStyle = i % 56 === 0 ? "#6d28d9" : "#2e1065";
+          ctx.beginPath();
+          ctx.moveTo(i, 0);
+          ctx.lineTo(i + 16, 0);
+          ctx.lineTo(i - h + 16, h);
+          ctx.lineTo(i - h, h);
+          ctx.closePath();
+          ctx.fill();
+        }
+      }
+
+      else if (type === "urban") {
+        const shades = ["#18181b", "#3f3f46", "#71717a", "#d4d4d8"];
+        ctx.fillStyle = "#27272a";
+        ctx.fillRect(0, 0, w, h);
+        for (let i = 0; i < 90; i++) {
+          ctx.fillStyle = shades[i % shades.length];
+          const x = pseudoRand(i * 4.2) * w;
+          const y = pseudoRand(i * 9.1) * h;
+          const rw = 30 + pseudoRand(i * 2.3) * 90;
+          const rh = 20 + pseudoRand(i * 5.7) * 60;
+          ctx.fillRect(x, y, rw, rh);
+        }
+      }
+
+      else if (type === "classified") {
+        ctx.fillStyle = "#09090b";
+        ctx.fillRect(0, 0, w, h);
+        for (let i = 0; i < 45; i++) {
+          ctx.fillStyle = i % 4 === 0 ? "rgba(220, 38, 38, 0.75)" : "rgba(39, 39, 42, 0.7)";
+          const x = pseudoRand(i * 11) * w;
+          const y = pseudoRand(i * 17) * h;
+          ctx.fillRect(x, y, 40 + pseudoRand(i) * 80, i % 4 === 0 ? 4 : 18);
+        }
+        ctx.fillStyle = "rgba(239, 68, 68, 0.16)";
+        ctx.font = "bold 42px monospace";
+        ctx.fillText("CLASSIFIED // REDACTED", 45, 195);
+      }
+
+      // Vignette tactique subtile
+      const vig = ctx.createRadialGradient(w/2, h/2, w*0.25, w/2, h/2, w*0.7);
+      vig.addColorStop(0, "rgba(0,0,0,0)");
+      vig.addColorStop(1, "rgba(0,0,0,0.55)");
+      ctx.fillStyle = vig;
+      ctx.fillRect(0, 0, w, h);
+    }
+
+    const grid = document.getElementById("grid");
+    const canvases = [];
+
+    CAMOS.forEach(camo => {
+      const card = document.createElement("div");
+      card.className = "item";
+      const canvas = document.createElement("canvas");
+      drawTexture(canvas, camo.type);
+      canvases.push({ canvas, file: camo.file });
+
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      meta.innerHTML = `
+        <div>
+          <strong>${camo.name}</strong>
+          <span>${camo.folder}${camo.file}</span>
+        </div>
+        <button class="btn-dl">PNG</button>
+      `;
+      meta.querySelector("button").onclick = () => downloadCanvas(canvas, camo.file);
+
+      card.appendChild(canvas);
+      card.appendChild(meta);
+      grid.appendChild(card);
+    });
+
+    function downloadCanvas(canvas, filename) {
+      const link = document.createElement("a");
+      link.download = filename;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    }
+
+    document.getElementById("downloadAll").onclick = () => {
+      canvases.forEach((item, idx) => {
+        setTimeout(() => downloadCanvas(item.canvas, item.file), idx * 180);
+      });
+    };
+  </script>
+</body>
+</html>

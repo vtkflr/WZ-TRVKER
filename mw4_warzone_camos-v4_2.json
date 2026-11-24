@@ -1,0 +1,2814 @@
+{
+  "game": "Call of Duty: Modern Warfare 4",
+  "mode": "Warzone",
+  "season": "Season 1",
+  "warzone_camos": [
+    {
+      "id": "wz_divergence",
+      "name": "Divergence",
+      "category": "Mastery Prerequisite",
+      "order": 0,
+      "prerequisite_id": null,
+      "challenge": "Débloquer le camouflage Rupture harmonique (Harmonic Break) sur 33 armes (progression partagée Multi/DMZ/Warzone). Ouvre l'accès aux camouflages de maîtrise Warzone.",
+      "current_count": 0,
+      "target_count": 33,
+      "unlocked": false,
+      "visual_description": "Camouflage animé énergétique violet et bleu électrique avec ondes de distorsion.",
+      "image": "assets/camos/warzone/divergence.png"
+    },
+    {
+      "id": "wz_mastery_1",
+      "name": "Parallax",
+      "category": "Mastery",
+      "order": 1,
+      "prerequisite_id": "wz_divergence",
+      "challenge": "Faire 5 éliminations en une seule partie, 300 fois (avec n'importe quelle arme MW4).",
+      "current_count": 0,
+      "target_count": 300,
+      "unlocked": false,
+      "visual_description": "Camouflage animé métallique aux reflets arc-en-ciel changeants selon l'angle de vue.",
+      "image": "assets/camos/warzone/parallax.png"
+    },
+    {
+      "id": "wz_mastery_2",
+      "name": "Damascus Reforged",
+      "category": "Mastery",
+      "order": 2,
+      "prerequisite_id": "wz_mastery_1",
+      "challenge": "Réaliser 2 éliminations sans remettre de plaque d'armure, 200 fois.",
+      "current_count": 0,
+      "target_count": 200,
+      "unlocked": false,
+      "visual_description": "Motif topographique ondulé bleu et rouge néon lumineux (revisite animée du camouflage Damas de MW 2019).",
+      "image": "assets/camos/warzone/damascus_reforged.png"
+    },
+    {
+      "id": "wz_mastery_3",
+      "name": "Empyros",
+      "category": "Mastery",
+      "order": 3,
+      "prerequisite_id": "wz_mastery_2",
+      "challenge": "Terminer dans le Top 5 avec au moins 6 éliminations, 75 fois.",
+      "current_count": 0,
+      "target_count": 75,
+      "unlocked": false,
+      "visual_description": "Camouflage ultime animé parcouru de flux d'énergie bleu électrique et émeraude incandescent.",
+      "image": "assets/camos/warzone/empyros.png"
+    },
+    {
+      "id": "wz_secret_1",
+      "name": "Renaissance",
+      "category": "Secret",
+      "order": null,
+      "prerequisite_id": null,
+      "challenge": "Remporter 4 parties en mode Résurgence (normal ou décontracté).",
+      "current_count": 0,
+      "target_count": 4,
+      "unlocked": false,
+      "visual_description": "Camouflage animé doré et noir orné de motifs géométriques lumineux.",
+      "image": "assets/camos/warzone/renaissance.png"
+    },
+    {
+      "id": "wz_secret_2",
+      "name": "Violet Striker",
+      "category": "Secret",
+      "order": null,
+      "prerequisite_id": null,
+      "challenge": "Réaliser 300 éliminations dans le mode Point de Ralliement (Rally Point — joueurs et bots comptent).",
+      "current_count": 0,
+      "target_count": 300,
+      "unlocked": false,
+      "visual_description": "Stries géométriques violettes et noires à finition satinée métallique.",
+      "image": "assets/camos/warzone/violet_striker.png"
+    },
+    {
+      "id": "wz_secret_3",
+      "name": "Neutral Ground",
+      "category": "Secret",
+      "order": null,
+      "prerequisite_id": null,
+      "challenge": "Dans Point de Ralliement, abattre le drone de livraison spéciale, récupérer la mallette et survivre 3 minutes avec.",
+      "current_count": 0,
+      "target_count": 1,
+      "unlocked": false,
+      "visual_description": "Motif tactique urbain gris, blanc et noir avec marquages numériques discrets.",
+      "image": "assets/camos/warzone/neutral_ground.png"
+    },
+    {
+      "id": "wz_secret_4",
+      "name": "Classified Weapon",
+      "category": "Secret",
+      "order": null,
+      "prerequisite_id": null,
+      "challenge": "Obtenir une arme classifiée (colis violet après 100 éliminations dans Point de Ralliement ou événement aléatoire) et faire 10 éliminations sur de vrais joueurs avec.",
+      "current_count": 0,
+      "target_count": 10,
+      "unlocked": false,
+      "visual_description": "Camouflage noir mat texturé avec symboles classifiés rouges et effet glitch numérique.",
+      "image": "assets/camos/warzone/classified_weapon.png"
+    }
+  ],
+  "weapons": [
+    {
+      "id": "m4",
+      "name": "M4",
+      "category": "Assault Rifle",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "m4_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "m4_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les fusils d'assaut, réaliser des tirs dans la tête avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "m4_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des doubles éliminations avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "m4_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "m4_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "m4_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "m4_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "han_86",
+      "name": "Han 86",
+      "category": "Assault Rifle",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "han_86_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "han_86_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les fusils d'assaut, réaliser des tirs dans la tête avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "han_86_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des doubles éliminations avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "han_86_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "han_86_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "han_86_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "han_86_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "hyeon_burst",
+      "name": "Hyeon Burst",
+      "category": "Assault Rifle",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "hyeon_burst_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "hyeon_burst_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les fusils d'assaut, réaliser des tirs dans la tête avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "hyeon_burst_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des doubles éliminations avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "hyeon_burst_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "hyeon_burst_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "hyeon_burst_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "hyeon_burst_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "patriot_xmr",
+      "name": "Patriot XMR",
+      "category": "Assault Rifle",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "patriot_xmr_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "patriot_xmr_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les fusils d'assaut, réaliser des tirs dans la tête avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "patriot_xmr_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des doubles éliminations avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "patriot_xmr_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "patriot_xmr_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "patriot_xmr_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "patriot_xmr_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "kastov_762",
+      "name": "Kastov 762",
+      "category": "Assault Rifle",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "kastov_762_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "kastov_762_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les fusils d'assaut, réaliser des tirs dans la tête avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "kastov_762_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des doubles éliminations avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "kastov_762_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "kastov_762_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "kastov_762_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "kastov_762_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "oden",
+      "name": "Oden",
+      "category": "Assault Rifle",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "oden_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "oden_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les fusils d'assaut, réaliser des tirs dans la tête avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "oden_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des doubles éliminations avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "oden_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "oden_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "oden_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "oden_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "axion",
+      "name": "Axion",
+      "category": "Assault Rifle",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "axion_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "axion_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les fusils d'assaut, réaliser des tirs dans la tête avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "axion_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des doubles éliminations avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "axion_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "axion_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "axion_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "axion_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "cronen_squall",
+      "name": "Cronen Squall",
+      "category": "Assault Rifle",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "cronen_squall_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "cronen_squall_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les fusils d'assaut, réaliser des tirs dans la tête avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "cronen_squall_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des doubles éliminations avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "cronen_squall_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "cronen_squall_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "cronen_squall_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "cronen_squall_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "cronen_osprey",
+      "name": "Cronen Osprey",
+      "category": "Assault Rifle",
+      "season": "Season 1",
+      "completionist_camos": [
+        {
+          "id": "cronen_osprey_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "cronen_osprey_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les fusils d'assaut, réaliser des tirs dans la tête avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "cronen_osprey_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des doubles éliminations avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "cronen_osprey_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "cronen_osprey_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "cronen_osprey_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "cronen_osprey_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "iso_nightshade",
+      "name": "ISO Nightshade",
+      "category": "SMG",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "iso_nightshade_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "iso_nightshade_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur toutes les mitraillettes, réaliser des éliminations par derrière avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "iso_nightshade_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des éliminations au jugé avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "iso_nightshade_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "iso_nightshade_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "iso_nightshade_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "iso_nightshade_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "vel_46",
+      "name": "VEL 46",
+      "category": "SMG",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "vel_46_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "vel_46_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur toutes les mitraillettes, réaliser des éliminations par derrière avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "vel_46_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des éliminations au jugé avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "vel_46_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "vel_46_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "vel_46_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "vel_46_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "wz55_striga",
+      "name": "Wz.55 Striga",
+      "category": "SMG",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "wz55_striga_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "wz55_striga_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur toutes les mitraillettes, réaliser des éliminations par derrière avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "wz55_striga_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des éliminations au jugé avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "wz55_striga_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "wz55_striga_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "wz55_striga_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "wz55_striga_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "ppsh_41",
+      "name": "PPSh-41",
+      "category": "SMG",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "ppsh_41_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "ppsh_41_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur toutes les mitraillettes, réaliser des éliminations par derrière avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "ppsh_41_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des éliminations au jugé avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "ppsh_41_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "ppsh_41_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "ppsh_41_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "ppsh_41_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "x58_nyx",
+      "name": "X-58 Nyx",
+      "category": "SMG",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "x58_nyx_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "x58_nyx_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur toutes les mitraillettes, réaliser des éliminations par derrière avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "x58_nyx_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des éliminations au jugé avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "x58_nyx_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "x58_nyx_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "x58_nyx_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "x58_nyx_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "csg_35",
+      "name": "CSG-35",
+      "category": "SMG",
+      "season": "Season 1",
+      "completionist_camos": [
+        {
+          "id": "csg_35_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "csg_35_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur toutes les mitraillettes, réaliser des éliminations par derrière avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "csg_35_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des éliminations au jugé avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "csg_35_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "csg_35_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "csg_35_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "csg_35_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "rezi_12",
+      "name": "Rezi 12",
+      "category": "Shotgun",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "rezi_12_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "rezi_12_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les fusils à pompe, réaliser des éliminations au jugé avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "rezi_12_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des éliminations sans recharger avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "rezi_12_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "rezi_12_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "rezi_12_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "rezi_12_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "warlord",
+      "name": "Warlord",
+      "category": "Shotgun",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "warlord_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "warlord_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les fusils à pompe, réaliser des éliminations au jugé avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "warlord_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des éliminations sans recharger avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "warlord_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "warlord_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "warlord_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "warlord_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "jak_12",
+      "name": "JAK 12",
+      "category": "Shotgun",
+      "season": "Season 1",
+      "completionist_camos": [
+        {
+          "id": "jak_12_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "jak_12_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les fusils à pompe, réaliser des éliminations au jugé avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "jak_12_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des éliminations sans recharger avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "jak_12_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "jak_12_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "jak_12_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "jak_12_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "finn_lmg",
+      "name": "FiNN LMG",
+      "category": "LMG",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "finn_lmg_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "finn_lmg_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur toutes les mitrailleuses, réaliser des éliminations sans mourir avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "finn_lmg_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des éliminations en tir continu (sans lâcher la détente).",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "finn_lmg_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "finn_lmg_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "finn_lmg_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "finn_lmg_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "type_73",
+      "name": "Type 73",
+      "category": "LMG",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "type_73_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "type_73_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur toutes les mitrailleuses, réaliser des éliminations sans mourir avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "type_73_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des éliminations en tir continu (sans lâcher la détente).",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "type_73_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "type_73_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "type_73_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "type_73_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "apoc_338",
+      "name": "APOC-338",
+      "category": "LMG",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "apoc_338_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "apoc_338_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur toutes les mitrailleuses, réaliser des éliminations sans mourir avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "apoc_338_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des éliminations en tir continu (sans lâcher la détente).",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "apoc_338_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "apoc_338_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "apoc_338_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "apoc_338_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "mar_9",
+      "name": "MAR-9",
+      "category": "Marksman Rifle",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "mar_9_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "mar_9_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les fusils tactiques, réaliser des éliminations en étant couché avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "mar_9_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des éliminations en un tir dans la tête.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "mar_9_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "mar_9_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "mar_9_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "mar_9_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "oris_86",
+      "name": "Oris 8.6",
+      "category": "Marksman Rifle",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "oris_86_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "oris_86_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les fusils tactiques, réaliser des éliminations en étant couché avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "oris_86_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des éliminations en un tir dans la tête.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "oris_86_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "oris_86_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "oris_86_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "oris_86_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "mosin_nagant",
+      "name": "Mosin-Nagant",
+      "category": "Marksman Rifle",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "mosin_nagant_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "mosin_nagant_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les fusils tactiques, réaliser des éliminations en étant couché avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "mosin_nagant_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des éliminations en un tir dans la tête.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "mosin_nagant_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "mosin_nagant_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "mosin_nagant_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "mosin_nagant_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "kg7_vulcan",
+      "name": "KG-7 Vulcan",
+      "category": "Sniper Rifle",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "kg7_vulcan_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "kg7_vulcan_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les fusils de précision, réaliser des éliminations en étant couché avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "kg7_vulcan_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des éliminations en visant rapidement (Quickscope) ou en retenant son souffle.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "kg7_vulcan_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "kg7_vulcan_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "kg7_vulcan_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "kg7_vulcan_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "astaroth_57",
+      "name": "Astaroth .57",
+      "category": "Sniper Rifle",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "astaroth_57_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "astaroth_57_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les fusils de précision, réaliser des éliminations en étant couché avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "astaroth_57_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des éliminations en visant rapidement (Quickscope) ou en retenant son souffle.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "astaroth_57_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "astaroth_57_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "astaroth_57_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "astaroth_57_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "signal_50",
+      "name": "Signal 50",
+      "category": "Sniper Rifle",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "signal_50_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "signal_50_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les fusils de précision, réaliser des éliminations en étant couché avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "signal_50_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des éliminations en visant rapidement (Quickscope) ou en retenant son souffle.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "signal_50_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "signal_50_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "signal_50_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "signal_50_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "sang_9mm",
+      "name": "Sang 9mm",
+      "category": "Handgun",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "sang_9mm_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "sang_9mm_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les pistolets, réaliser des éliminations par derrière avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "sang_9mm_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des éliminations rapides après avoir changé d'arme.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "sang_9mm_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "sang_9mm_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "sang_9mm_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "sang_9mm_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "krait_p68",
+      "name": "Krait P68",
+      "category": "Handgun",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "krait_p68_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "krait_p68_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les pistolets, réaliser des éliminations par derrière avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "krait_p68_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des éliminations rapides après avoir changé d'arme.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "krait_p68_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "krait_p68_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "krait_p68_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "krait_p68_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "50_gs",
+      "name": ".50 GS",
+      "category": "Handgun",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "50_gs_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "50_gs_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les pistolets, réaliser des éliminations par derrière avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "50_gs_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des éliminations rapides après avoir changé d'arme.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "50_gs_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "50_gs_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "50_gs_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "50_gs_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "mojave_357",
+      "name": "Mojave .357",
+      "category": "Handgun",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "mojave_357_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "mojave_357_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les pistolets, réaliser des éliminations par derrière avec cette arme.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "mojave_357_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des éliminations rapides après avoir changé d'arme.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "mojave_357_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "mojave_357_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "mojave_357_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "mojave_357_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "pila",
+      "name": "PILA",
+      "category": "Launcher",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "pila_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "pila_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les lanceurs, réaliser des éliminations sans subir de dégâts.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "pila_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, détruire des véhicules ou séries d'éliminations / éliminations multiples.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "pila_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "pila_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "pila_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "pila_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "rpg_8",
+      "name": "RPG-8",
+      "category": "Launcher",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "rpg_8_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "rpg_8_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les lanceurs, réaliser des éliminations sans subir de dégâts.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "rpg_8_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, détruire des véhicules ou séries d'éliminations / éliminations multiples.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "rpg_8_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "rpg_8_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "rpg_8_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "rpg_8_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "jokr",
+      "name": "JOKR",
+      "category": "Launcher",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "jokr_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "jokr_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les lanceurs, réaliser des éliminations sans subir de dégâts.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "jokr_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, détruire des véhicules ou séries d'éliminations / éliminations multiples.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "jokr_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "jokr_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "jokr_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "jokr_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "pm40_anvil",
+      "name": "PM-40 Anvil",
+      "category": "Launcher",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "pm40_anvil_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "pm40_anvil_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur tous les lanceurs, réaliser des éliminations sans subir de dégâts.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "pm40_anvil_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, détruire des véhicules ou séries d'éliminations / éliminations multiples.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "pm40_anvil_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "pm40_anvil_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "pm40_anvil_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "pm40_anvil_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "fss_carbon_edge",
+      "name": "FSS Carbon Edge 1095",
+      "category": "Melee",
+      "season": "Launch",
+      "completionist_camos": [
+        {
+          "id": "fss_carbon_edge_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "fss_carbon_edge_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur les armes de corps à corps, réaliser des éliminations sans mourir.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "fss_carbon_edge_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des éliminations par derrière ou doubles éliminations.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "fss_carbon_edge_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "fss_carbon_edge_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "fss_carbon_edge_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "fss_carbon_edge_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    },
+    {
+      "id": "zlr_talonhawk",
+      "name": "ZLR Talonhawk",
+      "category": "Melee",
+      "season": "Season 1",
+      "completionist_camos": [
+        {
+          "id": "zlr_talonhawk_gold",
+          "name": "Or (Gold)",
+          "order": 1,
+          "challenge": "Débloquer les 8 camouflages Militaires et 3 Spéciaux de l'arme, puis accomplir le défi Or (ex. : 15 éliminations en une partie ou 100 éliminations).",
+          "unlocked": false,
+          "visual_description": "Finition métallique or massif poli avec gravures géométriques sur l'ensemble du châssis de l'arme.",
+          "image": "assets/camos/completionist/gold.png"
+        },
+        {
+          "id": "zlr_talonhawk_platinum",
+          "name": "Platine (Platinum)",
+          "order": 2,
+          "challenge": "Après avoir débloqué l'Or sur les armes de corps à corps, réaliser des éliminations sans mourir.",
+          "unlocked": false,
+          "visual_description": "Revêtement chromé argenté haute brillance avec reflets miroir et textures brossées.",
+          "image": "assets/camos/completionist/platinum.png"
+        },
+        {
+          "id": "zlr_talonhawk_harmonic_break",
+          "name": "Rupture harmonique (Harmonic Break)",
+          "order": 3,
+          "challenge": "Après avoir débloqué le Platine sur 33 armes, réaliser des éliminations par derrière ou doubles éliminations.",
+          "unlocked": false,
+          "visual_description": "Camouflage animé iridescent parcouru d'ondes sonores lumineuses cyan et magenta.",
+          "image": "assets/camos/completionist/harmonic_break.png"
+        }
+      ],
+      "prestige_camos": [
+        {
+          "id": "zlr_talonhawk_prestige_1",
+          "name": "Pyroclast",
+          "tier": "Prestige 1 - Niveau 1",
+          "challenge": "Atteindre le Prestige d'arme 1 (Niveau 1) via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Roche volcanique sombre parcourue de fissures de lave orange.",
+          "image": "assets/camos/prestige/pyroclast.png"
+        },
+        {
+          "id": "zlr_talonhawk_prestige_2",
+          "name": "Pyroclast Terminus",
+          "tier": "Prestige 1 - Niveau Max",
+          "challenge": "Atteindre le niveau maximum du Prestige d'arme 1 via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Magma incandescente plus dense avec braises animées.",
+          "image": "assets/camos/prestige/pyroclast_terminus.png"
+        },
+        {
+          "id": "zlr_talonhawk_prestige_3",
+          "name": "Pyroclast Scatter",
+          "tier": "Maîtrise - Niveau 150",
+          "challenge": "Atteindre le niveau 150 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Éclats volcaniques cristallisés avec reflets rouge vif.",
+          "image": "assets/camos/prestige/pyroclast_scatter.png"
+        },
+        {
+          "id": "zlr_talonhawk_prestige_4",
+          "name": "Pyroclast Cascade",
+          "tier": "Maîtrise - Niveau 250",
+          "challenge": "Atteindre le niveau 250 de Maîtrise d'arme via l'XP d'arme en Warzone.",
+          "unlocked": false,
+          "visual_description": "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
+          "image": "assets/camos/prestige/pyroclast_cascade.png"
+        }
+      ]
+    }
+  ]
+}
