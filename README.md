@@ -18,3 +18,8 @@ Application web complète de suivi Warzone (**Dashboard**, **Amis**, **Méta Arm
 1. Extrayez tout le contenu de cette archive à la racine de votre dépôt GitHub (`main`), y compris le dossier `assets/` et les dossiers cachés (`.github/`, `.nojekyll`, `.gitignore`).
 2. Activez **GitHub Pages** dans **Settings > Pages** (source **GitHub Actions** ou branche `main` / `/ (root)`).
 3. Exécutez `supabase/schema.sql` dans l'éditeur SQL de votre projet Supabase pour activer la synchronisation cloud des matchs, des amis et des camouflages.
+## Nouveautés récentes (Dashboard, Comptes, Amis & Invitations)
+- **Dashboard & Comparatif (`index.html`)** : cartes héros numérotées (*Ratio K/D*, *Dégâts Moyens*, *Victoires*), pastilles secondaires, graphique de progression avec moyenne et sélecteur de métrique, bloc comparatif avec barres de progression et sélecteur *Squad / Formation* regroupé par **Tess** et **Vaiana**.
+- **Comptes & Codes d'invitation (`index.html` + `supabase/schema.sql`)** : champ **Code d'invitation** à la création de compte vérifié côté base via `verify_and_consume_invite_code` et table `invite_codes`.
+- **Amis & Stats partagées (`supabase/schema.sql`)** : chaque joueur gère ses propres matchs (`user_id = auth.uid()`) et les amis acceptés (`status = 'accepted'`) peuvent consulter les statistiques des autres via la politique `matches_select_friends`.
+- **Service Worker (`sw.js`)** : cache mis à jour en `wz-tracker-cache-v47` incluant `prestige-camos.js`.

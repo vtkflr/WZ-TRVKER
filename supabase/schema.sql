@@ -121,3 +121,6 @@ begin
   return true;
 end;
 $$;
+insert into public.invite_codes (code, active, max_uses)
+values ('VTRVWZ', true, null)
+on conflict (code) do update set active = true;
