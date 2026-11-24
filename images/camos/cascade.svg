@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100" width="100%" height="100%">
+  <defs>
+    <linearGradient id="cascade" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff3300"/>
+      <stop offset="50%" stop-color="#ffaa00"/>
+      <stop offset="100%" stop-color="#ff4400"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="100" fill="url(#cascade)"/>
+  <path d="M-10 30 C 80 10, 120 60, 210 30 C 300 0, 340 50, 410 25" stroke="#ffe680" stroke-width="6" fill="none" opacity="0.8"/>
+  <path d="M-10 70 C 90 90, 150 40, 240 75 C 320 100, 360 60, 410 80" stroke="#fff2b2" stroke-width="4" fill="none" opacity="0.9"/>
+</svg>

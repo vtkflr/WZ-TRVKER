@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100" width="100%" height="100%">
+  <defs>
+    <radialGradient id="magma" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff8800"/>
+      <stop offset="100%" stop-color="#2b0900"/>
+    </radialGradient>
+  </defs>
+  <rect width="400" height="100" fill="url(#magma)"/>
+  <path d="M0 20 Q50 5 100 25 T200 20 T300 30 T400 15 M0 60 Q60 80 120 55 T240 65 T360 50 T400 70 M0 85 Q80 70 160 90 T320 80 T400 90" 
+        stroke="#ffbb33" stroke-width="3" fill="none"/>
+  <circle cx="70" cy="35" r="2" fill="#fff099"/>
+  <circle cx="210" cy="45" r="2.5" fill="#fff099"/>
+  <circle cx="330" cy="25" r="1.5" fill="#fff099"/>
+</svg>

@@ -5,28 +5,28 @@ export const PRESTIGE_CAMOS = [
     name: "Pyroclast",
     requirement: "Prestige 1 - Niveau 1",
     description: "Roche volcanique sombre parcourue de fissures de lave orange.",
-    image: "/images/camos/pyroclast.svg"
+    image: "images/camos/pyroclast.svg"
   },
   {
     id: "terminus",
     name: "Pyroclast Terminus",
     requirement: "Prestige 1 - Niveau Max",
     description: "Magma incandescente plus dense avec braises animées.",
-    image: "/images/camos/terminus.svg"
+    image: "images/camos/terminus.svg"
   },
   {
     id: "scatter",
     name: "Pyroclast Scatter",
     requirement: "Maîtrise - Niveau 150",
     description: "Éclats volcaniques cristallisés avec reflets rouge vif.",
-    image: "/images/camos/scatter.svg"
+    image: "images/camos/scatter.svg"
   },
   {
     id: "cascade",
     name: "Pyroclast Cascade",
     requirement: "Maîtrise - Niveau 250",
     description: "Coulée de lave fluide et lumineuse recouvrant toute l'arme.",
-    image: "/images/camos/cascade.svg"
+    image: "images/camos/cascade.svg"
   }
 ];
 
