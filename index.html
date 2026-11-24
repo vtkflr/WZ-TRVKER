@@ -1256,6 +1256,10 @@
               <label class="text-[10px] font-bold uppercase text-slate-400 block">Pseudo joueur *</label>
               <input type="text" id="authUsername" placeholder="Ex: Vaiana, Alex..." class="glass-input" />
             </div>
+            <div id="authInviteCodeGroup" class="hidden space-y-1">
+              <label class="text-[10px] font-bold uppercase text-amber-300 block">Code d'invitation *</label>
+              <input type="text" id="authInviteCode" placeholder="Ex: AMIS-WZ26" class="glass-input uppercase" />
+            </div>
             <div class="space-y-1">
               <label class="text-[10px] font-bold uppercase text-slate-400 block">Adresse e-mail *</label>
               <input type="email" id="authEmail" placeholder="joueur@exemple.com" class="glass-input" required />
@@ -4094,11 +4098,13 @@
         signupBtn.className = 'px-4 py-1.5 rounded-lg text-xs font-extrabold bg-purple-600 text-white';
         loginBtn.className = 'px-4 py-1.5 rounded-lg text-xs font-extrabold text-slate-400 hover:text-white';
         userGroup.classList.remove('hidden');
+        document.getElementById('authInviteCodeGroup')?.classList.remove('hidden');
         submitLabel.innerText = 'Créer mon compte';
       } else {
         loginBtn.className = 'px-4 py-1.5 rounded-lg text-xs font-extrabold bg-purple-600 text-white';
         signupBtn.className = 'px-4 py-1.5 rounded-lg text-xs font-extrabold text-slate-400 hover:text-white';
         userGroup.classList.add('hidden');
+        document.getElementById('authInviteCodeGroup')?.classList.add('hidden');
         submitLabel.innerText = 'Se connecter';
       }
     }
@@ -4142,7 +4148,14 @@
 
       try {
         if (authMode === 'signup') {
-          const { data, error } = await supabaseClient.auth.signUp({ email, password, options: { data: { username: usernameInput } } });
+          const inviteCode = (document.getElementById('authInviteCode')?.value || '').trim().toUpperCase();
+          if (inviteCode) {
+            const { data: codeValid, error: codeErr } = await supabaseClient.rpc('verify_and_consume_invite_code', { p_code: inviteCode });
+            if (codeErr || codeValid === false) {
+              throw new Error("Code d'invitation invalide ou déjà utilisé.");
+            }
+          }
+          const { data, error } = await supabaseClient.auth.signUp({ email, password, options: { data: { username: usernameInput, invite_code: inviteCode || null } } });
           if (error) throw error;
           if (data?.user) await ensureUserProfile(data.user, usernameInput);
           showToast('Compte créé avec succès !', 'success');

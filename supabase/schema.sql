@@ -60,3 +60,64 @@ create policy "camo_progress_all_own" on public.user_camo_progress for all using
 
 drop policy if exists "friendships_involved" on public.friendships;
 create policy "friendships_involved" on public.friendships for all using (auth.uid() = requester_id or auth.uid() = addressee_id);
+
+drop policy if exists "matches_select_friends" on public.matches;
+create policy "matches_select_friends" on public.matches
+  for select using (
+    auth.uid() = user_id
+    or exists (
+      select 1 from public.friendships f
+      where f.status = 'accepted'
+        and (
+          (f.requester_id = auth.uid() and f.addressee_id = user_id)
+          or (f.addressee_id = auth.uid() and f.requester_id = user_id)
+        )
+    )
+  );
+
+
+create table if not exists public.invite_codes (
+  code text primary key,
+  active boolean not null default true,
+  max_uses int,
+  uses_count int not null default 0,
+  created_at timestamptz default now()
+);
+
+alter table public.invite_codes enable row level security;
+
+create or replace function public.verify_and_consume_invite_code(p_code text)
+returns boolean
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_row public.invite_codes%rowtype;
+begin
+  if p_code is null or length(trim(p_code)) = 0 then
+    return false;
+  end if;
+
+  select * into v_row
+  from public.invite_codes
+  where upper(code) = upper(trim(p_code))
+    and active = true
+  for update;
+
+  if not found then
+    return false;
+  end if;
+
+  if v_row.max_uses is not null and v_row.uses_count >= v_row.max_uses then
+    return false;
+  end if;
+
+  update public.invite_codes
+  set uses_count = uses_count + 1,
+      active = case when max_uses is not null and uses_count + 1 >= max_uses then false else active end
+  where code = v_row.code;
+
+  return true;
+end;
+$$;
