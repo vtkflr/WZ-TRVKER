@@ -4594,9 +4594,56 @@
     }
 
 
+    function normalizeWeaponPrestigeData(weapon) {
+      const baseList = Array.isArray(window.PRESTIGE_CAMOS) && window.PRESTIGE_CAMOS.length > 0
+        ? window.PRESTIGE_CAMOS
+        : [
+            { id: 'pyroclast', name: 'Pyroclast', requirement: 'Prestige 1 - Niveau 1', description: 'Roche volcanique sombre parcourue de fissures de lave orange.', image: '/images/camos/pyroclast.svg' },
+            { id: 'terminus', name: 'Pyroclast Terminus', requirement: 'Prestige 1 - Niveau Max', description: 'Magma incandescente plus dense avec braises animées.', image: '/images/camos/terminus.svg' },
+            { id: 'scatter', name: 'Pyroclast Scatter', requirement: 'Maîtrise - Niveau 150', description: 'Éclats volcaniques cristallisés avec reflets rouge vif.', image: '/images/camos/scatter.svg' },
+            { id: 'cascade', name: 'Pyroclast Cascade', requirement: 'Maîtrise - Niveau 250', description: 'Coulée de lave fluide et lumineuse recouvrant toute l'arme.', image: '/images/camos/cascade.svg' }
+          ];
+
+      if (typeof window.attachPrestigeCamos === 'function') {
+        const [enriched] = window.attachPrestigeCamos([weapon]);
+        if (enriched && Array.isArray(enriched.prestigeCamos)) {
+          weapon.prestigeCamos = enriched.prestigeCamos;
+        }
+      } else if (!Array.isArray(weapon.prestigeCamos)) {
+        weapon.prestigeCamos = baseList;
+      }
+
+      const existingByIdx = Array.isArray(weapon.prestige_camos) ? weapon.prestige_camos : [];
+      const normalizedPrestige = baseList.map((pCamo, idx) => {
+        const legacyItem = existingByIdx[idx] || {};
+        const scopedId = legacyItem.id || `${weapon.id}_prestige_${pCamo.id}`;
+        const isUnlocked = Object.prototype.hasOwnProperty.call(camoUnlockedMap, scopedId)
+          ? Boolean(camoUnlockedMap[scopedId])
+          : (Object.prototype.hasOwnProperty.call(camoUnlockedMap, pCamo.id)
+              ? Boolean(camoUnlockedMap[pCamo.id])
+              : Boolean(legacyItem.unlocked));
+        return {
+          ...legacyItem,
+          id: scopedId,
+          universalId: pCamo.id,
+          name: pCamo.name || legacyItem.name,
+          tier: pCamo.requirement || legacyItem.tier || "Prestige d'arme",
+          requirement: pCamo.requirement || legacyItem.tier || "Prestige d'arme",
+          challenge: legacyItem.challenge || `Débloquer ${pCamo.name} (${pCamo.requirement}) en Warzone.`,
+          description: pCamo.description || legacyItem.visual_description || '',
+          visual_description: pCamo.description || legacyItem.visual_description || '',
+          image: pCamo.image || legacyItem.image,
+          unlocked: isUnlocked
+        };
+      });
+
+      weapon.prestige_camos = normalizedPrestige;
+      return normalizedPrestige;
+    }
+
     function getWeaponCamosList(weapon) {
       const comp = (weapon.completionist_camos || []).map(c => ({ ...c, group: 'Complétionniste' }));
-      const pres = (weapon.prestige_camos || []).map(c => ({ ...c, group: c.tier || "Prestige d'arme" }));
+      const pres = normalizeWeaponPrestigeData(weapon).map(c => ({ ...c, group: c.tier || "Prestige d'arme" }));
       return [...comp, ...pres];
     }
 
@@ -4878,8 +4925,9 @@
             const isOpen = openWeaponIds.has(w.id) || Boolean(search);
             const catLabel = CAMO_CATEGORY_LABELS[w.category] || w.category;
 
+            const normalizedPresList = normalizeWeaponPrestigeData(w);
             const compTiles = (w.completionist_camos || []).map(c => renderMiniCamoTile(c, 'completionist')).join('');
-            const presTiles = (w.prestige_camos || []).map(c => renderMiniCamoTile(c, 'prestige')).join('');
+            const presTiles = normalizedPresList.map(c => renderMiniCamoTile(c, 'prestige')).join('');
 
             return `
               <div class="glass-card border border-slate-800/90 overflow-hidden">
@@ -4963,6 +5011,14 @@
         await syncCamosWithCloud();
       }
     });
+  </script>
+  <script type="module">
+    import { PRESTIGE_CAMOS, attachPrestigeCamos } from './prestige-camos.js';
+    window.PRESTIGE_CAMOS = PRESTIGE_CAMOS;
+    window.attachPrestigeCamos = attachPrestigeCamos;
+    if (typeof renderCamosSection === 'function' && camoData) {
+      renderCamosSection();
+    }
   </script>
 </body>
 </html>
