@@ -439,190 +439,201 @@
 
 
   <main class="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 py-6">
-    <section id="sectionDashboard" class="space-y-6">
-      <div class="glass-card p-4 space-y-3">
-        <div class="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
-          <h3 class="text-xs font-black uppercase tracking-wider text-slate-300 flex items-center gap-2">
-            <i class="fa-solid fa-filter text-purple-400"></i> Filtres d'Analyse
-          </h3>
-          <button onclick="resetFilters()" class="text-[11px] font-bold text-slate-400 hover:text-purple-400 transition flex items-center gap-1">
-            <i class="fa-solid fa-rotate-left"></i> Réinitialiser
+    <section id="sectionDashboard" class="space-y-4">
+      <!-- 1. BARRE SUPÉRIEURE : VUES + JOUEUSES -->
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
+        <div class="flex items-center gap-1.5 bg-slate-950/80 p-1.5 rounded-2xl border border-slate-800/90 overflow-x-auto no-scrollbar">
+          <button type="button" id="subTabOverview" onclick="switchStatsSubTab('overview')"
+            class="stats-subtab-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-2 bg-gradient-to-r from-fuchsia-600 to-pink-600 text-white shadow-md shadow-pink-950/50">
+            <span>Vue d'ensemble</span>
+          </button>
+          <button type="button" id="subTabSessionTourney" onclick="switchStatsSubTab('session')"
+            class="stats-subtab-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-900/70">
+            <span>Session & Tournois</span>
+          </button>
+          <button type="button" id="subTabBreakdown" onclick="switchStatsSubTab('breakdown')"
+            class="stats-subtab-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-900/70">
+            <span>Cartes & Armes</span>
+          </button>
+          <button type="button" id="subTabHistory" onclick="switchStatsSubTab('history')"
+            class="stats-subtab-btn shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-900/70">
+            <span>Historique</span>
           </button>
         </div>
 
+        <div id="topPlayerScopePills" class="flex items-center gap-1.5 bg-slate-950/80 p-1.5 rounded-2xl border border-slate-800/90 overflow-x-auto no-scrollbar self-start lg:self-auto">
+          <button type="button" data-scope="ALL" onclick="setTopPlayerScope('ALL')"
+            class="top-scope-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-extrabold border transition flex items-center gap-2 bg-slate-800/90 text-white border-slate-600">
+            <span class="w-5 h-5 rounded-full bg-purple-600/30 border border-purple-400/50 flex items-center justify-center text-[10px] text-purple-200"><i class="fa-solid fa-users"></i></span>
+            <span>Vue globale</span>
+            <span id="scopeCountAll" class="text-[10px] px-1.5 py-0.5 rounded-full bg-slate-950 text-slate-200 font-black">0</span>
+          </button>
+          <button type="button" data-scope="TESS" onclick="setTopPlayerScope('TESS')"
+            class="top-scope-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold border transition flex items-center gap-2 bg-slate-950/70 text-slate-300 border-slate-800 hover:border-cyan-500/40 hover:text-white">
+            <span class="w-5 h-5 rounded-full bg-cyan-600/25 border border-cyan-400/40 flex items-center justify-center text-[10px] text-cyan-200"><i class="fa-solid fa-user"></i></span>
+            <span>Tess</span>
+            <span id="scopeCountTess" class="text-[10px] px-1.5 py-0.5 rounded-full bg-slate-900 text-slate-400 font-black">0</span>
+          </button>
+          <button type="button" data-scope="VAIANA" onclick="setTopPlayerScope('VAIANA')"
+            class="top-scope-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-extrabold border transition flex items-center gap-2 bg-pink-600/20 text-pink-200 border-pink-500/60">
+            <span class="w-5 h-5 rounded-full bg-pink-600/35 border border-pink-400/60 flex items-center justify-center text-[10px] text-pink-200"><i class="fa-solid fa-crown"></i></span>
+            <span>Vaiana</span>
+            <span id="scopeCountVaiana" class="text-[10px] px-1.5 py-0.5 rounded-full bg-pink-500/25 text-pink-100 font-black">0</span>
+          </button>
+        </div>
+      </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-          <div>
-            <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1.5">Période</label>
-            <div class="flex flex-wrap gap-1 bg-slate-950/60 p-1 rounded-xl border border-slate-800">
-              <button onclick="setPeriodFilter('7d')" class="filter-period-btn px-2.5 py-1 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition" data-period="7d">7j</button>
-              <button onclick="setPeriodFilter('30d')" class="filter-period-btn px-2.5 py-1 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition" data-period="30d">30j</button>
-              <button onclick="setPeriodFilter('90d')" class="filter-period-btn px-2.5 py-1 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition" data-period="90d">90j</button>
-              <button onclick="setPeriodFilter('ALL')" class="filter-period-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-purple-600 text-white shadow" data-period="ALL">Tout</button>
+      <!-- 2. BARRE DE FILTRES COMPACTE -->
+      <div class="flex flex-wrap items-center justify-end gap-2">
+        <div class="flex items-center gap-1 bg-slate-950/75 p-1 rounded-xl border border-slate-800/90">
+          <button type="button" onclick="setPeriodFilter('7d')" class="filter-period-btn px-2.5 py-1 rounded-lg text-[11px] font-bold text-slate-400 hover:text-white transition" data-period="7d">7j</button>
+          <button type="button" onclick="setPeriodFilter('30d')" class="filter-period-btn px-2.5 py-1 rounded-lg text-[11px] font-bold text-slate-400 hover:text-white transition" data-period="30d">30j</button>
+          <button type="button" onclick="setPeriodFilter('90d')" class="filter-period-btn px-2.5 py-1 rounded-lg text-[11px] font-bold text-slate-400 hover:text-white transition" data-period="90d">90j</button>
+          <button type="button" onclick="setPeriodFilter('ALL')" class="filter-period-btn px-2.5 py-1 rounded-lg text-[11px] font-extrabold bg-purple-600 text-white shadow" data-period="ALL">Tout</button>
+        </div>
+
+        <select id="filterMode" onchange="renderDashboard()" aria-label="Mode de jeu" class="input-futuristic rounded-xl px-3 py-1.5 text-xs font-semibold bg-slate-950/80">
+          <option value="ALL">Tous les modes</option>
+          <option value="Battle Royale">Battle Royale</option>
+          <option value="Résurgence">Résurgence</option>
+          <option value="Classé">Classé</option>
+          <option value="Tournois">Tournois</option>
+        </select>
+
+        <select id="filterMap" onchange="renderDashboard()" aria-label="Carte" class="input-futuristic rounded-xl px-3 py-1.5 text-xs font-semibold bg-slate-950/80">
+          <option value="ALL">Toutes les cartes</option>
+          <option value="Hajin">Hajin</option>
+          <option value="Zodiac">Zodiac</option>
+          <option value="Rebirth Island">Rebirth Island</option>
+        </select>
+
+        <select id="filterCompany" onchange="syncTopScopeFromSelect(); renderDashboard()" aria-label="Squad / Formation" class="input-futuristic rounded-xl px-3 py-1.5 text-xs font-semibold bg-slate-950/80">
+          <option value="ALL">Toutes les parties</option>
+          <optgroup label="Tess">
+            <option value="tess">Tess — Toutes ses parties</option>
+            <option value="tess:Vaiana">Tess — Avec Vaiana</option>
+            <option value="tess:Alex">Tess — Avec Alex</option>
+            <option value="tess:Vaiana et Alex">Tess — Avec Vaiana et Alex</option>
+            <option value="tess:Remplissage">Tess — Remplissage</option>
+          </optgroup>
+          <optgroup label="Vaiana">
+            <option value="vaiana">Vaiana — Toutes mes parties</option>
+            <option value="vaiana:1v1">Vaiana — 1v1</option>
+            <option value="vaiana:1v2">Vaiana — 1v2</option>
+            <option value="vaiana:1v3">Vaiana — 1v3</option>
+            <option value="vaiana:1v4">Vaiana — 1v4</option>
+            <option value="vaiana:Remplissage (2v2)">Vaiana — Remplissage (2v2)</option>
+            <option value="vaiana:Remplissage (3v3)">Vaiana — Remplissage (3v3)</option>
+            <option value="vaiana:Remplissage (4v4)">Vaiana — Remplissage (4v4)</option>
+          </optgroup>
+        </select>
+
+        <button type="button" onclick="resetFilters()" title="Réinitialiser les filtres"
+          class="p-2 rounded-xl bg-slate-950/80 border border-slate-800/90 text-slate-400 hover:text-purple-300 hover:border-purple-500/40 transition">
+          <i class="fa-solid fa-rotate-left text-xs"></i>
+        </button>
+      </div>
+
+      <!-- 3. VUE D'ENSEMBLE : 3 CARTES HÉROS + 4 PILLS SECONDAIRES + GRAPHIQUE & COMPARATIF -->
+      <div id="statsPaneOverview" class="space-y-4">
+        <!-- 3 Cartes Héros -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="relative overflow-hidden rounded-2xl bg-slate-950/85 border border-pink-500/45 shadow-[0_0_24px_rgba(236,72,153,0.12)] p-5">
+            <span class="absolute top-3 left-3.5 text-[11px] font-black text-pink-300/75">1</span>
+            <i class="fa-solid fa-biohazard text-5xl text-pink-500/10 absolute right-4 bottom-3 pointer-events-none"></i>
+            <div class="text-center space-y-1 relative z-10">
+              <div class="text-[11px] font-black uppercase tracking-widest text-slate-400">RATIO K/D</div>
+              <div id="kpiAvgKd" class="text-4xl font-black text-pink-400 tracking-tight">0,00</div>
+              <div id="kpiKillsDeaths" class="text-xs font-medium text-slate-400">0 Kills / 0 Morts</div>
             </div>
           </div>
 
-
-          <div>
-            <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1.5">Mode de Jeu</label>
-            <select id="filterMode" onchange="renderDashboard()" class="input-futuristic w-full rounded-xl px-3 py-1.5 text-xs font-semibold">
-              <option value="ALL">Tous les modes</option>
-              <option value="Battle Royale">Battle Royale</option>
-              <option value="Résurgence">Résurgence</option>
-              <option value="Classé">Classé</option>
-              <option value="Tournois">Tournois</option>
-            </select>
+          <div class="relative overflow-hidden rounded-2xl bg-slate-950/85 border border-cyan-500/45 shadow-[0_0_24px_rgba(6,182,212,0.12)] p-5">
+            <span class="absolute top-3 left-3.5 text-[11px] font-black text-cyan-300/75">2</span>
+            <i class="fa-solid fa-skull text-5xl text-cyan-500/10 absolute right-4 bottom-3 pointer-events-none"></i>
+            <div class="text-center space-y-1 relative z-10">
+              <div class="text-[11px] font-black uppercase tracking-widest text-slate-400">DÉGÂTS MOYENS</div>
+              <div id="kpiAvgDamage" class="text-4xl font-black text-cyan-400 tracking-tight">0</div>
+              <div id="kpiMaxDamage" class="text-xs font-medium text-slate-400">Max: 0</div>
+            </div>
           </div>
 
+          <div class="relative overflow-hidden rounded-2xl bg-slate-950/85 border border-amber-500/45 shadow-[0_0_24px_rgba(245,158,11,0.12)] p-5">
+            <span class="absolute top-3 left-3.5 text-[11px] font-black text-amber-300/75">3</span>
+            <i class="fa-solid fa-trophy text-5xl text-amber-500/10 absolute right-4 bottom-3 pointer-events-none"></i>
+            <div class="text-center space-y-1 relative z-10">
+              <div class="text-[11px] font-black uppercase tracking-widest text-slate-400">VICTOIRES</div>
+              <div id="kpiWinRate" class="text-4xl font-black text-amber-400 tracking-tight">0,0%</div>
+              <div id="kpiTotalWins" class="text-xs font-medium text-slate-400">0 Top 1</div>
+            </div>
+          </div>
+        </div>
 
-          <div>
-            <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1.5">Carte (Map)</label>
-            <select id="filterMap" onchange="renderDashboard()" class="input-futuristic w-full rounded-xl px-3 py-1.5 text-xs font-semibold">
-              <option value="ALL">Toutes les cartes</option>
-              <option value="Hajin">Hajin</option>
-              <option value="Zodiac">Zodiac</option>
-              <option value="Rebirth Island">Rebirth Island</option>
-            </select>
+        <!-- 4 Pills Statistiques Secondaires -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <div class="rounded-2xl bg-slate-950/80 border border-slate-800/90 px-4 py-3 text-center">
+            <div class="text-xs sm:text-sm font-black text-white">Ratio E/D: <span id="kpiAvgEd" class="text-emerald-400">0,00</span></div>
+            <div id="kpiAssistsSub" class="text-[11px] text-slate-400 mt-0.5">(0 Assists)</div>
           </div>
 
+          <div class="rounded-2xl bg-slate-950/80 border border-slate-800/90 px-4 py-3 text-center">
+            <div class="text-xs sm:text-sm font-black text-white">Éliminations: <span id="kpiTotalKills" class="text-white">0</span></div>
+            <div id="kpiAvgKills" class="text-[11px] text-slate-400 mt-0.5">(0,0 / match)</div>
+          </div>
 
-          <div>
-            <label class="block text-[10px] font-extrabold uppercase text-slate-400 mb-1.5">Squad / Formation</label>
-            <select id="filterCompany" onchange="renderDashboard()" class="input-futuristic w-full rounded-xl px-3 py-1.5 text-xs font-semibold">
-              <option value="ALL">Toutes les parties</option>
-              <option value="tess">Tess (Toutes)</option>
-              <option value="tess:Vaiana">Tess • Avec Vaiana</option>
-              <option value="tess:Alex">Tess • Avec Alex</option>
-              <option value="tess:Vaiana et Alex">Tess • Avec Vaiana et Alex</option>
-              <option value="tess:Remplissage">Tess • Remplissage</option>
-              <option value="vaiana">Vaiana (Toutes)</option>
-              <option value="vaiana:1v1">Vaiana • 1v1</option>
-              <option value="vaiana:1v2">Vaiana • 1v2</option>
-              <option value="vaiana:1v3">Vaiana • 1v3</option>
-              <option value="vaiana:1v4">Vaiana • 1v4</option>
-              <option value="vaiana:Remplissage (2v2)">Vaiana • Remplissage (2v2)</option>
-              <option value="vaiana:Remplissage (3v3)">Vaiana • Remplissage (3v3)</option>
-              <option value="vaiana:Remplissage (4v4)">Vaiana • Remplissage (4v4)</option>
+          <div class="rounded-2xl bg-slate-950/80 border border-slate-800/90 px-4 py-3 text-center">
+            <div class="text-xs sm:text-sm font-black text-white">Taux Top 5: <span id="kpiTop5Rate" class="text-emerald-400">0,0%</span></div>
+            <div id="kpiTotalTop5" class="text-[11px] text-slate-400 mt-0.5">(0 fois)</div>
+          </div>
 
-            </select>
+          <div class="rounded-2xl bg-slate-950/80 border border-slate-800/90 px-4 py-3 text-center">
+            <div class="text-xs sm:text-sm font-black text-white">Matchs Joués: <span id="kpiTotalMatches" class="text-white">0</span></div>
+            <div class="text-[11px] text-slate-400 mt-0.5">(Enregistrés)</div>
+          </div>
+        </div>
+
+        <!-- Bas de page : Graphique de progression (gauche) + Comparatif / Répartition (droite) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+          <div id="statsPaneOverviewChart" class="lg:col-span-7 glass-card p-4 sm:p-5 relative border border-slate-800/90 flex flex-col justify-between">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <h3 class="text-xs sm:text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
+                <i class="fa-solid fa-chart-line text-pink-400"></i> GRAPHIQUE DE PROGRESSION
+              </h3>
+              <div class="flex items-center gap-1 bg-slate-950/90 p-1 rounded-xl border border-slate-800">
+                <button type="button" data-metric="KD" onclick="setChartMetric('KD')" class="chart-metric-btn px-2.5 py-1 rounded-lg text-[11px] font-extrabold bg-pink-600 text-white shadow">K/D</button>
+                <button type="button" data-metric="Damage" onclick="setChartMetric('Damage')" class="chart-metric-btn px-2.5 py-1 rounded-lg text-[11px] font-bold text-slate-400 hover:text-white transition">Dégâts</button>
+                <button type="button" data-metric="Kills" onclick="setChartMetric('Kills')" class="chart-metric-btn px-2.5 py-1 rounded-lg text-[11px] font-bold text-slate-400 hover:text-white transition">Kills</button>
+                <button type="button" data-metric="Top5" onclick="setChartMetric('Top5')" class="chart-metric-btn px-2.5 py-1 rounded-lg text-[11px] font-bold text-slate-400 hover:text-white transition">Top 5</button>
+              </div>
+              <select id="chartMetric" onchange="syncChartMetricButtons(); drawPerformanceChart()" class="hidden">
+                <option value="KD">Ratio K/D</option>
+                <option value="Damage">Dégâts Infligés</option>
+                <option value="Kills">Éliminations (Kills)</option>
+                <option value="Top5">Placement (Top)</option>
+              </select>
+            </div>
+            <div class="relative w-full h-56 sm:h-60">
+              <canvas id="performanceChart" class="w-full h-full block rounded-xl cursor-crosshair"></canvas>
+              <div id="chartTooltip" class="absolute hidden bg-slate-950/95 border border-pink-500/50 p-2.5 rounded-xl text-xs shadow-xl pointer-events-none z-20"></div>
+            </div>
+          </div>
+
+          <div id="splitCompanyStatsBanner" class="lg:col-span-5 glass-card p-4 sm:p-5 border border-slate-800/90 flex flex-col justify-between space-y-3">
+            <div class="flex items-center justify-between gap-2">
+              <h3 id="splitSectionTitle" class="text-xs sm:text-sm font-black uppercase tracking-wider text-white">
+                COMPARATIF : TESS VS VAIANA
+              </h3>
+              <button type="button" id="toggleSplitDetailBtn" onclick="toggleEmptySplitCards()"
+                class="text-[10px] font-bold px-2.5 py-1 rounded-lg bg-slate-950/80 border border-slate-800 text-slate-400 hover:text-white transition">
+                Détails
+              </button>
+            </div>
+            <div id="splitCompanyStatsGrid" class="space-y-3 flex-1 flex flex-col justify-center"></div>
           </div>
         </div>
       </div>
 
-
-      <div class="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-1.5 bg-slate-900/90 p-1.5 rounded-2xl border border-slate-800">
-        <button type="button" id="subTabOverview" onclick="switchStatsSubTab('overview')"
-          class="stats-subtab-btn px-3.5 py-2 rounded-xl text-xs font-extrabold transition flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow">
-          <i class="fa-solid fa-gauge-high"></i>
-          <span>Vue d'ensemble</span>
-        </button>
-        <button type="button" id="subTabSessionTourney" onclick="switchStatsSubTab('session')"
-          class="stats-subtab-btn px-3.5 py-2 rounded-xl text-xs font-extrabold transition flex items-center justify-center gap-2 text-slate-400 hover:text-white">
-          <i class="fa-solid fa-trophy"></i>
-          <span>Session & Tournois</span>
-        </button>
-        <button type="button" id="subTabBreakdown" onclick="switchStatsSubTab('breakdown')"
-          class="stats-subtab-btn px-3.5 py-2 rounded-xl text-xs font-extrabold transition flex items-center justify-center gap-2 text-slate-400 hover:text-white">
-          <i class="fa-solid fa-layer-group"></i>
-          <span>Cartes & Armes</span>
-        </button>
-        <button type="button" id="subTabHistory" onclick="switchStatsSubTab('history')"
-          class="stats-subtab-btn px-3.5 py-2 rounded-xl text-xs font-extrabold transition flex items-center justify-center gap-2 text-slate-400 hover:text-white">
-          <i class="fa-solid fa-clock-rotate-left"></i>
-          <span>Historique</span>
-        </button>
-      </div>
-
-
-      <div id="statsPaneOverview" class="space-y-6">
-
-
-      <div id="splitCompanyStatsBanner" class="glass-card p-4 space-y-3 border border-purple-500/25">
-        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800/80 pb-2">
-          <h3 class="text-xs font-black uppercase tracking-wider text-white flex items-center gap-2">
-            <i class="fa-solid fa-code-branch text-purple-400"></i> Stats Séparées : Tess vs Vaiana
-          </h3>
-          <span class="text-[10px] font-bold text-slate-400">Suivi par joueuse et formation</span>
-        </div>
-        <div id="splitCompanyStatsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3"></div>
-      </div>
-
-
-      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4">
-        <div class="glass-card glass-card-hover p-4 flex flex-col justify-between relative overflow-hidden group">
-          <div class="flex items-center justify-between text-slate-400 text-xs font-semibold mb-1">
-            <span>Ratio K/D</span>
-            <i class="fa-solid fa-skull text-pink-400"></i>
-          </div>
-          <div id="kpiAvgKd" class="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">0,00</div>
-          <div id="kpiKillsDeaths" class="text-[10px] font-medium text-slate-400 mt-1">0 Kills / 0 Morts</div>
-        </div>
-
-
-        <div class="glass-card glass-card-hover p-4 flex flex-col justify-between relative overflow-hidden group">
-          <div class="flex items-center justify-between text-slate-400 text-xs font-semibold mb-1">
-            <span>Ratio E/D</span>
-            <i class="fa-solid fa-handshake-angle text-emerald-400"></i>
-          </div>
-          <div id="kpiAvgEd" class="text-2xl sm:text-3xl font-black text-emerald-400">0,00</div>
-          <div id="kpiAssistsSub" class="text-[10px] font-medium text-slate-400 mt-1">0 Assists • Score moy. 0</div>
-        </div>
-
-
-        <div class="glass-card glass-card-hover p-4 flex flex-col justify-between relative overflow-hidden group">
-          <div class="flex items-center justify-between text-slate-400 text-xs font-semibold mb-1">
-            <span>Victoires</span>
-            <i class="fa-solid fa-crown text-amber-400"></i>
-          </div>
-          <div id="kpiWinRate" class="text-2xl sm:text-3xl font-black text-amber-400">0,0%</div>
-          <div id="kpiTotalWins" class="text-[10px] font-medium text-slate-400 mt-1">0 Top 1</div>
-        </div>
-
-
-        <div class="glass-card glass-card-hover p-4 flex flex-col justify-between relative overflow-hidden group">
-          <div class="flex items-center justify-between text-slate-400 text-xs font-semibold mb-1">
-            <span>Éliminations</span>
-            <i class="fa-solid fa-crosshair text-purple-400"></i>
-          </div>
-          <div id="kpiTotalKills" class="text-2xl sm:text-3xl font-black text-white">0</div>
-          <div id="kpiAvgKills" class="text-[10px] font-medium text-slate-400 mt-1">0,0 / match</div>
-        </div>
-
-
-        <div class="glass-card glass-card-hover p-4 flex flex-col justify-between relative overflow-hidden group">
-          <div class="flex items-center justify-between text-slate-400 text-xs font-semibold mb-1">
-            <span>Dégâts Moyens</span>
-            <i class="fa-solid fa-fire text-cyan-400"></i>
-          </div>
-          <div id="kpiAvgDamage" class="text-2xl sm:text-3xl font-black text-cyan-400">0</div>
-          <div id="kpiMaxDamage" class="text-[10px] font-medium text-slate-400 mt-1">Max: 0</div>
-        </div>
-
-
-        <div class="glass-card glass-card-hover p-4 flex flex-col justify-between relative overflow-hidden group">
-          <div class="flex items-center justify-between text-slate-400 text-xs font-semibold mb-1">
-            <span>Taux Top 5</span>
-            <i class="fa-solid fa-award text-emerald-400"></i>
-          </div>
-          <div id="kpiTop5Rate" class="text-2xl sm:text-3xl font-black text-emerald-400">0,0%</div>
-          <div id="kpiTotalTop5" class="text-[10px] font-medium text-slate-400 mt-1">0 fois</div>
-        </div>
-
-
-        <div class="glass-card glass-card-hover p-4 flex flex-col justify-between relative overflow-hidden group">
-          <div class="flex items-center justify-between text-slate-400 text-xs font-semibold mb-1">
-            <span>Matchs Joués</span>
-            <i class="fa-solid fa-gamepad text-indigo-400"></i>
-          </div>
-          <div id="kpiTotalMatches" class="text-2xl sm:text-3xl font-black text-white">0</div>
-          <div class="text-[10px] font-medium text-slate-400 mt-1">Enregistrés</div>
-        </div>
-      </div>
-
-
-      </div>
-
-
+      <!-- VUE SESSION & TOURNOIS -->
       <div id="statsPaneSession" class="hidden grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div class="glass-card p-5 space-y-3 border-l-4 border-l-purple-500">
           <div class="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
@@ -633,7 +644,6 @@
           </div>
           <div id="sessionSummaryContainer" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5"></div>
         </div>
-
 
         <div class="glass-card p-5 space-y-3 border-l-4 border-l-amber-500">
           <div class="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
@@ -646,31 +656,7 @@
         </div>
       </div>
 
-
-      <div id="statsPaneOverviewChart" class="glass-card p-5 relative">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-          <div>
-            <h3 class="text-sm font-black text-white uppercase tracking-tight flex items-center gap-2">
-              <i class="fa-solid fa-chart-line text-purple-400"></i> Graphique de Progression
-            </h3>
-            <p class="text-[11px] text-slate-400">Évolutions des statistiques au fil des parties sélectionnées</p>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-semibold text-slate-400">Métrique :</span>
-            <select id="chartMetric" onchange="drawPerformanceChart()" class="input-futuristic rounded-xl px-3 py-1 text-xs font-bold">
-              <option value="KD">Ratio K/D</option>
-              <option value="Kills">Éliminations (Kills)</option>
-              <option value="Damage">Dégâts Infligés</option>
-            </select>
-          </div>
-        </div>
-        <div class="relative w-full h-60 sm:h-64">
-          <canvas id="performanceChart" class="w-full h-full block rounded-xl cursor-crosshair"></canvas>
-          <div id="chartTooltip" class="absolute hidden bg-slate-950/95 border border-purple-500/50 p-2.5 rounded-xl text-xs shadow-xl pointer-events-none z-20"></div>
-        </div>
-      </div>
-
-
+      <!-- VUE CARTES & ARMES -->
       <div id="statsPaneBreakdown" class="hidden grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div class="glass-card p-5 space-y-3">
           <div class="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
@@ -681,7 +667,6 @@
           </div>
           <div id="statsByMapContainer" class="space-y-2.5"></div>
         </div>
-
 
         <div class="glass-card p-5 space-y-3">
           <div class="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
@@ -694,7 +679,7 @@
         </div>
       </div>
 
-
+      <!-- VUE HISTORIQUE -->
       <div id="statsPaneHistory" class="hidden space-y-3">
         <div class="flex items-center justify-between">
           <h3 class="text-base font-black text-white uppercase tracking-wider flex items-center gap-2">
@@ -1880,7 +1865,24 @@
           return true;
         });
       }
-      return filtered.sort((a, b) => getMatchTimestamp(b) - getMatchTimestamp(a));
+      return filtered;
+    }
+
+    function getMatchesBeforeCompanyFilter() {
+      let base = [...matches];
+      if (currentPeriodFilter !== 'ALL') {
+        const now = new Date();
+        let days = 7;
+        if (currentPeriodFilter === '30d') days = 30;
+        if (currentPeriodFilter === '90d') days = 90;
+        const cutoff = new Date(now.getTime() - days * 24 * 60 * 60 * 1000);
+        base = base.filter(m => getMatchTimestamp(m) >= cutoff.getTime());
+      }
+      const selectedMode = document.getElementById('filterMode').value;
+      if (selectedMode !== 'ALL') base = base.filter(m => m.mode === selectedMode);
+      const selectedMap = document.getElementById('filterMap').value;
+      if (selectedMap !== 'ALL') base = base.filter(m => m.map === selectedMap);
+      return base;
     }
 
 
@@ -1921,15 +1923,22 @@
       document.getElementById('kpiAvgKd').innerText = String(kdRatio).replace('.', ',');
       document.getElementById('kpiKillsDeaths').innerText = `${totalKills} Kills / ${totalDeaths} Morts`;
       document.getElementById('kpiAvgEd').innerText = String(edRatio).replace('.', ',');
-      document.getElementById('kpiAssistsSub').innerText = `${totalAssists} Assists • Score moy. ${avgScore.toLocaleString('fr-FR')}`;
+      document.getElementById('kpiAssistsSub').innerText = `(${totalAssists} Assists • Score ${avgScore.toLocaleString('fr-FR')})`;
       document.getElementById('kpiWinRate').innerText = `${String(winRate).replace('.', ',')}%`;
       document.getElementById('kpiTotalWins').innerText = `${wins} Top 1`;
       document.getElementById('kpiTotalKills').innerText = totalKills;
-      document.getElementById('kpiAvgKills').innerText = `${String(avgKills).replace('.', ',')} / match`;
+      document.getElementById('kpiAvgKills').innerText = `(${String(avgKills).replace('.', ',')} / match)`;
       document.getElementById('kpiAvgDamage').innerText = avgDamage.toLocaleString('fr-FR');
       document.getElementById('kpiMaxDamage').innerText = `Max: ${maxDamage.toLocaleString('fr-FR')}`;
       document.getElementById('kpiTop5Rate').innerText = `${String(top5Rate).replace('.', ',')}%`;
-      document.getElementById('kpiTotalTop5').innerText = `${top5Count} fois`;
+      document.getElementById('kpiTotalTop5').innerText = `(${top5Count} fois)`;
+
+      const baseScopeMatches = (typeof getMatchesBeforeCompanyFilter === 'function') ? getMatchesBeforeCompanyFilter() : filtered;
+      const tCount = baseScopeMatches.filter(m => normalizeMatchSquadInfo(m).player === 'tess').length;
+      const vCount = baseScopeMatches.filter(m => normalizeMatchSquadInfo(m).player === 'vaiana').length;
+      if (document.getElementById('scopeCountAll')) document.getElementById('scopeCountAll').innerText = baseScopeMatches.length;
+      if (document.getElementById('scopeCountTess')) document.getElementById('scopeCountTess').innerText = tCount;
+      if (document.getElementById('scopeCountVaiana')) document.getElementById('scopeCountVaiana').innerText = vCount;
 
 
       renderSplitCompanyStats(filtered);
@@ -2054,155 +2063,238 @@
       renderDashboard();
     }
 
+    let showSplitFormationBreakdown = false;
+
+    function toggleEmptySplitCards() {
+      showSplitFormationBreakdown = !showSplitFormationBreakdown;
+      showEmptySplitCards = showSplitFormationBreakdown;
+      renderDashboard();
+    }
+
+    function setTopPlayerScope(scope) {
+      const sel = document.getElementById('filterCompany');
+      if (scope === 'TESS') {
+        activeSplitSubmenu = 'TESS';
+        if (sel) sel.value = 'tess';
+      } else if (scope === 'VAIANA') {
+        activeSplitSubmenu = 'VAIANA';
+        if (sel) sel.value = 'vaiana';
+      } else {
+        activeSplitSubmenu = 'ALL';
+        if (sel) sel.value = 'ALL';
+      }
+      updateTopScopeButtonsUI();
+      renderDashboard();
+    }
+
+    function syncTopScopeFromSelect() {
+      const val = document.getElementById('filterCompany')?.value || 'ALL';
+      if (val.startsWith('tess')) activeSplitSubmenu = 'TESS';
+      else if (val.startsWith('vaiana')) activeSplitSubmenu = 'VAIANA';
+      else activeSplitSubmenu = 'ALL';
+      updateTopScopeButtonsUI();
+    }
+
+    function updateTopScopeButtonsUI() {
+      const current = activeSplitSubmenu || 'ALL';
+      document.querySelectorAll('.top-scope-btn').forEach(btn => {
+        const sc = btn.getAttribute('data-scope');
+        const active = sc === current;
+        if (sc === 'VAIANA') {
+          btn.className = active
+            ? "top-scope-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-extrabold border transition flex items-center gap-2 bg-pink-600/25 text-pink-200 border-pink-500/70 shadow-sm"
+            : "top-scope-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold border transition flex items-center gap-2 bg-slate-950/70 text-slate-300 border-slate-800 hover:border-pink-500/40 hover:text-white";
+        } else if (sc === 'TESS') {
+          btn.className = active
+            ? "top-scope-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-extrabold border transition flex items-center gap-2 bg-cyan-600/25 text-cyan-200 border-cyan-500/70 shadow-sm"
+            : "top-scope-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold border transition flex items-center gap-2 bg-slate-950/70 text-slate-300 border-slate-800 hover:border-cyan-500/40 hover:text-white";
+        } else {
+          btn.className = active
+            ? "top-scope-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-extrabold border transition flex items-center gap-2 bg-slate-800 text-white border-purple-500/60 shadow-sm"
+            : "top-scope-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold border transition flex items-center gap-2 bg-slate-950/70 text-slate-300 border-slate-800 hover:border-purple-500/40 hover:text-white";
+        }
+      });
+    }
+
+    function setChartMetric(metricKey) {
+      const sel = document.getElementById('chartMetric');
+      if (sel) sel.value = metricKey;
+      syncChartMetricButtons();
+      drawPerformanceChart();
+    }
+
+    function syncChartMetricButtons() {
+      const current = document.getElementById('chartMetric')?.value || 'KD';
+      document.querySelectorAll('.chart-metric-btn').forEach(btn => {
+        const m = btn.getAttribute('data-metric');
+        btn.className = (m === current)
+          ? "chart-metric-btn px-2.5 py-1 rounded-lg text-[11px] font-extrabold bg-pink-600 text-white shadow"
+          : "chart-metric-btn px-2.5 py-1 rounded-lg text-[11px] font-bold text-slate-400 hover:text-white transition";
+      });
+    }
+
+    function renderComparisonBarsCard({ title, subLabel, badgeIcon, accent = 'pink', sum }) {
+      const kdNum = parseFloat(sum.kd) || 0;
+      const dmgNum = Number(String(sum.avgDmg).replace(/[^0-9.]/g, '')) || 0;
+      const winsNum = Number(sum.wins) || 0;
+
+      const kdPct = Math.min(100, Math.max(4, Math.round((kdNum / 10) * 100)));
+      const dmgPct = Math.min(100, Math.max(4, Math.round((dmgNum / 8000) * 100)));
+      const winPct = Math.min(100, Math.max(3, Math.round((winsNum / Math.max(1, sum.totalM)) * 100)));
+
+      const barGradient = accent === 'cyan'
+        ? 'from-cyan-500 to-sky-400'
+        : 'from-fuchsia-500 to-pink-400';
+
+      return `
+        <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800/90 space-y-3">
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <div class="w-9 h-9 rounded-full ${accent === 'cyan' ? 'bg-cyan-500/20 border-cyan-400/50 text-cyan-200' : 'bg-pink-500/20 border-pink-400/50 text-pink-200'} border flex items-center justify-center shrink-0">
+                <i class="fa-solid ${badgeIcon} text-sm"></i>
+              </div>
+              <div class="truncate">
+                <div class="text-xs font-black text-white flex items-center gap-1.5 truncate">
+                  <span>${title}</span>
+                  <span class="w-2 h-2 rounded-full ${accent === 'cyan' ? 'bg-cyan-400' : 'bg-emerald-400'} inline-block"></span>
+                </div>
+                <div class="text-[11px] text-slate-400 truncate">${subLabel}</div>
+              </div>
+            </div>
+            <div class="w-8 h-8 rounded-full bg-slate-900 border border-slate-700/80 flex items-center justify-center text-slate-300 text-xs shrink-0">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+          </div>
+
+          <div class="space-y-2.5 pt-1">
+            <div>
+              <div class="flex items-center justify-between text-xs mb-1">
+                <span class="font-bold text-slate-300">K/D</span>
+                <span class="font-black text-white">${String(sum.kd).replace('.', ',')}</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-slate-800/90 overflow-hidden">
+                <div class="h-full rounded-full bg-gradient-to-r ${barGradient}" style="width: ${kdPct}%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between text-xs mb-1">
+                <span class="font-bold text-slate-300">Dégâts</span>
+                <span class="font-black text-white">${sum.avgDmg}</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-slate-800/90 overflow-hidden">
+                <div class="h-full rounded-full bg-gradient-to-r from-cyan-500 to-teal-300" style="width: ${dmgPct}%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between text-xs mb-1">
+                <span class="font-bold text-slate-300">Victoires</span>
+                <span class="font-black text-white">${sum.wins}</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-slate-800/90 overflow-hidden">
+                <div class="h-full rounded-full bg-gradient-to-r from-amber-500 to-yellow-300" style="width: ${winPct}%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
     function renderSplitCompanyStats(filteredList) {
       const grid = document.getElementById('splitCompanyStatsGrid');
-      const banner = document.getElementById('splitCompanyStatsBanner');
+      const titleEl = document.getElementById('splitSectionTitle');
       if (!grid) return;
 
-      const tessList = filteredList.filter(m => normalizeMatchSquadInfo(m).player === 'tess');
-      const vaianaList = filteredList.filter(m => normalizeMatchSquadInfo(m).player === 'vaiana');
+      updateTopScopeButtonsUI();
 
-      const submenus = [
-        { key: 'ALL', label: 'Vue globale', count: tessList.length + vaianaList.length },
-        { key: 'TESS', label: 'Tess', count: tessList.length },
-        { key: 'VAIANA', label: 'Vaiana', count: vaianaList.length }
-      ];
+      const sourceList = (typeof getMatchesBeforeCompanyFilter === 'function') ? getMatchesBeforeCompanyFilter() : filteredList;
+      const tessList = sourceList.filter(m => normalizeMatchSquadInfo(m).player === 'tess');
+      const vaianaList = sourceList.filter(m => normalizeMatchSquadInfo(m).player === 'vaiana');
 
-      if (!submenus.some(s => s.key === activeSplitSubmenu)) {
-        activeSplitSubmenu = 'ALL';
+      if (titleEl) {
+        titleEl.textContent = activeSplitSubmenu === 'TESS'
+          ? 'COMPARATIF : TESS'
+          : (activeSplitSubmenu === 'VAIANA' ? 'COMPARATIF : VAIANA' : 'COMPARATIF : TESS VS VAIANA');
       }
 
-      if (banner && !document.getElementById('splitCompanySubmenuBar')) {
-        const headerDiv = banner.firstElementChild;
-        const bar = document.createElement('div');
-        bar.id = 'splitCompanySubmenuBar';
-        bar.className = 'flex items-center justify-between gap-2 pt-1';
-        headerDiv.insertAdjacentElement('afterend', bar);
+      if (showSplitFormationBreakdown) {
+        const subList = activeSplitSubmenu === 'TESS'
+          ? ['Vaiana', 'Alex', 'Vaiana et Alex', 'Remplissage'].map(sub => ({
+              title: `Tess • ${sub}`,
+              subLabel: `${tessList.filter(m => normalizeMatchSquadInfo(m).subOption === sub).length} match(s)`,
+              badgeIcon: 'fa-user-group',
+              accent: 'cyan',
+              sum: computeStatsSummary(tessList.filter(m => normalizeMatchSquadInfo(m).subOption === sub))
+            }))
+          : ['Remplissage', 'Remplissage (2v2)', 'Remplissage (3v3)', 'Remplissage (4v4)', '1v1', '1v2', '1v3', '1v4']
+              .map(sub => ({ list: vaianaList.filter(m => normalizeMatchSquadInfo(m).subOption === sub), sub }))
+              .filter(item => item.list.length > 0)
+              .map(item => ({
+                title: `Vaiana • ${item.sub}`,
+                subLabel: `${item.list.length} match(s)`,
+                badgeIcon: 'fa-crown',
+                accent: 'pink',
+                sum: computeStatsSummary(item.list)
+              }));
+
+        grid.className = 'grid grid-cols-1 sm:grid-cols-2 gap-2.5';
+        grid.innerHTML = subList.length
+          ? subList.map(renderComparisonBarsCard).join('')
+          : `<div class="p-4 rounded-xl bg-slate-950/60 border border-slate-800 text-center text-xs text-slate-400">Aucune formation enregistrée.</div>`;
+        return;
       }
 
-      const barEl = document.getElementById('splitCompanySubmenuBar');
-      if (barEl) {
-        const tabsHtml = submenus.map(tab => {
-          const isActive = activeSplitSubmenu === tab.key;
-          return `
-            <button type="button" onclick="setSplitSubmenu('${tab.key}')"
-              class="shrink-0 px-3 py-1.5 rounded-xl text-[11px] font-extrabold border transition flex items-center gap-1.5 ${
-                isActive
-                  ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white border-purple-400 shadow-sm'
-                  : 'bg-slate-950/80 text-slate-300 border-slate-800 hover:border-purple-500/40 hover:text-white'
-              }">
-              <span>${tab.label}</span>
-              <span class="text-[10px] px-1.5 py-0.2 rounded-full ${isActive ? 'bg-black/25 text-white' : 'bg-slate-900 text-slate-400'}">${tab.count}</span>
-            </button>
-          `;
-        }).join('');
-
-        barEl.innerHTML = `
-          <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-0.5">
-            ${tabsHtml}
-          </div>
-          <button type="button" onclick="toggleEmptySplitCards()" title="Afficher ou masquer les catégories à 0 match"
-            class="shrink-0 px-2 py-1.5 rounded-xl text-[10px] font-bold border transition flex items-center gap-1 ${
-              showEmptySplitCards
-                ? 'bg-purple-500/20 text-purple-200 border-purple-500/40'
-                : 'bg-slate-950/80 text-slate-400 border-slate-800 hover:text-slate-200'
-            }">
-            <i class="fa-solid ${showEmptySplitCards ? 'fa-eye' : 'fa-eye-slash'}"></i>
-            <span class="hidden sm:inline">${showEmptySplitCards ? 'Masquer 0' : 'Voir tout'}</span>
-          </button>
-        `;
-      }
-
-      const renderCardsOrEmpty = (cardsHtmlArray, colsClass, emptyMsg) => {
-        if (cardsHtmlArray.length === 0) {
-          grid.className = 'grid grid-cols-1 gap-3';
-          grid.innerHTML = `
-            <div class="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800/80 text-center text-xs text-slate-400 flex items-center justify-center gap-2">
-              <i class="fa-solid fa-circle-info text-purple-400"></i>
-              <span>${emptyMsg}</span>
-            </div>
-          `;
-          return;
-        }
-        grid.className = colsClass;
-        grid.innerHTML = cardsHtmlArray.join('');
-      };
+      grid.className = 'space-y-3 flex-1 flex flex-col justify-center';
 
       if (activeSplitSubmenu === 'TESS') {
-        const tessSubs = ['Vaiana', 'Alex', 'Vaiana et Alex', 'Remplissage'];
-        const cards = tessSubs.map(sub => {
-          const list = tessList.filter(m => normalizeMatchSquadInfo(m).subOption === sub);
-          const sum = computeStatsSummary(list);
-          if (sum.totalM === 0 && !showEmptySplitCards) return null;
-          return buildCompanyStatCard({
-            title: `Tess • ${sub}`,
-            iconClass: sub === 'Remplissage' ? 'fa-user' : 'fa-user-group',
-            badgeText: `${sum.totalM} match(s)`,
-            accent: 'cyan',
-            sum
-          });
-        }).filter(Boolean);
-        renderCardsOrEmpty(cards, 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3', 'Aucun match enregistré pour Tess sur cette sélection.');
+        const tSum = computeStatsSummary(tessList);
+        grid.innerHTML = renderComparisonBarsCard({
+          title: 'Tess • Formations',
+          subLabel: `${tSum.totalM} match(s) enregistrés`,
+          badgeIcon: 'fa-user-check',
+          accent: 'cyan',
+          sum: tSum
+        });
         return;
       }
 
       if (activeSplitSubmenu === 'VAIANA') {
-        const vaianaSubs = ['Remplissage', 'Remplissage (2v2)', 'Remplissage (3v3)', 'Remplissage (4v4)', '1v1', '1v2', '1v3', '1v4'];
-        const cards = vaianaSubs.map(sub => {
-          const list = vaianaList.filter(m => normalizeMatchSquadInfo(m).subOption === sub);
-          const sum = computeStatsSummary(list);
-          if (sum.totalM === 0 && !showEmptySplitCards) return null;
-          return buildCompanyStatCard({
-            title: `Vaiana • ${sub}`,
-            iconClass: sub.startsWith('Remplissage') ? 'fa-people-group' : 'fa-crosshairs',
-            badgeText: `${sum.totalM} match(s)`,
-            accent: 'pink',
-            sum
-          });
-        }).filter(Boolean);
-        renderCardsOrEmpty(cards, 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3', 'Aucun match enregistré pour Vaiana sur cette sélection.');
+        const vSum = computeStatsSummary(vaianaList);
+        const topSub = vaianaList.length > 0 ? normalizeMatchSquadInfo(vaianaList[0]).subOption : 'Remplissage';
+        grid.innerHTML = renderComparisonBarsCard({
+          title: 'Vaiana •',
+          subLabel: `${topSub} (${vSum.totalM} matchs)`,
+          badgeIcon: 'fa-crown',
+          accent: 'pink',
+          sum: vSum
+        });
         return;
       }
 
-      // Vue globale ('ALL')
-      const tessSum = computeStatsSummary(tessList);
-      const vaianaSum = computeStatsSummary(vaianaList);
-
-      const tessVaianaCount = tessList.filter(m => normalizeMatchSquadInfo(m).subOption === 'Vaiana').length;
-      const tessAlexCount = tessList.filter(m => normalizeMatchSquadInfo(m).subOption === 'Alex').length;
-      const tessBothCount = tessList.filter(m => normalizeMatchSquadInfo(m).subOption === 'Vaiana et Alex').length;
-      const tessSoloCount = tessList.filter(m => normalizeMatchSquadInfo(m).subOption === 'Remplissage').length;
-
-      const vaianaFillCount = vaianaList.filter(m => normalizeMatchSquadInfo(m).subOption.startsWith('Remplissage')).length;
-      const vaianaSoloQs = ['1v1', '1v2', '1v3', '1v4'].map(s => {
-        const c = vaianaList.filter(m => normalizeMatchSquadInfo(m).subOption === s).length;
-        return `${s}: <strong class="text-pink-200">${c}</strong>`;
-      }).join(' • ');
-      const vaianaBreakdown = `Fill: <strong class="text-pink-200">${vaianaFillCount}</strong> • ${vaianaSoloQs}`;
-
-      const compactCards = [];
-      if (tessSum.totalM > 0 || showEmptySplitCards) {
-        compactCards.push(buildCompanyStatCard({
-          title: 'Tess',
-          iconClass: 'fa-user-check',
-          badgeText: `${tessSum.totalM} match(s)`,
-          accent: 'cyan',
-          sum: tessSum,
-          subtitleExtra: `Vaiana: <strong class="text-cyan-200">${tessVaianaCount}</strong> • Alex: <strong class="text-cyan-200">${tessAlexCount}</strong> • V&A: <strong class="text-cyan-200">${tessBothCount}</strong> • Fill: <strong class="text-cyan-200">${tessSoloCount}</strong>`
-        }));
-      }
-      if (vaianaSum.totalM > 0 || showEmptySplitCards) {
-        compactCards.push(buildCompanyStatCard({
-          title: 'Vaiana',
-          iconClass: 'fa-crown',
-          badgeText: `${vaianaSum.totalM} match(s)`,
+      const vSum = computeStatsSummary(vaianaList);
+      const tSum = computeStatsSummary(tessList);
+      const cards = [];
+      if (vSum.totalM > 0 || tessList.length === 0) {
+        const topSub = vaianaList.length > 0 ? normalizeMatchSquadInfo(vaianaList[0]).subOption : 'Remplissage';
+        cards.push(renderComparisonBarsCard({
+          title: 'Vaiana •',
+          subLabel: `${topSub} (${vSum.totalM} matchs)`,
+          badgeIcon: 'fa-crown',
           accent: 'pink',
-          sum: vaianaSum,
-          subtitleExtra: vaianaBreakdown
+          sum: vSum
         }));
       }
-
-      renderCardsOrEmpty(compactCards, 'grid grid-cols-1 md:grid-cols-2 gap-3', 'Aucune partie enregistrée pour le moment. Clique sur Nouveau Match pour commencer !');
+      if (tSum.totalM > 0) {
+        cards.push(renderComparisonBarsCard({
+          title: 'Tess •',
+          subLabel: `Escouade (${tSum.totalM} matchs)`,
+          badgeIcon: 'fa-user-check',
+          accent: 'cyan',
+          sum: tSum
+        }));
+      }
+      grid.innerHTML = cards.join('');
     }
 
 
@@ -2546,17 +2638,18 @@
       }
 
 
-      const metric = document.getElementById('chartMetric').value;
+      const metric = document.getElementById('chartMetric')?.value || 'KD';
       const points = chronos.map(m => {
         if (metric === 'KD') return m.deaths > 0 ? (m.kills / m.deaths) : Number(m.kills);
         if (metric === 'Kills') return Number(m.kills);
         if (metric === 'Damage') return Number(m.damage);
+        if (metric === 'Top5') return Number(m.placement) || 0;
         return 0;
       });
 
-
-      const maxVal = Math.max(...points, 1);
-      const padding = 35;
+      const avgVal = points.reduce((acc, v) => acc + v, 0) / Math.max(1, points.length);
+      const maxVal = Math.max(...points, avgVal * 1.15, 1);
+      const padding = 34;
       const chartW = w - padding * 2;
       const chartH = h - padding * 2;
 
@@ -2618,6 +2711,34 @@
         ctx.stroke();
       });
 
+
+      // Ligne de moyenne pointillée
+      const avgY = padding + chartH - (avgVal / maxVal) * chartH;
+      ctx.save();
+      ctx.setLineDash([5, 5]);
+      ctx.strokeStyle = 'rgba(244, 114, 182, 0.55)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(padding, avgY);
+      ctx.lineTo(w - padding, avgY);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      const avgText = metric === 'Damage'
+        ? `Moyenne: ${Math.round(avgVal).toLocaleString('fr-FR')}`
+        : `Moyenne: ${avgVal.toFixed(2).replace('.', ',')}`;
+      ctx.fillStyle = '#f9a8d4';
+      ctx.font = 'bold 10px Inter, sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText(avgText, padding + 8, Math.max(padding + 10, avgY - 6));
+      ctx.restore();
+
+      // Numéros de matchs sur l'axe X
+      coords.forEach((pt, idx) => {
+        ctx.fillStyle = '#64748b';
+        ctx.font = '10px Inter, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(String(idx + 1), pt.x, h - padding + 15);
+      });
 
       setupChartTooltip(canvas, coords, metric);
     }
