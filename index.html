@@ -819,30 +819,32 @@
 
       <div class="space-y-3">
         <h3 class="text-sm font-black uppercase text-purple-300 tracking-wider flex items-center gap-2">
-          <i class="fa-solid fa-shield-halved"></i> Packages d'Atouts Méta
+          <i class="fa-solid fa-shield-halved"></i> Classes & Atouts Méta (Saison 1)
         </h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="glass-card p-4 border-l-4 border-l-purple-500">
-            <div class="flex justify-between items-center mb-2">
-              <span class="text-sm font-black text-white">Pack Polyvalent / Agression</span>
-              <span class="px-2 py-0.5 rounded text-[10px] font-black bg-amber-500/20 text-amber-400 border border-amber-500/40">TIER S</span>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="glass-card p-4 border-l-4 border-l-amber-500">
+            <div class="flex justify-between items-center mb-1.5">
+              <span class="text-sm font-black text-white">Méta Absolue (BR)</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-black bg-amber-500/20 text-amber-400 border border-amber-500/40">POLYVALENT</span>
             </div>
-            <ul class="text-xs text-slate-300 space-y-1">
-              <li><strong class="text-purple-400">Emplacement 1 :</strong> Pas de course (Double Time) ou Pillard</li>
-              <li><strong class="text-purple-400">Emplacement 2 :</strong> Mains agiles (Fast Hands) ou Ruée vers le sang</li>
-              <li><strong class="text-purple-400">Emplacement 3 :</strong> Alerte maximale (High Alert) ou Fantôme (Ghost)</li>
-            </ul>
+            <p class="text-[11px] text-amber-300/90 font-semibold mb-1.5">Cronen Osprey • WZ.55 Striga</p>
+            <p class="text-xs text-slate-300 leading-relaxed">Infirmier de terrain • Pillard • Trempé • <span class="text-amber-300 font-bold">Fantôme</span> | Fumigène + Semtex</p>
           </div>
-          <div class="glass-card p-4 border-l-4 border-l-pink-500">
-            <div class="flex justify-between items-center mb-2">
-              <span class="text-sm font-black text-white">Pack Furtif / Fin de zone</span>
-              <span class="px-2 py-0.5 rounded text-[10px] font-black bg-amber-500/20 text-amber-400 border border-amber-500/40">TIER S</span>
+          <div class="glass-card p-4 border-l-4 border-l-purple-500">
+            <div class="flex justify-between items-center mb-1.5">
+              <span class="text-sm font-black text-white">Sniper & Soutien Agressif</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-black bg-purple-500/20 text-purple-300 border border-purple-500/40">LONGUE / MI-DIST</span>
             </div>
-            <ul class="text-xs text-slate-300 space-y-1">
-              <li><strong class="text-pink-400">Emplacement 1 :</strong> Escouade de déminage (E.O.D.)</li>
-              <li><strong class="text-pink-400">Emplacement 2 :</strong> Sang-froid (Cold-Blooded)</li>
-              <li><strong class="text-pink-400">Emplacement 3 :</strong> Fantôme (Ghost) + Ninja</li>
-            </ul>
+            <p class="text-[11px] text-purple-300/90 font-semibold mb-1.5">KG-7 Vulcan • Cronen Osprey</p>
+            <p class="text-xs text-slate-300 leading-relaxed">Chasseur • Mains lestes • Trempé • <span class="text-purple-300 font-bold">Athlétisme</span> | Fumigène + Semtex</p>
+          </div>
+          <div class="glass-card p-4 border-l-4 border-l-cyan-500">
+            <div class="flex justify-between items-center mb-1.5">
+              <span class="text-sm font-black text-white">Rush Résurgence</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-black bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">MOBILITÉ MAX</span>
+            </div>
+            <p class="text-[11px] text-cyan-300/90 font-semibold mb-1.5">ISO Nightshade • M4</p>
+            <p class="text-xs text-slate-300 leading-relaxed">Examinateur • Sergent instructeur • Régénération rapide • <span class="text-cyan-300 font-bold">Art du terrain</span> | Stimulant + Couteau de lancer</p>
           </div>
         </div>
       </div>
@@ -1340,41 +1342,302 @@
     let DEFAULT_DEFIS = [];
 
 
-    const FALLBACK_META_WEAPONS = [
+    const FALLBACK_META_WEAPONS =     [
       {
-        "name": "Cronen Osprey",
+        "name": "Cronen Osprey (Longue portée)",
         "type": "Fusil d'assaut",
         "role": "Longue portée",
         "tier": "TIER S",
-        "rankText": "TIER S • N°1",
+        "rankText": "TIER S • A02-2TKF8-24ZCN-11",
         "badgeClass": "bg-amber-500/20 text-amber-400 border-amber-500",
-        "unlock": "🔓 Arme : Passe de combat Saison 1 (Palier 16 gratuit)",
+        "unlock": "Code : A02-2TKF8-24ZCN-11 • TTK 0-40m: 612ms • Vélocité: 1120 m/s • Recul: Très faible (Score facilité 9.9/10)",
         "attachments": [
-          { "name": "FSS IS300", "slot": "Bouche", "lvl": "Niv. 21" },
-          { "name": "FSS Tac90 Grip", "slot": "Sous le canon", "lvl": "Niv. 6" },
-          { "name": "A56 Stout", "slot": "Poignée arrière", "lvl": "Niv. 46" },
-          { "name": "FT Stalwart MK2", "slot": "Crosse", "lvl": "Niv. 50" },
-          { "name": "SA Laz-500", "slot": "Laser", "lvl": "Niv. 52" },
-          { "name": "Cronen Helix Mk. II", "slot": "Apex (Bonus)", "lvl": "Niv. 70" }
+          {
+            "name": "Locus PX3 incliné",
+            "slot": "Viseur",
+            "lvl": "Saison 1"
+          },
+          {
+            "name": "FSS IS300",
+            "slot": "Bouche",
+            "lvl": "TTK 612ms"
+          },
+          {
+            "name": "Canon IO-556 Tac 18\"",
+            "slot": "Canon",
+            "lvl": "1120 m/s"
+          },
+          {
+            "name": "Poignée FSS Fireline",
+            "slot": "Sous le canon",
+            "lvl": "Saison 1"
+          },
+          {
+            "name": "Chargeur de 60 cartouches",
+            "slot": "Chargeur",
+            "lvl": "Saison 1"
+          }
         ],
-        "perks": "Fantôme • Mains agiles • Pas de course | Fumigène + Semtex"
+        "perks": "Infirmier de terrain (Field Medic) • Pillard (Scavenger) • Trempé (Tempered) • Fantôme (Phantom) | Grenade fumigène + Semtex"
       },
       {
-        "name": "ISO Nightshade",
+        "name": "Cronen Osprey (Soutien sniper)",
+        "type": "Fusil d'assaut",
+        "role": "Soutien sniper",
+        "tier": "TIER S",
+        "rankText": "TIER S • A02-A46HI-N11",
+        "badgeClass": "bg-amber-500/20 text-amber-400 border-amber-500",
+        "unlock": "Code : A02-A46HI-N11 • Vélocité: 940 m/s • Recul: Faible / Haute mobilité",
+        "attachments": [
+          {
+            "name": "Silencieux XRK Mil-Tac",
+            "slot": "Bouche",
+            "lvl": "Saison 1"
+          },
+          {
+            "name": "Canon GKL-700 14\"",
+            "slot": "Canon",
+            "lvl": "940 m/s"
+          },
+          {
+            "name": "Chargeur de 60 cartouches",
+            "slot": "Chargeur",
+            "lvl": "Saison 1"
+          },
+          {
+            "name": "Poignée A56 Stout",
+            "slot": "Poignée arrière",
+            "lvl": "Saison 1"
+          },
+          {
+            "name": "Crosse Fade Tac 9L",
+            "slot": "Crosse",
+            "lvl": "Saison 1"
+          }
+        ],
+        "perks": "Infirmier de terrain (Field Medic) • Pillard (Scavenger) • Trempé (Tempered) • Fantôme (Phantom) | Grenade fumigène + Semtex"
+      },
+      {
+        "name": "WZ.55 Striga (Courte portée)",
         "type": "Mitraillette",
         "role": "Courte portée",
         "tier": "TIER S",
-        "rankText": "TIER S • N°1 SMG",
+        "rankText": "TIER S • S04-AUXZ6-DU1Q1-1",
         "badgeClass": "bg-amber-500/20 text-amber-400 border-amber-500",
-        "unlock": "🔓 Arme : Niveau de joueur 4",
+        "unlock": "Code : S04-AUXZ6-DU1Q1-1 • TTK 0-10m: 617ms • Vélocité: 680 m/s • Recul: Faible",
         "attachments": [
-          { "name": "XRK Herder 40", "slot": "Bouche", "lvl": "Niv. 17" },
-          { "name": "ZLR Carbon-900", "slot": "Canon", "lvl": "Niv. 41" },
-          { "name": "FSS TAC90 Grip", "slot": "Sous le canon", "lvl": "Niv. 55" },
-          { "name": "Demo STP-1", "slot": "Poignée arrière", "lvl": "Niv. 6" },
-          { "name": "Schlager Visiv-5", "slot": "Laser", "lvl": "Niv. 43" }
+          {
+            "name": "Compensateur Full Port",
+            "slot": "Bouche",
+            "lvl": "TTK 617ms"
+          },
+          {
+            "name": "Canon GW Sender 500",
+            "slot": "Canon",
+            "lvl": "680 m/s"
+          },
+          {
+            "name": "Chargeur tambour de 50 cartouches",
+            "slot": "Chargeur",
+            "lvl": "Saison 1"
+          },
+          {
+            "name": "Poignée Matuzek 532-L",
+            "slot": "Poignée arrière",
+            "lvl": "Saison 1"
+          },
+          {
+            "name": "Crosse filaire",
+            "slot": "Crosse",
+            "lvl": "Saison 1"
+          }
         ],
-        "perks": "Pas de course • Ruée vers le sang • Ninja | Stimulant + Couteau de lancer"
+        "perks": "Infirmier de terrain (Field Medic) • Pillard (Scavenger) • Trempé (Tempered) • Fantôme (Phantom) | Grenade fumigène + Semtex"
+      },
+      {
+        "name": "WZ.55 Striga (Soutien sniper)",
+        "type": "Mitraillette",
+        "role": "Soutien sniper",
+        "tier": "TIER S",
+        "rankText": "TIER S • S04-AUXZ6-DTWY1-1",
+        "badgeClass": "bg-amber-500/20 text-amber-400 border-amber-500",
+        "unlock": "Code : S04-AUXZ6-DTWY1-1 • Vélocité: 745 m/s • Recul: Très stable à mi-distance",
+        "attachments": [
+          {
+            "name": "ZLR Type C",
+            "slot": "Viseur",
+            "lvl": "Saison 1"
+          },
+          {
+            "name": "Silencieux FTAC Recon",
+            "slot": "Bouche",
+            "lvl": "Saison 1"
+          },
+          {
+            "name": "Canon GW Sender 500",
+            "slot": "Canon",
+            "lvl": "745 m/s"
+          },
+          {
+            "name": "Chargeur tambour de 50 cartouches",
+            "slot": "Chargeur",
+            "lvl": "Saison 1"
+          },
+          {
+            "name": "Crosse EXP Calvary II",
+            "slot": "Crosse",
+            "lvl": "Saison 1"
+          }
+        ],
+        "perks": "Infirmier de terrain (Field Medic) • Pillard (Scavenger) • Trempé (Tempered) • Fantôme (Phantom) | Grenade fumigène + Semtex"
+      },
+      {
+        "name": "ISO Nightshade (Courte portée)",
+        "type": "Mitraillette",
+        "role": "Courte portée",
+        "tier": "TIER S",
+        "rankText": "TIER S • S06-3K9Y5-K39PZ-B911",
+        "badgeClass": "bg-amber-500/20 text-amber-400 border-amber-500",
+        "unlock": "Code : S06-3K9Y5-K39PZ-B911 • TTK 0-10m: 585ms • Vélocité: 710 m/s • Recul: Modéré / Facile à maîtriser",
+        "attachments": [
+          {
+            "name": "Canon ZLR Mag-Z 9",
+            "slot": "Canon",
+            "lvl": "710 m/s"
+          },
+          {
+            "name": "Chargeur de 40 cartouches",
+            "slot": "Chargeur",
+            "lvl": "Saison 1"
+          },
+          {
+            "name": "Poignée Demo STP-1",
+            "slot": "Poignée arrière",
+            "lvl": "Saison 1"
+          },
+          {
+            "name": "Crosse EXP G2-44",
+            "slot": "Crosse",
+            "lvl": "Saison 1"
+          },
+          {
+            "name": "Munitions haute vélocité 9mm Parabellum",
+            "slot": "Munitions",
+            "lvl": "Saison 1"
+          }
+        ],
+        "perks": "Examinateur (Surveyor) • Sergent instructeur (Drill Instructor) • Régénération rapide (Quick Fix) • Art du terrain (Fieldcraft) | Stimulant + Couteau de lancer"
+      },
+      {
+        "name": "ISO Nightshade (Soutien sniper)",
+        "type": "Mitraillette",
+        "role": "Soutien sniper",
+        "tier": "TIER S",
+        "rankText": "TIER S • S06-3K9Y5-LJH5N-Z711",
+        "badgeClass": "bg-amber-500/20 text-amber-400 border-amber-500",
+        "unlock": "Code : S06-3K9Y5-LJH5N-Z711 • Vélocité: 660 m/s • Recul: Faible",
+        "attachments": [
+          {
+            "name": "Bouche XRK Herder 40",
+            "slot": "Bouche",
+            "lvl": "Saison 1"
+          },
+          {
+            "name": "Canon RT Outride-X 8\"",
+            "slot": "Canon",
+            "lvl": "660 m/s"
+          },
+          {
+            "name": "Poignée FSS TAC90",
+            "slot": "Sous le canon",
+            "lvl": "Saison 1"
+          },
+          {
+            "name": "Chargeur tambour de 50 cartouches",
+            "slot": "Chargeur",
+            "lvl": "Saison 1"
+          },
+          {
+            "name": "Laser XRK Clutch-LS",
+            "slot": "Laser",
+            "lvl": "Saison 1"
+          }
+        ],
+        "perks": "Examinateur (Surveyor) • Sergent instructeur (Drill Instructor) • Régénération rapide (Quick Fix) • Art du terrain (Fieldcraft) | Stimulant + Couteau de lancer"
+      },
+      {
+        "name": "KG-7 Vulcan (Longue portée • One-Shot)",
+        "type": "Fusil tactique & précision",
+        "role": "Longue portée • One-Shot",
+        "tier": "TIER S",
+        "rankText": "TIER S • R04-3K9Y5-JTFYN-8S51",
+        "badgeClass": "bg-amber-500/20 text-amber-400 border-amber-500",
+        "unlock": "Code : R04-3K9Y5-JTFYN-8S51 • 1-Shot tête: 106m • Vélocité: 1347 m/s • Recul: Stabilité maximale",
+        "attachments": [
+          {
+            "name": "Silencieux Gauge-12 Mono",
+            "slot": "Bouche",
+            "lvl": "1-Shot 106m"
+          },
+          {
+            "name": "Canon Haebang RMT762 29\"",
+            "slot": "Canon",
+            "lvl": "1347 m/s"
+          },
+          {
+            "name": "Crosse TT G76-RP",
+            "slot": "Crosse",
+            "lvl": "Saison 1"
+          },
+          {
+            "name": "Munitions haute vélocité 7.62x54mmR",
+            "slot": "Munitions",
+            "lvl": "Saison 1"
+          },
+          {
+            "name": "Verrou léger KT76",
+            "slot": "Culasse / Verrou",
+            "lvl": "Saison 1"
+          }
+        ],
+        "perks": "Chasseur (Hunter) • Mains lestes (Deft Hands) • Trempé (Tempered) • Athlétisme (Athleticism) | Grenade fumigène + Semtex"
+      },
+      {
+        "name": "M4 (Soutien sniper)",
+        "type": "Fusil d'assaut",
+        "role": "Soutien sniper",
+        "tier": "TIER A",
+        "rankText": "TIER A • A05-B1GMX-4IEU1-1",
+        "badgeClass": "bg-purple-500/20 text-purple-300 border-purple-500",
+        "unlock": "Code : A05-B1GMX-4IEU1-1 • TTK 0-35m: 592ms • Vélocité: 1050 m/s • Recul: Faible",
+        "attachments": [
+          {
+            "name": "Cronen R808",
+            "slot": "Viseur",
+            "lvl": "Saison 1"
+          },
+          {
+            "name": "FSS IS300",
+            "slot": "Bouche",
+            "lvl": "TTK 592ms"
+          },
+          {
+            "name": "Canon Highmark 16\"",
+            "slot": "Canon",
+            "lvl": "1050 m/s"
+          },
+          {
+            "name": "Chargeur de 45 cartouches",
+            "slot": "Chargeur",
+            "lvl": "Saison 1"
+          },
+          {
+            "name": "Munitions haute vélocité 5.56 OTAN",
+            "slot": "Munitions",
+            "lvl": "Saison 1"
+          }
+        ],
+        "perks": "Examinateur (Surveyor) • Sergent instructeur (Drill Instructor) • Régénération rapide (Quick Fix) • Art du terrain (Fieldcraft) | Stimulant + Couteau de lancer"
       }
     ];
 

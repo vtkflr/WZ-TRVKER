@@ -1,0 +1,250 @@
+{
+  "jeu": "Call of Duty: Warzone",
+  "saison": "Saison 1 (Novembre 2026)",
+  "langue": "fr-FR",
+  "armes_meta": [
+    {
+      "nom": "Cronen Osprey",
+      "categorie": "Fusil d'assaut",
+      "tier": "S",
+      "configurations": {
+        "longue_portee": {
+          "code_importation": "A02-2TKF8-24ZCN-11",
+          "accessoires": {
+            "viseur": "Locus PX3 incliné",
+            "bouche": "FSS IS300",
+            "canon": "Canon IO-556 Tac 18\"",
+            "accessoire_canon": "Poignée FSS Fireline",
+            "chargeur": "Chargeur de 60 cartouches"
+          },
+          "statistiques": {
+            "cadence_tir_cpm": 882,
+            "ttk_0_40m_ms": 612,
+            "ttk_40_80m_ms": 701,
+            "ttk_80_120m_ms": 785,
+            "velocite_balles_ms": 1120,
+            "recul_controle": "Très faible (Score facilité 9.9/10)"
+          }
+        },
+        "soutien_sniper": {
+          "code_importation": "A02-A46HI-N11",
+          "accessoires": {
+            "bouche": "Silencieux XRK Mil-Tac",
+            "canon": "Canon GKL-700 14\"",
+            "chargeur": "Chargeur de 60 cartouches",
+            "poignee_arriere": "Poignée A56 Stout",
+            "crosse": "Crosse Fade Tac 9L"
+          },
+          "statistiques": {
+            "cadence_tir_cpm": 882,
+            "ttk_0_30m_ms": 612,
+            "velocite_balles_ms": 940,
+            "recul_controle": "Faible / Haute mobilité"
+          }
+        }
+      }
+    },
+    {
+      "nom": "WZ.55 Striga",
+      "categorie": "Mitraillette",
+      "tier": "S",
+      "configurations": {
+        "courte_portee": {
+          "code_importation": "S04-AUXZ6-DU1Q1-1",
+          "accessoires": {
+            "bouche": "Compensateur Full Port",
+            "canon": "Canon GW Sender 500",
+            "chargeur": "Chargeur tambour de 50 cartouches",
+            "poignee_arriere": "Poignée Matuzek 532-L",
+            "crosse": "Crosse filaire"
+          },
+          "statistiques": {
+            "cadence_tir_cpm": 651,
+            "ttk_0_10m_ms": 617,
+            "ttk_10_25m_ms": 771,
+            "velocite_balles_ms": 680,
+            "recul_controle": "Faible"
+          }
+        },
+        "soutien_sniper": {
+          "code_importation": "S04-AUXZ6-DTWY1-1",
+          "accessoires": {
+            "viseur": "ZLR Type C",
+            "bouche": "Silencieux FTAC Recon",
+            "canon": "Canon GW Sender 500",
+            "chargeur": "Chargeur tambour de 50 cartouches",
+            "crosse": "Crosse EXP Calvary II"
+          },
+          "statistiques": {
+            "cadence_tir_cpm": 651,
+            "ttk_0_15m_ms": 617,
+            "ttk_15_35m_ms": 771,
+            "velocite_balles_ms": 745,
+            "recul_controle": "Très stable à mi-distance"
+          }
+        }
+      }
+    },
+    {
+      "nom": "ISO Nightshade",
+      "categorie": "Mitraillette",
+      "tier": "S",
+      "configurations": {
+        "courte_portee": {
+          "code_importation": "S06-3K9Y5-K39PZ-B911",
+          "accessoires": {
+            "canon": "Canon ZLR Mag-Z 9",
+            "chargeur": "Chargeur de 40 cartouches",
+            "poignee_arriere": "Poignée Demo STP-1",
+            "crosse": "Crosse EXP G2-44",
+            "munitions": "Munitions haute vélocité 9mm Parabellum"
+          },
+          "statistiques": {
+            "cadence_tir_cpm": 923,
+            "ttk_0_10m_ms": 585,
+            "ttk_10_25m_ms": 715,
+            "velocite_balles_ms": 710,
+            "recul_controle": "Modéré / Facile à maîtriser"
+          }
+        },
+        "soutien_sniper": {
+          "code_importation": "S06-3K9Y5-LJH5N-Z711",
+          "accessoires": {
+            "bouche": "Bouche XRK Herder 40",
+            "canon": "Canon RT Outride-X 8\"",
+            "accessoire_canon": "Poignée FSS TAC90",
+            "chargeur": "Chargeur tambour de 50 cartouches",
+            "laser": "Laser XRK Clutch-LS"
+          },
+          "statistiques": {
+            "cadence_tir_cpm": 923,
+            "ttk_0_12m_ms": 585,
+            "ttk_12_30m_ms": 715,
+            "velocite_balles_ms": 660,
+            "recul_controle": "Faible"
+          }
+        }
+      }
+    },
+    {
+      "nom": "KG-7 Vulcan",
+      "categorie": "Fusil de précision",
+      "tier": "S",
+      "configurations": {
+        "longue_portee_one_shot": {
+          "code_importation": "R04-3K9Y5-JTFYN-8S51",
+          "accessoires": {
+            "bouche": "Silencieux Gauge-12 Mono",
+            "canon": "Canon Haebang RMT762 29\"",
+            "crosse": "Crosse TT G76-RP",
+            "munitions": "Munitions haute vélocité 7.62x54mmR",
+            "verrou": "Verrou léger KT76"
+          },
+          "statistiques": {
+            "portee_one_shot_tete_m": 106,
+            "velocite_balles_ms": 1347,
+            "multiplicateur_tete": 2.6,
+            "recul_controle": "Stabilité maximale"
+          }
+        }
+      }
+    },
+    {
+      "nom": "M4",
+      "categorie": "Fusil d'assaut",
+      "tier": "A",
+      "configurations": {
+        "soutien_sniper": {
+          "code_importation": "A05-B1GMX-4IEU1-1",
+          "accessoires": {
+            "viseur": "Cronen R808",
+            "bouche": "FSS IS300",
+            "canon": "Canon Highmark 16\"",
+            "chargeur": "Chargeur de 45 cartouches",
+            "munitions": "Munitions haute vélocité 5.56 OTAN"
+          },
+          "statistiques": {
+            "cadence_tir_cpm": 810,
+            "ttk_0_35m_ms": 592,
+            "velocite_balles_ms": 1050,
+            "recul_controle": "Faible"
+          }
+        }
+      }
+    }
+  ],
+  "duos_classes_complets": [
+    {
+      "nom_classe": "Méta Absolue (Polyvalent / Battle Royale)",
+      "style_de_jeu": "Longue et courte portée",
+      "arme_principale": {
+        "arme": "Cronen Osprey",
+        "role": "Longue portée",
+        "code": "A02-2TKF8-24ZCN-11"
+      },
+      "arme_secondaire": {
+        "arme": "WZ.55 Striga",
+        "role": "Courte portée",
+        "code": "S04-AUXZ6-DU1Q1-1"
+      },
+      "atouts": {
+        "atout_1": "Infirmier de terrain (Field Medic)",
+        "atout_2": "Pillard (Scavenger)",
+        "atout_3": "Trempé (Tempered)",
+        "atout_elite": "Fantôme (Phantom)"
+      },
+      "equipements": {
+        "mortel": "Semtex",
+        "tactique": "Grenade fumigène"
+      }
+    },
+    {
+      "nom_classe": "Sniper & Soutien Agressif",
+      "style_de_jeu": "One-shot longue distance + duels mi-distance",
+      "arme_principale": {
+        "arme": "KG-7 Vulcan",
+        "role": "Sniper",
+        "code": "R04-3K9Y5-JTFYN-8S51"
+      },
+      "arme_secondaire": {
+        "arme": "Cronen Osprey",
+        "role": "Soutien de sniper",
+        "code": "A02-A46HI-N11"
+      },
+      "atouts": {
+        "atout_1": "Chasseur (Hunter)",
+        "atout_2": "Mains lestes (Deft Hands)",
+        "atout_3": "Trempé (Tempered)",
+        "atout_elite": "Athlétisme (Athleticism)"
+      },
+      "equipements": {
+        "mortel": "Semtex",
+        "tactique": "Grenade fumigène"
+      }
+    },
+    {
+      "nom_classe": "Rush Résurgence (Mobilité maximale)",
+      "style_de_jeu": "Combat rapproché intense",
+      "arme_principale": {
+        "arme": "ISO Nightshade",
+        "role": "Courte portée",
+        "code": "S06-3K9Y5-K39PZ-B911"
+      },
+      "arme_secondaire": {
+        "arme": "M4",
+        "role": "Soutien de sniper / Polyvalent",
+        "code": "A05-B1GMX-4IEU1-1"
+      },
+      "atouts": {
+        "atout_1": "Examinateur (Surveyor)",
+        "atout_2": "Sergent instructeur (Drill Instructor)",
+        "atout_3": "Régénération rapide (Quick Fix)",
+        "atout_elite": "Art du terrain (Fieldcraft)"
+      },
+      "equipements": {
+        "mortel": "Couteau de lancer",
+        "tactique": "Stimulant"
+      }
+    }
+  ]
+}
