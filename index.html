@@ -2394,7 +2394,9 @@
         if (m.mode === 'Classé' && m.rank) {
           extraBadge = `<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30">${m.rank}</span>`;
         } else if (m.mode === 'Tournois' && m.format) {
-          const tLabel = [m.tourneyName, m.format, m.objective].filter(Boolean).join(' • ');
+          const isCmg = (m.tourneyCategory === 'CMG') || (!m.tourneyCategory && ['1v1', '2v2'].includes(m.format));
+          const detailTag = isCmg ? (m.tourneyStake || m.objective) : (m.objective || 'Communauté');
+          const tLabel = [m.tourneyName, isCmg ? 'CMG' : 'Communauté', m.format, detailTag].filter(Boolean).join(' • ');
           extraBadge = `<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30">${tLabel}</span>`;
         } else if (m.typePartie) {
           extraBadge = `<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/30">${m.typePartie}</span>`;
@@ -2546,7 +2548,7 @@
             if (k > byFormat[fmt].bestKills) byFormat[fmt].bestKills = k;
             if (m.tourneyName) byFormat[fmt].names.add(m.tourneyName);
           });
-          const order = ['1v1', '2v2', 'Trio', 'Quatuor'];
+          const order = ['1v1', '2v2', 'Solo', 'Duo', 'Trio', 'Quatuor'];
           const sortedFormats = Object.entries(byFormat).sort((a, b) => {
             const ia = order.indexOf(a[0]);
             const ib = order.indexOf(b[0]);
@@ -2554,7 +2556,7 @@
           });
           tourneyContainer.innerHTML = sortedFormats.map(([fmt, st]) => {
             const kd = st.deaths > 0 ? (st.kills / st.deaths).toFixed(2) : st.kills.toFixed(2);
-            const tagType = (fmt === '1v1' || fmt === '2v2') ? 'CMG' : 'Communauté';
+            const tagType = ['1v1', '2v2'].includes(fmt) ? 'CMG' : 'Communauté';
             const orgList = Array.from(st.names).join(', ');
             return `
               <div class="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800/80 flex items-center justify-between gap-2">
@@ -3327,14 +3329,33 @@
         container.innerHTML = `
           <div class="grid grid-cols-2 gap-2">
             <div class="space-y-1.5">
-              <label class="text-xs font-bold text-amber-300 uppercase tracking-wider block">Format</label>
-              <select id="modalFormat" class="glass-input" required>
-                <option value="1v1">1v1 (CMG)</option>
-                <option value="2v2">2v2 (CMG)</option>
-                <option value="Trio">Trio (Communauté)</option>
-                <option value="Quatuor">Quatuor (Communauté)</option>
+              <label class="text-xs font-bold text-amber-300 uppercase tracking-wider block">Type de tournoi</label>
+              <select id="modalTourneyCategory" onchange="handleModalTournoiCategoryChange()" class="glass-input" required>
+                <option value="CMG">CMG</option>
+                <option value="Communauté">Communauté</option>
               </select>
             </div>
+            <div class="space-y-1.5">
+              <label class="text-xs font-bold text-pink-300 uppercase tracking-wider block">Format</label>
+              <select id="modalFormat" class="glass-input" required>
+                <option value="1v1">1v1</option>
+                <option value="2v2">2v2</option>
+              </select>
+            </div>
+          </div>
+          <div id="modalTournoiDynamicSubRow" class="grid grid-cols-1 gap-2">
+            <div class="space-y-1.5">
+              <label class="text-xs font-bold text-cyan-300 uppercase tracking-wider block">Enjeu / Mode CMG</label>
+              <select id="modalTourneyStake" class="glass-input" required>
+                <option value="Gratuit">Gratuit</option>
+                <option value="5 Crédits">5 Crédits</option>
+                <option value="10 Crédits">10 Crédits</option>
+                <option value="Cashprizes">Cashprizes</option>
+                <option value="Match XP">Match XP</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
             <div class="space-y-1.5">
               <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block">Mode Tournoi</label>
               <select id="modalModeTournoi" onchange="handleModalTournoiMapUpdate()" class="glass-input" required>
@@ -3342,8 +3363,6 @@
                 <option value="Battle Royale">Battle Royale</option>
               </select>
             </div>
-          </div>
-          <div class="grid grid-cols-2 gap-2">
             <div class="space-y-1.5">
               <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block">Carte (Map)</label>
               <select id="modalMap" class="glass-input" required>
@@ -3351,23 +3370,13 @@
                 <option value="Rebirth Island">Rebirth Island</option>
               </select>
             </div>
-            <div class="space-y-1.5">
-              <label class="text-xs font-bold text-cyan-300 uppercase tracking-wider block">Règle / Objectif</label>
-              <select id="modalObjective" class="glass-input" required>
-                <option value="Killrace">Killrace</option>
-                <option value="Top, kills & dégâts">Top, kills & dégâts</option>
-                <option value="3 meilleures games">3 meilleures games</option>
-                <option value="Survie">Survie</option>
-                <option value="Placement">Placement</option>
-                <option value="Points combinés">Points combinés</option>
-              </select>
-            </div>
           </div>
           <div class="space-y-1.5">
             <label class="text-xs font-bold text-purple-300 uppercase tracking-wider block">Nom du tournois</label>
-            <input type="text" id="modalTourneyName" placeholder="Ex: nom du tournois" class="glass-input" />
+            <input type="text" id="modalTourneyName" placeholder="Ex: WSSG Tournament, CMG..." class="glass-input" />
           </div>
         `;
+        handleModalTournoiCategoryChange();
       }
 
 
@@ -3381,6 +3390,53 @@
       mapSelect.innerHTML = mode === 'Battle Royale'
         ? `<option value="Hajin">Hajin</option>`
         : `<option value="Zodiac">Zodiac</option><option value="Rebirth Island">Rebirth Island</option>`;
+    }
+
+
+    function handleModalTournoiCategoryChange() {
+      const cat = document.getElementById('modalTourneyCategory')?.value || 'CMG';
+      const formatEl = document.getElementById('modalFormat');
+      const subRow = document.getElementById('modalTournoiDynamicSubRow');
+      if (!formatEl || !subRow) return;
+
+      if (cat === 'CMG') {
+        formatEl.innerHTML = `
+          <option value="1v1">1v1</option>
+          <option value="2v2">2v2</option>
+        `;
+        subRow.innerHTML = `
+          <div class="space-y-1.5">
+            <label class="text-xs font-bold text-cyan-300 uppercase tracking-wider block">Enjeu / Mode CMG</label>
+            <select id="modalTourneyStake" class="glass-input" required>
+              <option value="Gratuit">Gratuit</option>
+              <option value="5 Crédits">5 Crédits</option>
+              <option value="10 Crédits">10 Crédits</option>
+              <option value="Cashprizes">Cashprizes</option>
+              <option value="Match XP">Match XP</option>
+            </select>
+          </div>
+        `;
+      } else {
+        formatEl.innerHTML = `
+          <option value="Solo">Solo</option>
+          <option value="Duo">Duo</option>
+          <option value="Trio">Trio</option>
+          <option value="Quatuor">Quatuor</option>
+        `;
+        subRow.innerHTML = `
+          <div class="space-y-1.5">
+            <label class="text-xs font-bold text-cyan-300 uppercase tracking-wider block">Catégorie / Règle</label>
+            <select id="modalObjective" class="glass-input" required>
+              <option value="Killrace">Killrace</option>
+              <option value="Survie">Survie</option>
+              <option value="3 meilleures games">3 meilleures games</option>
+              <option value="Top, kills & dégâts">Top, kills & dégâts</option>
+              <option value="Points combinés">Points combinés</option>
+              <option value="Placement">Placement</option>
+            </select>
+          </div>
+        `;
+      }
     }
 
 
@@ -3456,7 +3512,13 @@
             document.getElementById('modalModeClasse').value = match.modeClasse;
             handleModalRankMapUpdate();
           }
+          if (document.getElementById('modalTourneyCategory')) {
+            const inferredCat = match.tourneyCategory || (['1v1', '2v2'].includes(match.format) ? 'CMG' : 'Communauté');
+            document.getElementById('modalTourneyCategory').value = inferredCat;
+            handleModalTournoiCategoryChange();
+          }
           if (match.format && document.getElementById('modalFormat')) document.getElementById('modalFormat').value = match.format;
+          if (match.tourneyStake && document.getElementById('modalTourneyStake')) document.getElementById('modalTourneyStake').value = match.tourneyStake;
           if (match.modeTournoi && document.getElementById('modalModeTournoi')) {
             document.getElementById('modalModeTournoi').value = match.modeTournoi;
             handleModalTournoiMapUpdate();
@@ -3509,7 +3571,7 @@
       e.preventDefault();
       const editId = document.getElementById('matchEditId').value;
       const mode = document.getElementById('modalMode').value;
-      let typePartie = null, modeClasse = null, rank = null, format = null, modeTournoi = null, objective = null, tourneyName = null;
+      let typePartie = null, modeClasse = null, rank = null, tourneyCategory = null, format = null, tourneyStake = null, modeTournoi = null, objective = null, tourneyName = null;
       const mapEl = document.getElementById('modalMap');
       const map = mapEl ? mapEl.value : 'Hajin';
 
@@ -3520,9 +3582,16 @@
         modeClasse = document.getElementById('modalModeClasse')?.value || 'Battle Royale';
         rank = document.getElementById('modalRank')?.value || 'Bronze';
       } else if (mode === 'Tournois') {
-        format = document.getElementById('modalFormat')?.value || '1v1';
+        tourneyCategory = document.getElementById('modalTourneyCategory')?.value || 'CMG';
+        format = document.getElementById('modalFormat')?.value || (tourneyCategory === 'CMG' ? '1v1' : 'Duo');
+        if (tourneyCategory === 'CMG') {
+          tourneyStake = document.getElementById('modalTourneyStake')?.value || 'Gratuit';
+          objective = 'Killrace';
+        } else {
+          tourneyStake = 'Communauté';
+          objective = document.getElementById('modalObjective')?.value || 'Killrace';
+        }
         modeTournoi = document.getElementById('modalModeTournoi')?.value || 'Résurgence';
-        objective = document.getElementById('modalObjective')?.value || 'Killrace';
         tourneyName = (document.getElementById('modalTourneyName')?.value || '').trim() || null;
       }
 
@@ -3592,7 +3661,7 @@
 
       const matchObj = {
         id: editId || ('m_' + Date.now()),
-        mode, typePartie, modeClasse, rank, format, modeTournoi, objective, tourneyName,
+        mode, typePartie, modeClasse, rank, tourneyCategory, format, tourneyStake, modeTournoi, objective, tourneyName,
         playerCategory, playerSubOption, vaianaFillFormat, casualOption,
         companyType, teammates, squadFormation,
         map, kills, deaths, assists, score, damage, placement, weapon1Cat, weapon2Cat, datetime, date
