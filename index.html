@@ -400,7 +400,30 @@
     </div>
   </div>
 
-  <div id="protectedAppWrapper" class="hidden flex-1 flex flex-col">
+    <script>
+    (function ensureAuthLockUnstuck() {
+      function showLoginFormFallback() {
+        const loadingEl = document.getElementById('authLockLoadingState');
+        const formWrap = document.getElementById('authLockFormWrapper');
+        const lockScreen = document.getElementById('authLockScreen');
+        const appWrap = document.getElementById('protectedAppWrapper');
+        if (typeof currentUser !== 'undefined' && currentUser) {
+          if (lockScreen) lockScreen.classList.add('hidden');
+          if (appWrap) appWrap.classList.remove('hidden');
+          return;
+        }
+        if (loadingEl) loadingEl.classList.add('hidden');
+        if (formWrap) formWrap.classList.remove('hidden');
+      }
+      if (typeof initSupabaseClient === 'function' && typeof supabaseClient !== 'undefined' && !supabaseClient) {
+        try { initSupabaseClient(); } catch (_) {}
+      }
+      setTimeout(showLoginFormFallback, 1500);
+      setTimeout(showLoginFormFallback, 4000);
+    })();
+  </script>
+
+<div id="protectedAppWrapper" class="hidden flex-1 flex flex-col">
   <header class="sticky top-0 z-40 bg-slate-950/85 backdrop-blur-xl border-b border-slate-800/80 px-4 py-3">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
       <div class="flex items-center gap-3">
