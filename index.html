@@ -4160,21 +4160,39 @@
     let authMode = 'login';
 
 
+    let _authSessionSettled = false;
+
     function initSupabaseClient() {
+      _authSessionSettled = false;
+      const safetyTimer = setTimeout(() => {
+        if (!_authSessionSettled) {
+          _authSessionSettled = true;
+          updateAppAccessLock();
+        }
+      }, 5000);
+
       if (window.supabase && typeof window.supabase.createClient === 'function' && SUPABASE_URL && SUPABASE_ANON_KEY) {
         supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         supabaseClient.auth.onAuthStateChange(async (_event, session) => {
+          _authSessionSettled = true;
+          clearTimeout(safetyTimer);
           currentUser = session ? session.user : null;
           await onAuthSessionChanged();
         });
         supabaseClient.auth.getSession().then(async ({ data }) => {
+          _authSessionSettled = true;
+          clearTimeout(safetyTimer);
           currentUser = data && data.session ? data.session.user : null;
           await onAuthSessionChanged();
         }).catch(() => {
+          _authSessionSettled = true;
+          clearTimeout(safetyTimer);
           currentUser = null;
           updateAppAccessLock();
         });
       } else {
+        _authSessionSettled = true;
+        clearTimeout(safetyTimer);
         updateAppAccessLock();
       }
     }
