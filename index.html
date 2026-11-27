@@ -1006,6 +1006,22 @@
 
       <form id="matchForm" onsubmit="handleMatchFormSubmit(event)" class="p-4 sm:p-6 space-y-4">
         <input type="hidden" id="matchEditId" value="" />
+        <div id="aiScreenshotImportBox" class="p-3 rounded-xl bg-indigo-950/35 border border-indigo-500/30 space-y-2">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="text-xs font-bold text-indigo-300 flex items-center gap-1.5">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+              <span>Import capture d'écran (IA Gemini) — fichier ou Ctrl+V</span>
+            </div>
+            <label class="cursor-pointer px-3 py-1.5 rounded-lg text-xs font-extrabold bg-indigo-600/30 hover:bg-indigo-600/45 text-indigo-200 border border-indigo-400/40 transition">
+              Choisir une image
+              <input type="file" id="aiScreenshotInput" accept="image/*" onchange="handleAiScreenshotFile(event)" class="hidden" />
+            </label>
+          </div>
+          <div id="aiScreenshotStatus" class="text-[11px] text-slate-400">
+            Importe une photo/capture de fin de partie ou colle-la ici (Ctrl+V) pour pré-remplir les stats automatiquement.
+          </div>
+        </div>
+
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div class="space-y-1.5">
             <label class="text-xs font-bold text-purple-300 uppercase tracking-wider block">Mode de jeu *</label>
@@ -3565,6 +3581,76 @@
     function closeMatchModal() {
       document.getElementById('matchModal').classList.add('hidden');
     }
+
+    async function processAiScreenshotFile(file) {
+      const statusEl = document.getElementById('aiScreenshotStatus');
+      if (!file || !file.type || !file.type.startsWith('image/')) {
+        if (statusEl) statusEl.innerHTML = '<span class="text-rose-400">Fichier image invalide.</span>';
+        return;
+      }
+      if (statusEl) statusEl.innerHTML = '<span class="text-cyan-300 font-semibold">Analyse IA de la capture en cours...</span>';
+
+      try {
+        const base64Data = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const res = String(reader.result || '');
+            const commaIdx = res.indexOf(',');
+            resolve(commaIdx >= 0 ? res.slice(commaIdx + 1) : res);
+          };
+          reader.onerror = () => reject(new Error('Lecture image impossible'));
+          reader.readAsDataURL(file);
+        });
+
+        if (!window.supabaseClient || !window.supabaseClient.functions) {
+          throw new Error('Client Supabase non initialisé');
+        }
+
+        const { data, error } = await window.supabaseClient.functions.invoke('analyze-match-screenshot', {
+          body: { imageBase64: base64Data, mimeType: file.type || 'image/jpeg' }
+        });
+        if (error) throw error;
+
+        const parsed = typeof data === 'string' ? JSON.parse(data) : (data || {});
+        if (parsed.kills !== null && parsed.kills !== undefined) document.getElementById('modalKills').value = parseInt(parsed.kills, 10) || 0;
+        if (parsed.deaths !== null && parsed.deaths !== undefined) document.getElementById('modalDeaths').value = parseInt(parsed.deaths, 10) || 0;
+        if (parsed.assists !== null && parsed.assists !== undefined) document.getElementById('modalAssists').value = parseInt(parsed.assists, 10) || 0;
+        if (parsed.damage !== null && parsed.damage !== undefined) document.getElementById('modalDamage').value = parseInt(parsed.damage, 10) || 0;
+        if (parsed.placement !== null && parsed.placement !== undefined) document.getElementById('modalPlacement').value = parseInt(parsed.placement, 10) || '';
+        if (parsed.score !== null && parsed.score !== undefined) document.getElementById('modalScore').value = parseInt(parsed.score, 10) || '';
+
+        if (statusEl) {
+          statusEl.innerHTML = '<span class="text-emerald-300 font-semibold">Champs pré-remplis par IA — vérifie bien les chiffres avant d'enregistrer.</span>';
+        }
+      } catch (err) {
+        if (statusEl) {
+          statusEl.innerHTML = `<span class="text-rose-400">Erreur analyse IA : ${err?.message || 'vérifie la Edge Function analyze-match-screenshot'}.</span>`;
+        }
+      }
+    }
+
+    function handleAiScreenshotFile(event) {
+      const file = event?.target?.files?.[0];
+      if (file) processAiScreenshotFile(file);
+      if (event?.target) event.target.value = '';
+    }
+
+    document.addEventListener('paste', (event) => {
+      const modal = document.getElementById('matchModal');
+      if (!modal || modal.classList.contains('hidden')) return;
+      const items = event.clipboardData?.items || [];
+      for (const item of items) {
+        if (item.type && item.type.startsWith('image/')) {
+          const blob = item.getAsFile();
+          if (blob) {
+            event.preventDefault();
+            processAiScreenshotFile(blob);
+            break;
+          }
+        }
+      }
+    });
+
 
 
     function handleMatchFormSubmit(e) {
