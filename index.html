@@ -347,80 +347,75 @@
       <div class="text-center space-y-2">
         <div class="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-tr from-purple-600 via-fuchsia-600 to-pink-500 p-0.5 shadow-lg shadow-purple-950/60">
           <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
-            <i class="fa-solid fa-lock text-xl text-pink-400"></i>
+            <i class="fa-solid fa-key text-xl text-pink-400"></i>
           </div>
         </div>
-        <span class="inline-block text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full bg-purple-950/80 text-purple-300 border border-purple-700/50">Accès Privé • Sur Invitation</span>
+        <span class="inline-block text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full bg-purple-950/80 text-purple-300 border border-purple-700/50">Accès Privé</span>
         <h1 class="text-2xl font-black text-white uppercase tracking-tight">WARZONE TRACKER</h1>
-        <p class="text-xs text-slate-400">Connexion obligatoire pour consulter les statistiques, les classes et enregistrer des matchs.</p>
+        <p class="text-xs text-slate-400">Entre le mot de passe pour accéder à tes matchs, classes et tournois.</p>
       </div>
 
-      <div id="authLockLoadingState" class="text-center py-4 text-xs text-slate-400 flex items-center justify-center gap-2">
-        <i class="fa-solid fa-spinner fa-spin text-purple-400"></i>
-        <span>Vérification de la session...</span>
-      </div>
-
-      <div id="authLockFormWrapper" class="hidden space-y-4">
-        <div class="grid grid-cols-2 gap-1.5 bg-slate-900/90 p-1 rounded-xl border border-slate-800">
-          <button type="button" id="lockTabLogin" onclick="switchLockAuthTab('login')" class="py-2 rounded-lg text-xs font-extrabold bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow">Connexion</button>
-          <button type="button" id="lockTabSignup" onclick="switchLockAuthTab('signup')" class="py-2 rounded-lg text-xs font-extrabold text-slate-400 hover:text-white transition">Inscription (Code)</button>
+      <form id="simplePassForm" onsubmit="handleSimplePassSubmit(event)" class="space-y-3">
+        <div class="space-y-1">
+          <label class="text-[10px] font-bold uppercase text-slate-400 block">Mot de passe *</label>
+          <input type="password" id="simplePassInput" placeholder="Mot de passe..." autocomplete="current-password" class="glass-input" required />
         </div>
-
-        <form id="lockAuthForm" onsubmit="handleLockAuthSubmit(event)" class="space-y-3">
-          <div id="lockUsernameGroup" class="hidden space-y-1">
-            <label class="text-[10px] font-bold uppercase text-slate-400 block">Pseudo joueur *</label>
-            <input type="text" id="lockUsername" placeholder="Ex: Vaiana, Tess, Alex..." class="glass-input" />
-          </div>
-          <div id="lockInviteCodeGroup" class="hidden space-y-1">
-            <label class="text-[10px] font-bold uppercase text-amber-300 block">Code d'invitation *</label>
-            <input type="text" id="lockInviteCode" placeholder="Entre le code d'invitation..." class="glass-input uppercase" />
-          </div>
-          <div class="space-y-1">
-            <label class="text-[10px] font-bold uppercase text-slate-400 block">Adresse e-mail *</label>
-            <input type="email" id="lockEmail" placeholder="joueur@exemple.com" class="glass-input" required />
-          </div>
-          <div class="space-y-1">
-            <label class="text-[10px] font-bold uppercase text-slate-400 block">Mot de passe (6 caractères min.) *</label>
-            <input type="password" id="lockPassword" minlength="6" placeholder="••••••••" class="glass-input" required />
-          </div>
-          <button type="submit" id="lockSubmitBtn" class="w-full btn-accent py-2.5 text-xs uppercase tracking-wider flex items-center justify-center gap-2 mt-2">
-            <i class="fa-solid fa-right-to-bracket"></i> <span id="lockSubmitLabel">Se connecter</span>
-          </button>
-        </form>
-          <div class="relative py-2 flex items-center justify-center">
-            <div class="border-t border-slate-800 w-full"></div>
-            <span class="px-2.5 text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-slate-950 shrink-0">ou</span>
-            <div class="border-t border-slate-800 w-full"></div>
-          </div>
-          <button type="button" id="lockGoogleBtn" onclick="handleGoogleSignIn()" class="w-full py-2.5 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-900 text-xs font-extrabold uppercase tracking-wider flex items-center justify-center gap-2.5 shadow-md transition cursor-pointer">
-            <i class="fa-brands fa-google text-rose-500 text-sm"></i>
-            <span>Continuer avec Google</span>
-          </button>
-      </div>
+        <p id="simplePassError" class="hidden text-xs font-bold text-rose-400">Mot de passe incorrect.</p>
+        <button type="submit" id="simplePassBtn" class="w-full btn-accent py-2.5 text-xs uppercase tracking-wider flex items-center justify-center gap-2 mt-2">
+          <i class="fa-solid fa-right-to-bracket"></i> <span>Entrer</span>
+        </button>
+      </form>
     </div>
   </div>
 
-    <script>
-    (function ensureAuthLockUnstuck() {
-      function showLoginFormFallback() {
-        const loadingEl = document.getElementById('authLockLoadingState');
-        const formWrap = document.getElementById('authLockFormWrapper');
-        const lockScreen = document.getElementById('authLockScreen');
-        const appWrap = document.getElementById('protectedAppWrapper');
-        if (typeof currentUser !== 'undefined' && currentUser) {
-          if (lockScreen) lockScreen.classList.add('hidden');
-          if (appWrap) appWrap.classList.remove('hidden');
-          return;
-        }
-        if (loadingEl) loadingEl.classList.add('hidden');
-        if (formWrap) formWrap.classList.remove('hidden');
+  <script>
+    const PASS_UNLOCK_KEY = 'WZ_TRVKER_PASS_UNLOCKED_V1';
+
+    function isSimplePassUnlocked() {
+      try {
+        return localStorage.getItem(PASS_UNLOCK_KEY) === '1';
+      } catch (_) {
+        return false;
       }
-      if (typeof initSupabaseClient === 'function' && typeof supabaseClient !== 'undefined' && !supabaseClient) {
-        try { initSupabaseClient(); } catch (_) {}
+    }
+
+    function applySimplePassAccess(forceUnlock = false) {
+      const unlocked = forceUnlock || isSimplePassUnlocked();
+      const lockScreen = document.getElementById('authLockScreen');
+      const appWrap = document.getElementById('protectedAppWrapper');
+      if (unlocked) {
+        if (lockScreen) lockScreen.classList.add('hidden');
+        if (appWrap) appWrap.classList.remove('hidden');
+        try {
+          if (typeof loadMatchesFromStorage === 'function') loadMatchesFromStorage();
+          if (typeof loadDefis === 'function') loadDefis();
+          if (typeof renderDashboard === 'function') renderDashboard();
+        } catch (_) {}
+      } else {
+        if (lockScreen) lockScreen.classList.remove('hidden');
+        if (appWrap) appWrap.classList.add('hidden');
       }
-      setTimeout(showLoginFormFallback, 1500);
-      setTimeout(showLoginFormFallback, 4000);
-    })();
+    }
+
+    function handleSimplePassSubmit(event) {
+      if (event) event.preventDefault();
+      const inputEl = document.getElementById('simplePassInput');
+      const errEl = document.getElementById('simplePassError');
+      const val = (inputEl?.value || '').trim();
+      if (val === 'V' || val === 'v') {
+        try { localStorage.setItem(PASS_UNLOCK_KEY, '1'); } catch (_) {}
+        if (errEl) errEl.classList.add('hidden');
+        applySimplePassAccess(true);
+      } else {
+        if (errEl) errEl.classList.remove('hidden');
+        if (inputEl) inputEl.focus();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      applySimplePassAccess(false);
+    });
+    setTimeout(() => applySimplePassAccess(false), 300);
   </script>
 
 <div id="protectedAppWrapper" class="hidden flex-1 flex flex-col">
@@ -3643,7 +3638,7 @@
         if (parsed.score !== null && parsed.score !== undefined) document.getElementById('modalScore').value = parseInt(parsed.score, 10) || '';
 
         if (statusEl) {
-          statusEl.innerHTML = '<span class="text-emerald-300 font-semibold">Champs pré-remplis par IA — vérifie bien les chiffres avant d'enregistrer.</span>';
+          statusEl.innerHTML = '<span class="text-emerald-300 font-semibold">Champs pré-remplis par IA — vérifie bien les chiffres avant d\'enregistrer.</span>';
         }
       } catch (err) {
         if (statusEl) {
@@ -4355,13 +4350,12 @@
     }
 
     function updateAppAccessLock() {
+      if (typeof isSimplePassUnlocked === 'function' && isSimplePassUnlocked()) {
+        applySimplePassAccess(true);
+        return;
+      }
       const lockScreen = document.getElementById('authLockScreen');
       const appWrap = document.getElementById('protectedAppWrapper');
-      const loadingEl = document.getElementById('authLockLoadingState');
-      const formWrap = document.getElementById('authLockFormWrapper');
-      if (loadingEl) loadingEl.classList.add('hidden');
-      if (formWrap) formWrap.classList.remove('hidden');
-
       if (currentUser) {
         lockScreen?.classList.add('hidden');
         appWrap?.classList.remove('hidden');
